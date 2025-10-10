@@ -2,7 +2,11 @@ import React from "react";
 import NavbarLg from "./NavbarLg";
 
 const Navbar = () => {
-  return <NavbarLg />;
+  return (
+    <main className='relative w-full '>
+      <NavbarLg />
+    </main>
+  );
 };
 
 export default Navbar;

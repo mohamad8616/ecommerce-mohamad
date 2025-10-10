@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${myFont.className}`}>
         <ThemeProvider>
-          <main className='w-screen h-screen max-w-[1400px] mx-auto'>
+          <main className='w-screen h-screen max-w-[1400px] mx-auto relative'>
             <Navbar />
             {children}
           </main>
