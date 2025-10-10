@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
-import Navbar from "./components/ui/Navbar";
+import Navbar from "./components/navbar/Navbar";
+import "./globals.css";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
-  title: "فروشگاه محمد",
+  title: "فروشگاه آنلاین",
   description: "فروشگاه آنلاین محمد",
 };
+
+const myFont = localFont({
+  src: "./components/fonts/Yekan.woff",
+});
 
 export default function RootLayout({
   children,
@@ -15,10 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={` antialiased`}>
+      <body className={`${myFont.className}`}>
         <ThemeProvider>
-          <Navbar />
-          {children}
+          <main className='w-screen h-screen max-w-[1400px] mx-auto'>
+            <Navbar />
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

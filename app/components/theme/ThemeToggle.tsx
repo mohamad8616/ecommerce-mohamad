@@ -1,6 +1,8 @@
 "use client";
 
+import { CiCloudMoon, CiCloudSun } from "react-icons/ci";
 import { Theme, useTheme } from "./ThemeProvider";
+import { HiMiniComputerDesktop } from "react-icons/hi2";
 
 export default function ThemeToggle() {
   const { theme, setTheme, mounted } = useTheme();
@@ -23,14 +25,14 @@ export default function ThemeToggle() {
     );
   }
 
-  const getThemeIcon = (): string => {
+  const getThemeIcon = () => {
     switch (theme) {
       case "dark":
-        return "☀️";
+        return <CiCloudMoon />;
       case "light":
-        return "🌙";
+        return <CiCloudSun />;
       case "system":
-        return "💻";
+        return <HiMiniComputerDesktop />;
       default:
         return "💻";
     }
@@ -52,10 +54,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className='p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200'
+      className='inline p-2 rounded-lg text-slate-900 dark:text-slate-200 cursor-pointer  transition-colors duration-200 font-semibold'
       aria-label={getThemeLabel()}
     >
-      <span className='text-lg'>{getThemeIcon()}</span>
+      <span className='text-3xl font-semibold'>{getThemeIcon()}</span>
     </button>
   );
 }
