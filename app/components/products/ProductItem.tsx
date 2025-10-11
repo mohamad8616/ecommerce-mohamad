@@ -1,4 +1,4 @@
-import { DummyProduct, FakeProduct } from "@/app/lib/definitions";
+import { DummyProduct, FakeProduct } from "@/lib/definitions";
 import Image from "next/image";
 import React from "react";
 

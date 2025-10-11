@@ -1,11 +1,11 @@
 "use client";
-import { fetchProducts } from "@/app/lib/utils";
+import { fetchProducts } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ProductItem from "./ProductItem";
 
-import { fakestoreData, products } from "@/app/lib/translatedData";
-import { DummyProduct, FakeProduct } from "@/app/lib/definitions";
+import { fakestoreData, products } from "@/lib/translatedData";
+import { DummyProduct, FakeProduct } from "@/lib/definitions";
 
 const ProductList = () => {
   const query = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
