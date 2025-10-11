@@ -3,11 +3,10 @@ import ProductList from "../components/products/ProductList";
 
 const page = async () => {
   return (
-    <main className='grid grid-cols-4 w-full h-full'>
-      <h1 className='text-4xl '>محصولات</h1>
-      <section>
-        <ProductList />
-      </section>
+    <main className=' w-full h-full mt-10'>
+      <h1 className='text-4xl'>محصولات</h1>
+
+      <ProductList />
     </main>
   );
 };

@@ -54,7 +54,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className='inline p-2 rounded-lg text-slate-900 dark:text-slate-200 cursor-pointer  transition-colors duration-200 font-semibold'
+      className='inline p-2 rounded-lg cursor-pointer  transition-colors duration-200 font-semibold'
       aria-label={getThemeLabel()}
     >
       <span className='text-3xl font-semibold'>{getThemeIcon()}</span>

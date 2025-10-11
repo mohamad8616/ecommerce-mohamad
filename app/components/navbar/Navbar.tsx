@@ -3,7 +3,7 @@ import NavbarLg from "./NavbarLg";
 
 const Navbar = () => {
   return (
-    <main className='relative w-full '>
+    <main className='w-full'>
       <NavbarLg />
     </main>
   );
