@@ -1,22 +1,16 @@
-"use client";
-import { fetchProducts } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { DummyProduct, FakeProduct } from "@prisma/client";
 import ProductItem from "./ProductItem";
 
-import { fakestoreData, products } from "@/lib/translatedData";
-import { DummyProduct, FakeProduct } from "@/lib/definitions";
+import { fetchProducts } from "@/lib/queries";
 
-const ProductList = () => {
-  const query = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
-  console.log(query.data);
+const ProductList = async () => {
+  const data = await fetchProducts();
+  console.log(data);
   return (
     <div className='grid grid-cols-4 w-full'>
-      {[...products, ...fakestoreData].map(
-        (product: DummyProduct | FakeProduct, i) => (
-          <ProductItem key={i} {...product} />
-        )
-      )}
+      {data?.map((product: DummyProduct | FakeProduct, i) => (
+        <ProductItem key={i} {...product} />
+      ))}
     </div>
   );
 };
