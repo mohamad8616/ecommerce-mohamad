@@ -4,47 +4,48 @@ import { Button } from "../ui/Button";
 import { IoCartOutline } from "react-icons/io5";
 import NavLinks from "./NavLinks";
 import Image from "next/image";
+import Link from "next/link";
 
 const NavbarLg = () => {
   return (
-    <nav className='hidden sticky top-0 left-0 w-full z-50 lg:flex bg-stone-900 justify-between items-center p-4 text-slate-100'>
-      <div className='flex justify-between items-center space-x-14'>
-        <div className='flex space-x-4 items-center'>
-          <Image src='/Logo.png' alt='Logo' width={60} height={60} />
-          <h1 className='text-lg font-semibold'>فروشگاه محمد</h1>
-        </div>
+    <nav className="hidden w-full items-center justify-between  px-4 py-2 text-stone-900 lg:flex dark:bg-stone-900 dark:text-slate-100">
+      <div className="flex items-center justify-between space-x-14">
+        <Link href="/" className="flex items-center space-x-4">
+          <Image src="/Logo.png" alt="Logo" width={60} height={60} />
+          <h1 className="text-lg font-semibold">فروشگاه محمد</h1>
+        </Link>
         <Button
-          variant='default'
-          size='lg'
-          className='border-2 border-slate-500 w-56 flex justify-between p-1'
+          variant="default"
+          size="lg"
+          className="flex w-56 justify-between border-2 border-slate-500 p-1"
         >
           <span> جستجو</span>
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='icon icon-tabler icon-tabler-search'
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-search"
             width={16}
             height={16}
-            viewBox='0 0 24 24'
-            strokeWidth='2'
-            stroke='currentColor'
-            fill='none'
-            strokeLinecap='round'
-            strokeLinejoin='round'
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <circle cx={10} cy={10} r={7} />
             <line x1={21} y1={21} x2={15} y2={15} />
           </svg>
         </Button>
       </div>
       <NavLinks />
-      <div className='flex  w-1/8 justify-between items-center ml-4'>
+      <div className="ml-4  flex w-1/8 items-center justify-between">
         <ThemeToggle />
-        <Button variant='link' size='default'>
+        <Button variant="link" size="default">
           ورود | ثبت نام
         </Button>
-        <button className='text-2xl flex items-center w-10 h-10 text-slate-200'>
-          <IoCartOutline className='text-slate-200' />
+        <button className="flex h-10 w-10 items-center text-2xl text-slate-200">
+          <IoCartOutline className="text-stone-900 dark:text-slate-200" />
         </button>
       </div>
     </nav>

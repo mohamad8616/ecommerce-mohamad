@@ -1,12 +1,22 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ProductList from "../components/products/ProductList";
+import { Spinner } from "../components/ui/Spinner";
 
 const page = async () => {
   return (
-    <main className=' w-full h-full mt-10'>
-      <h1 className='text-4xl'>محصولات</h1>
-
-      <ProductList />
+    <main className=" mt-10 min-h-screen w-full ">
+      <h1 className=" p-8 text-4xl text-slate-800 dark:text-slate-200">
+        محصولات
+      </h1>
+      <div className="flex  items-center justify-center">
+        <Suspense
+          fallback={
+            <Spinner className="size-10 text-stone-900 dark:text-stone-100" />
+          }
+        >
+          <ProductList />
+        </Suspense>
+      </div>
     </main>
   );
 };

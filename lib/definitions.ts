@@ -107,3 +107,15 @@ export interface DummyProductsResponse {
   skip: number;
   limit: number;
 }
+
+export type SingleCategory =
+  | "زیبایی"
+  | "لباس مردانه"
+  | "جواهرات"
+  | "الکترونیک"
+  | "لباس زنانه"
+  | "عطر ها"
+  | "خواربار"
+  | "مبلمان";
+
+export type AllCategories = SingleCategory[];

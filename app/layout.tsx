@@ -22,11 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='fa' dir='rtl'>
+    <html lang="fa" dir="rtl">
       <body className={`${myFont.className}`}>
         <ReactQueryProvider>
           <ThemeProvider>
-            <main className='w-screen  max-w-[1400px] mx-auto relative'>
+            <main className="relative mx-auto w-screen max-w-[1400px] bg-pink-50 dark:bg-stone-900">
               <Navbar />
               {children}
             </main>

@@ -3,17 +3,17 @@ import Image from "next/image";
 import promotionImage from "@/public/image1.jpg";
 const Hero = () => {
   return (
-    <div className='relative w-full h-screen'>
+    <div className="relative mt-20 h-[500px] w-full">
       <Image
         src={promotionImage}
-        alt='Description'
+        alt="Description"
         fill
         priority
-        className='object-cover'
+        className="object-cover"
       />
-      <div className='absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-white'>
-        <h1 className='text-5xl font-bold mb-4'>به فروشگاه محمد خوش آمدید</h1>
-        <p className='text-lg'>
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 text-white">
+        <h1 className="mb-4 text-5xl font-bold">به فروشگاه محمد خوش آمدید</h1>
+        <p className="text-lg">
           جدیدترین محصولات را با بهترین قیمت‌ها خریداری کنید.
         </p>
       </div>
