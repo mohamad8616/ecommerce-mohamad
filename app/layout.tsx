@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const myFont = localFont({
-  src: "./fonts/Yekan.woff",
+  src: "../fonts/Yekan.woff",
 });
 
 // const queryClient = new QueryClient();

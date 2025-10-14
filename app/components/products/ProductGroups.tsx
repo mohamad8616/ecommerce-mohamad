@@ -1,19 +1,25 @@
-import { getCategories } from "@/lib/queries";
-import React from "react";
+import { AllCategories } from "@/lib/definitions";
 import ProductsGroupItem from "./ProductsGroupItem";
 
+const categories = [
+  "الکترونیک",
+  "خواربار",
+  "زیبایی و بهداشت",
+  "مبلمان",
+  "لباس",
+];
 const ProductGroups = async () => {
-  const categories = await getCategories();
-
-  const destructuredCategories = categories.map((c) => c.category);
-  console.log(destructuredCategories);
   return (
-    <div className="mt-8 flex w-full items-center justify-between  bg-yellow-200 px-10 py-4 text-stone-900">
-      {destructuredCategories.map((category, index) => (
-        <div key={index} className="w-[200px] flex-none">
-          <ProductsGroupItem category={category} />
-        </div>
-      ))}
+    <div className="mx-auto mt-10 flex h-[300px] w-11/12 items-center justify-between rounded-xl bg-red-700 p-4">
+      <div className="flex h-full w-2/12 flex-col items-center justify-center  px-3">
+        <h1 className="text-center text-4xl font-bold"> بیشترین بازدید</h1>
+        <h1 className="text-lg font-bold">دسته بندی محصولات</h1>
+      </div>
+      <div className="flex h-full w-10/12 items-center justify-between bg-slate-100 px-6 py-4">
+        {categories.map((category, i) => {
+          return <ProductsGroupItem key={i} category={category} />;
+        })}
+      </div>
     </div>
   );
 };

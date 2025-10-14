@@ -8,10 +8,16 @@ import Link from "next/link";
 
 const NavbarLg = () => {
   return (
-    <nav className="hidden w-full items-center justify-between  px-4 py-2 text-stone-900 lg:flex dark:bg-stone-900 dark:text-slate-100">
+    <nav className="mx-auto hidden w-11/12 items-center justify-between rounded-full bg-stone-900/50  px-4 py-2 text-stone-900 lg:flex dark:bg-stone-900 dark:text-slate-100">
       <div className="flex items-center justify-between space-x-14">
         <Link href="/" className="flex items-center space-x-4">
-          <Image src="/Logo.png" alt="Logo" width={60} height={60} />
+          <Image
+            src="/Logo.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            className="rounded-full"
+          />
           <h1 className="text-lg font-semibold">فروشگاه محمد</h1>
         </Link>
         <Button
@@ -44,7 +50,10 @@ const NavbarLg = () => {
         <Button variant="link" size="default">
           ورود | ثبت نام
         </Button>
-        <button className="flex h-10 w-10 items-center text-2xl text-slate-200">
+        <button className="relative flex h-10 w-10 cursor-pointer  items-center text-2xl text-slate-200">
+          <span className="absolute top-0 -right-1 rounded-full bg-red-600 px-1 py-0.5 text-xs text-white ">
+            0
+          </span>
           <IoCartOutline className="text-stone-900 dark:text-slate-200" />
         </button>
       </div>
