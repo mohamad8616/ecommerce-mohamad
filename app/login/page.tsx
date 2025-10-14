@@ -4,6 +4,7 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { login } from "@/lib/actions";
 
 type Inputs = {
   email: string;
@@ -19,8 +20,17 @@ const page = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const formdata = new FormData();
+    formdata.append("email", data.email);
+    formdata.append("password", data.password);
+
+    try {
+      await login(formdata);
+      reset();
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -62,16 +72,50 @@ const page = () => {
               )}
             </div>
           </div>
-          <Button variant="secondary" type="submit">
+          <Button
+            variant="outline"
+            className="bg-transparent text-stone-900 dark:text-stone-200"
+            type="submit"
+          >
             ورود
           </Button>
         </form>
+        <p className="mt-2 space-x-2 text-sm">
+          حساب کاربری ندارید؟{" "}
+          <Link
+            className="text-muted-foreground cursor-pointer text-sm text-blue-400"
+            href="/signup"
+          >
+            ثبت نام کنید
+          </Link>
+        </p>
+
         <Link
           className="text-muted-foreground cursor-pointer text-sm text-blue-400"
           href="/register"
         >
           رمز عبور را فراموش کرده‌اید؟
         </Link>
+        <p className="my-7 ">یا </p>
+        <form action="">
+          <Button type="submit" variant={"outline"}>
+            ورود با گوگل
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+          </Button>
+        </form>
       </div>
     </main>
   );
