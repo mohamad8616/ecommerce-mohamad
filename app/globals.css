@@ -51,10 +51,6 @@ body {
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
-@import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 :root {
   --background: oklch(1 0 0);

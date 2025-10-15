@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import ThemeToggle from "../theme/ThemeToggle";
 import { Button } from "../ui/Button";
 import { IoCartOutline } from "react-icons/io5";
 import NavLinks from "./NavLinks";
@@ -9,6 +8,8 @@ import Link from "next/link";
 import { User } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { usePathname } from "next/navigation";
+
+import { ModeToggle } from "../DarkmodeToggle";
 
 const NavbarLg = ({ user }: { user: User | null }) => {
   const pathname = usePathname();
@@ -46,13 +47,32 @@ const NavbarLg = ({ user }: { user: User | null }) => {
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <circle cx={10} cy={10} r={7} />
-            <line x1={21} y1={21} x2={15} y2={15} />
-          </svg>
+          />
         </Button>
-        <NavLinks />
+        {!user && (
+          <Link
+            href="/login"
+            className=" py-2 text-center underline-offset-2 hover:underline"
+          >
+            ورود | ثبت نام
+          </Link>
+        )}
+
+        {user && (
+          <Link href={`/profile`}>
+            {user.image && (
+              <Avatar>
+                <AvatarImage
+                  src={user.image}
+                  className="h-10 w-10 rounded-full"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            )}
+            {!user.image && <span>{user.name}</span>}
+          </Link>
+        )}
+        <ModeToggle />
 
         {/* DARKMODE--LOGIN|USERdaTA---CART BUTTON */}
         <div className=" flex items-center justify-between">
@@ -78,7 +98,7 @@ const NavbarLg = ({ user }: { user: User | null }) => {
               {!user.image && <span>{user.name}</span>}
             </Link>
           )}
-          <ThemeToggle />
+          <ModeToggle />
 
           <button className="relative flex h-10 w-10 cursor-pointer  items-center text-2xl text-slate-200">
             <span className="absolute top-0 -right-1 rounded-full bg-red-600 px-1 py-0.5 text-xs text-white ">
