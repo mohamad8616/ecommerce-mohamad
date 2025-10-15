@@ -1,5 +1,5 @@
+"use client";
 import React from "react";
-import ThemeToggle from "../theme/ThemeToggle";
 import { Button } from "../ui/Button";
 import { IoCartOutline } from "react-icons/io5";
 import NavLinks from "./NavLinks";
@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { User } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+
+import { ModeToggle } from "../DarkmodeToggle";
 
 const NavbarLg = ({ user }: { user: User | null }) => {
   return (
@@ -72,7 +74,7 @@ const NavbarLg = ({ user }: { user: User | null }) => {
             {!user.image && <span>{user.name}</span>}
           </Link>
         )}
-        <ThemeToggle />
+        <ModeToggle />
 
         <button className="relative flex h-10 w-10 cursor-pointer  items-center text-2xl text-slate-200">
           <span className="absolute top-0 -right-1 rounded-full bg-red-600 px-1 py-0.5 text-xs text-white ">
