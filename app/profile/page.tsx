@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div className="text-stone-900 dark:text-stone-200">
       <form action={signout}>
-        <Button type="submit" variant="outline" className="">
+        <Button type="submit" variant="destructive" className="">
           Signout
         </Button>
       </form>
