@@ -4,7 +4,8 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { login } from "@/lib/actions";
+import { login, signinByGoogle } from "@/lib/actions";
+import { FcGoogle } from "react-icons/fc";
 
 type Inputs = {
   email: string;
@@ -96,24 +97,15 @@ const page = () => {
         >
           رمز عبور را فراموش کرده‌اید؟
         </Link>
-        <p className="my-7 ">یا </p>
-        <form action="">
-          <Button type="submit" variant={"outline"}>
+        <p className="my-7 w-full text-center">یا </p>
+        <form action={signinByGoogle}>
+          <Button
+            type="submit"
+            variant={"outline"}
+            className="w-full text-stone-200"
+          >
             ورود با گوگل
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width={16}
-              height={16}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
-              <path d="M12 6v6l4 2" />
-            </svg>
+            <FcGoogle />
           </Button>
         </form>
       </div>

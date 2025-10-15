@@ -9,7 +9,7 @@ import { User } from "@prisma/client";
 
 const NavbarLg = ({ user }: { user: User | null }) => {
   return (
-    <nav className="mx-auto hidden w-11/12 items-center justify-between rounded-full bg-stone-900/50  px-4 py-2 text-stone-900 lg:flex dark:bg-stone-900 dark:text-slate-100">
+    <nav className="mx-auto hidden w-11/12 items-center justify-between rounded-full bg-stone-900/50  px-4 py-2 text-stone-900 lg:grid dark:bg-stone-900 dark:text-slate-100">
       <div className="flex items-center justify-between space-x-14">
         <Link href="/" className="flex items-center space-x-4">
           <Image
@@ -46,12 +46,15 @@ const NavbarLg = ({ user }: { user: User | null }) => {
         </Button>
       </div>
       <NavLinks />
-      <div className="ml-4  flex w-1/8 items-center justify-between">
+      <div className="ml-4 flex w-2/8 items-center justify-end">
         <ThemeToggle />
         {!user && (
-          <Button variant="link" size="default">
+          <Link
+            href="/login"
+            className="mx-4 py-2 text-center underline-offset-2 hover:underline"
+          >
             ورود | ثبت نام
-          </Button>
+          </Link>
         )}
         {user && <Link href={`/profile/${user.id}`}>{user.name}</Link>}
         <button className="relative flex h-10 w-10 cursor-pointer  items-center text-2xl text-slate-200">

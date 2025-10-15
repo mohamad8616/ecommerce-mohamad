@@ -3,6 +3,8 @@
 import { z } from "zod";
 import { auth } from "./auth";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { authClient } from "./auth-client";
 
 //LOGIN
 const LoginSchema = z.object({
@@ -68,4 +70,25 @@ export const signup = async (formData: FormData) => {
     console.error("Signup failed:", error);
   }
   redirect("/login");
+};
+
+export const signout = async () => {
+  await auth.api.signOut({
+    // This endpoint requires session cookies.
+    headers: await headers(),
+  });
+  redirect("/");
+};
+
+export const signinByGoogle = async () => {
+  const result = await auth.api.signInSocial({
+    body: {
+      provider: "google",
+      callbackURL: "/",
+    },
+  });
+
+  if (result.url) {
+    redirect(result.url);
+  }
 };
