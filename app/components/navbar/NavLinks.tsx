@@ -26,7 +26,7 @@ const categories: AllCategories = [
 
 const NavLinks = () => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="lg:col-span-2">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className=" cursor-pointer bg-transparent font-semibold text-stone-900 dark:text-slate-200">
