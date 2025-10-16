@@ -1,49 +1,15 @@
-// import Image from "next/image";
-// import { getSession } from "../_customhooks/hooks";
-
-// const page = async () => {
-//   const session = await getSession();
-//   const user = session?.user;
-
-//   const pStyle = "w-[350px] border-2 text-sm py-2 px-3 rounded-sm my-3";
-//   return (
-//     <main className=" space-y-7 text-stone-900 dark:text-stone-200">
-//       <h1 className="mb-4 text-4xl font-bold">پروفایل</h1>
-//       <div className="mb-4 flex w-full items-center justify-evenly">
-//         <h3 className="mt-2 ">خوش آمدید، {user?.name}</h3>
-//         <Image
-//           src={user?.image || ""}
-//           alt={user?.name || ""}
-//           width={120}
-//           height={120}
-//           className="rounded-full"
-//         />
-//       </div>
-
-//       <section>
-//         <h2 className="text-xl font-bold">اطلاعات حساب</h2>
-//         <p className={pStyle}>ایمیل: {user?.email}</p>
-//         <p className={pStyle}>نام: {user?.name}</p>
-//         <p className={pStyle}>
-//           تاریخ عضویت: {user?.createdAt?.toLocaleDateString()}
-//         </p>
-//       </section>
-//     </main>
-//   );
-// };
-
-// export default page;
 import Image from "next/image";
 import { getSession } from "../_customhooks/hooks";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
+import Link from "next/link";
 
 const page = async () => {
   const session = await getSession();
   const user = session?.user;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 px-4 py-8 dark:from-slate-900 dark:to-slate-800">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 px-1 py-8 md:px-4 dark:from-slate-900 dark:to-slate-800">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -57,15 +23,14 @@ const page = async () => {
 
         {/* Profile Card */}
         <Card className="overflow-hidden rounded-2xl border-slate-200 bg-white/80 shadow-xl backdrop-blur-sm dark:border-slate-700 dark:bg-slate-800/80">
-          <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 p-8 text-white">
-            <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-              <div className="flex items-center gap-6">
-                <div className="relative">
+          <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-white md:p-8">
+            <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center md:gap-6">
+              <div className="flex flex-col items-start gap-3 md:flex-row md:items-center lg:gap-6">
+                <div className="relative h-16 w-16 md:h-32 md:w-32">
                   <Image
                     src={user?.image || "/default-avatar.png"}
                     alt={user?.name || "User"}
-                    width={120}
-                    height={120}
+                    fill
                     className="rounded-full border-4 border-white/20 shadow-lg"
                   />
                   <div className="absolute -right-2 -bottom-2">
@@ -78,7 +43,9 @@ const page = async () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <h2 className="mb-2 text-2xl font-bold">{user?.name}</h2>
+                  <h2 className=" mb-2 font-bold sm:text-lg md:text-2xl">
+                    {user?.name}
+                  </h2>
                   <p className="text-blue-100 opacity-90">{user?.email}</p>
                 </div>
               </div>
@@ -121,7 +88,11 @@ const page = async () => {
                 <div className="space-y-3 rounded-lg bg-slate-50 p-4 dark:bg-slate-700/50">
                   <StatusItem label="احراز هویت" status="تکمیل شده" success />
                   <StatusItem label="پروفایل" status="فعال" success />
-                  <StatusItem label="ایمیل" status="تأیید شده" success />
+                  <StatusItem
+                    label="ایمیل"
+                    status={user?.emailVerified ? "تأیید شده" : "تأیید نشده"}
+                    success={user?.emailVerified}
+                  />
                 </div>
               </div>
             </div>
@@ -132,9 +103,18 @@ const page = async () => {
                 اقدامات سریع
               </h3>
               <div className="flex flex-wrap gap-3">
-                <ActionButton>ویرایش پروفایل</ActionButton>
-                <ActionButton variant="outline">تغییر رمز عبور</ActionButton>
-                <ActionButton variant="outline">تنظیمات اعلانات</ActionButton>
+                <Link
+                  className="cursor-pointer rounded bg-blue-600 px-2 py-1 text-stone-100"
+                  href="/profile/edit"
+                >
+                  ویرایش پروفایل
+                </Link>
+                <Link
+                  className="cursor-pointer rounded bg-blue-600 px-2 py-1 text-stone-100"
+                  href="/profile/edit"
+                >
+                  تغییر رمز عبور
+                </Link>
               </div>
             </div>
           </CardContent>
@@ -178,27 +158,6 @@ const StatusItem = ({
       {status}
     </Badge>
   </div>
-);
-
-const ActionButton = ({
-  children,
-  variant = "default",
-}: {
-  children: React.ReactNode;
-  variant?: "default" | "outline";
-}) => (
-  <button
-    className={`
-    rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200
-    ${
-      variant === "default"
-        ? "bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:shadow-lg"
-        : "border border-slate-300 text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700"
-    }
-  `}
-  >
-    {children}
-  </button>
 );
 
 export default page;

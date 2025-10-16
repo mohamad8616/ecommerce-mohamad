@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import "./globals.css";
 import { ThemeProvider } from "./components/providers/Themeprovider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",
@@ -30,8 +31,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster />
           <ReactQueryProvider>
-            <main className="relative mx-auto w-screen max-w-[1400px] bg-pink-50 dark:bg-stone-900">
+            <main className="relative mx-auto h-screen w-screen max-w-[1400px] bg-pink-50 dark:bg-stone-900">
               <Navbar />
               {children}
             </main>

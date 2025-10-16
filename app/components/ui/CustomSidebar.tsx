@@ -1,45 +1,41 @@
-// import { cn } from "@/lib/utils";
-// import React from "react";
-
-// const CustomSidebar = ({ classname }: { classname: string }) => {
-//   return (
-//     <div className={cn("h-full w-full flex-1 border-2", classname)}>
-//       CustomSidebar
-//     </div>
-//   );
-// };
-
-// export default CustomSidebar;
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Home,
   User,
-  Settings,
   CreditCard,
-  Bell,
-  Shield,
   HelpCircle,
   LogOut,
   Menu,
   X,
+  Edit,
 } from "lucide-react";
+import { logout } from "@/lib/actions";
 
 const CustomSidebar = ({ classname }: { classname: string }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMobileOpen]);
+
   const menuItems = [
-    { icon: Home, label: "داشبورد", href: "/dashboard" },
+    { icon: Home, label: "صفحه اصلی", href: "/" },
     { icon: User, label: "پروفایل", href: "/profile" },
-    { icon: CreditCard, label: "اشتراک‌ها", href: "/subscriptions" },
-    { icon: Bell, label: "اعلانات", href: "/notifications" },
-    { icon: Settings, label: "تنظیمات", href: "/settings" },
-    { icon: Shield, label: "امنیت", href: "/security" },
+    { icon: CreditCard, label: "سوابق سفارشات", href: "/profile/orders" },
+    { icon: Edit, label: "ویرایش", href: "/profile/edit" },
     { icon: HelpCircle, label: "پشتیبانی", href: "/support" },
   ];
 
@@ -124,13 +120,15 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
 
         {/* Footer */}
         <div className="absolute right-0 bottom-0 left-0 border-t border-slate-200 p-6 dark:border-slate-700">
-          <button className="group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-red-600 transition-all duration-200 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20">
-            <LogOut
-              size={20}
-              className="transition-transform group-hover:scale-110"
-            />
-            <span className="font-medium">خروج از حساب</span>
-          </button>
+          <form action={logout}>
+            <button className="group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-red-600 transition-all duration-200 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20">
+              <LogOut
+                size={20}
+                className="transition-transform group-hover:scale-110"
+              />
+              <span className="font-medium">خروج از حساب</span>
+            </button>
+          </form>
 
           {/* Version Info */}
           <div className="mt-4 text-center">

@@ -1,10 +1,9 @@
 "use server";
 
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 import { auth } from "./auth";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { authClient } from "./auth-client";
 
 //LOGIN
 const LoginSchema = z.object({
@@ -91,4 +90,12 @@ export const signinByGoogle = async () => {
   if (result.url) {
     redirect(result.url);
   }
+};
+
+export const logout = async () => {
+  await auth.api.signOut({
+    // This endpoint requires session cookies.
+    headers: await headers(),
+  });
+  redirect("/");
 };
