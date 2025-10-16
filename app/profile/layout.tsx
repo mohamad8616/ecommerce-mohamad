@@ -1,16 +1,14 @@
-import { AppSidebar } from "@/app/components/ProfileSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/app/components/ui/Sidebar";
+import NavbarProfile from "../components/navbar/NavbarProfile";
+import CustomSidebar from "../components/ui/CustomSidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <aside className="relative z-40 mx-auto w-screen max-w-[1400px]">
-      <SidebarProvider>
-        <AppSidebar />
-        <main>
-          <SidebarTrigger />
-          {children}
-        </main>
-      </SidebarProvider>
-    </aside>
+    <main className="h-dvh w-full space-y-3 overflow-hidden p-5">
+      <NavbarProfile classname="divide-y-2 divide-stone-600" />
+      <div className="flex h-full">
+        <CustomSidebar classname="" />
+        <div className="h-full w-full flex-4 p-6">{children}</div>
+      </div>
+    </main>
   );
 }

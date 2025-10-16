@@ -36,7 +36,7 @@ const page = () => {
 
   return (
     <main className="flex min-h-screen items-start justify-center p-10">
-      <div className="border-input bg-card mt-16 w-full max-w-sm rounded-md p-6 text-stone-900 shadow-md dark:text-stone-200">
+      <div className="mt-16 w-full max-w-sm rounded-md border-input bg-card p-6 text-stone-900 shadow-md dark:text-stone-200">
         <h1 className="mb-6 text-2xl font-semibold">ورود به حساب کاربری</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-8">
@@ -84,7 +84,7 @@ const page = () => {
         <p className="mt-2 space-x-2 text-sm">
           حساب کاربری ندارید؟{" "}
           <Link
-            className="text-muted-foreground cursor-pointer text-sm text-blue-400"
+            className="cursor-pointer text-sm text-blue-400 text-muted-foreground"
             href="/signup"
           >
             ثبت نام کنید
@@ -92,7 +92,7 @@ const page = () => {
         </p>
 
         <Link
-          className="text-muted-foreground cursor-pointer text-sm text-blue-400"
+          className="cursor-pointer text-sm text-blue-400 text-muted-foreground"
           href="/register"
         >
           رمز عبور را فراموش کرده‌اید؟

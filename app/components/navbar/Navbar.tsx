@@ -1,11 +1,10 @@
 import { auth } from "@/lib/auth";
 import NavbarLg from "./NavbarLg";
 import { headers } from "next/headers";
+import { getSession } from "@/app/_customhooks/hooks";
 
 const Navbar = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
   const user = session?.user
     ? {
         ...session.user,
