@@ -4,6 +4,9 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { auth } from "./auth";
+import { getSession } from "@/app/_customhooks/hooks";
+import { revalidatePath } from "next/cache";
+import { prisma } from "./prismaClient";
 
 //LOGIN
 const LoginSchema = z.object({
@@ -104,4 +107,36 @@ export const logout = async () => {
     headers: await headers(),
   });
   redirect("/");
+};
+
+const updateFormSchema = z.object({
+  name: z.string().min(4).max(100),
+  image: z.string().url(),
+});
+
+export const updateProfile = async (userId: string, formData: FormData) => {
+  const data = Object.fromEntries(formData);
+  const validatedData = updateFormSchema.safeParse(data);
+  if (!validatedData.success) {
+    throw new Error(validatedData.error.message);
+  }
+  const session = await getSession();
+  if (!session) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name: validatedData.data.name,
+        image: validatedData.data.image,
+      },
+    });
+  } catch (error) {
+    console.error("Update profile failed:", error);
+  }
+  revalidatePath("/profile");
 };

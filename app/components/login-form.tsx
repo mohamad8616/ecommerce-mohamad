@@ -7,7 +7,7 @@ import {
   FieldGroup,
   FieldSeparator,
 } from "@/app/components/ui/field";
-import { Input } from "@/app/components/ui/Input";
+import { Input } from "@/app/components/ui/CustomInput";
 import { login, signinByGoogle, signout } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";

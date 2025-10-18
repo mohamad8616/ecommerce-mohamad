@@ -1,19 +1,17 @@
+import { Badge } from "@/app/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import Image from "next/image";
 import { getSession } from "../_customhooks/hooks";
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
-import { Badge } from "@/app/components/ui/badge";
-import Link from "next/link";
 
-import { Button } from "../components/ui/Button";
-import EditProfileSheet from "../components/profile/EditProfileSheet";
 import ChangePasswordSheet from "../components/profile/ChangePasswordSheet";
+import EditProfileSheet from "../components/profile/EditProfileSheet";
 
 const page = async () => {
   const session = await getSession();
   const user = session?.user;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 px-1 py-8 md:px-4 dark:from-slate-900 dark:to-slate-800">
+    <main className="h-auto min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 px-1 py-8 md:px-4 dark:from-slate-900 dark:to-slate-800">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -32,7 +30,11 @@ const page = async () => {
               <div className="flex flex-col items-start gap-3 md:flex-row md:items-center lg:gap-6">
                 <div className="relative h-16 w-16 md:h-32 md:w-32">
                   <Image
-                    src={user?.image || "/avatar.png"}
+                    src={
+                      user?.image?.includes("https://www.google.com/")
+                        ? "/avatar.png"
+                        : user?.image!
+                    }
                     alt={user?.name || "User"}
                     fill
                     className="rounded-full border-4 border-white/20 shadow-lg"
@@ -107,7 +109,15 @@ const page = async () => {
                 اقدامات سریع
               </h3>
               <div className="flex flex-wrap gap-3">
-                <EditProfileSheet user={user} />
+                {user && (
+                  <EditProfileSheet
+                    user={{
+                      name: user?.name,
+                      image: user?.image,
+                      userId: user?.id,
+                    }}
+                  />
+                )}
                 <ChangePasswordSheet userId={user?.id} />
               </div>
             </div>
