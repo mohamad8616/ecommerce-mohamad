@@ -1,5 +1,5 @@
 import NavbarProfile from "../components/navbar/NavbarProfile";
-import CustomSidebar from "../components/ui/CustomSidebar";
+import CustomSidebar from "../components/profile/CustomSidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

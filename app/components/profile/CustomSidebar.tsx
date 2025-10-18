@@ -1,19 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import { HelpCircle, Home, LogOut, Menu, User, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  User,
-  CreditCard,
-  HelpCircle,
-  LogOut,
-  Menu,
-  X,
-  Edit,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+
 import { logout } from "@/lib/actions";
 
 const CustomSidebar = ({ classname }: { classname: string }) => {
@@ -34,8 +26,6 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
   const menuItems = [
     { icon: Home, label: "صفحه اصلی", href: "/" },
     { icon: User, label: "پروفایل", href: "/profile" },
-    { icon: CreditCard, label: "سوابق سفارشات", href: "/profile/orders" },
-    { icon: Edit, label: "ویرایش", href: "/profile/edit" },
     { icon: HelpCircle, label: "پشتیبانی", href: "/support" },
   ];
 
@@ -98,7 +88,7 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
                   "group flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
                   "hover:translate-x-1 hover:bg-blue-50 dark:hover:bg-slate-700/50",
                   active
-                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-blue-500/25"
                     : "text-slate-700 dark:text-slate-300",
                 )}
               >

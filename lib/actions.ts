@@ -14,14 +14,17 @@ const LoginSchema = z.object({
     .max(100),
 });
 
-export const login = async (formData: FormData) => {
+export const login = async (prevState: any, formData: FormData) => {
   //VALIDATION
   const data = Object.fromEntries(formData);
 
   const result = LoginSchema.safeParse(data);
 
   if (!result.success) {
-    throw new Error(result.error.message);
+    return {
+      error: result.error.issues[0].message || "Invalid form data",
+      success: false,
+    };
   }
 
   // lOGIN
@@ -30,12 +33,15 @@ export const login = async (formData: FormData) => {
       body: {
         email: result.data.email,
         password: result.data.password,
+        callbackURL: "/",
       },
     });
+    return { success: true, error: null, redirect: "/" };
   } catch (error) {
     console.error("Login failed:", error);
+    return { success: false, error: "رمز عبور یا ایمیل اشتباه است" };
   }
-  redirect("/");
+  // redirect("/");
 };
 
 //SIGNUP

@@ -4,6 +4,10 @@ import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
 import Link from "next/link";
 
+import { Button } from "../components/ui/Button";
+import EditProfileSheet from "../components/profile/EditProfileSheet";
+import ChangePasswordSheet from "../components/profile/ChangePasswordSheet";
+
 const page = async () => {
   const session = await getSession();
   const user = session?.user;
@@ -23,12 +27,12 @@ const page = async () => {
 
         {/* Profile Card */}
         <Card className="overflow-hidden rounded-2xl border-slate-200 bg-white/80 shadow-xl backdrop-blur-sm dark:border-slate-700 dark:bg-slate-800/80">
-          <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-white md:p-8">
+          <CardHeader className="bg-background p-4 md:p-8">
             <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center md:gap-6">
               <div className="flex flex-col items-start gap-3 md:flex-row md:items-center lg:gap-6">
                 <div className="relative h-16 w-16 md:h-32 md:w-32">
                   <Image
-                    src={user?.image || "/default-avatar.png"}
+                    src={user?.image || "/avatar.png"}
                     alt={user?.name || "User"}
                     fill
                     className="rounded-full border-4 border-white/20 shadow-lg"
@@ -46,7 +50,7 @@ const page = async () => {
                   <h2 className=" mb-2 font-bold sm:text-lg md:text-2xl">
                     {user?.name}
                   </h2>
-                  <p className="text-blue-100 opacity-90">{user?.email}</p>
+                  <p className=" opacity-90">{user?.email}</p>
                 </div>
               </div>
 
@@ -103,18 +107,8 @@ const page = async () => {
                 اقدامات سریع
               </h3>
               <div className="flex flex-wrap gap-3">
-                <Link
-                  className="cursor-pointer rounded bg-blue-600 px-2 py-1 text-stone-100"
-                  href="/profile/edit"
-                >
-                  ویرایش پروفایل
-                </Link>
-                <Link
-                  className="cursor-pointer rounded bg-blue-600 px-2 py-1 text-stone-100"
-                  href="/profile/edit"
-                >
-                  تغییر رمز عبور
-                </Link>
+                <EditProfileSheet user={user} />
+                <ChangePasswordSheet userId={user?.id} />
               </div>
             </div>
           </CardContent>
