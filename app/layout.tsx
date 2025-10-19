@@ -15,8 +15,6 @@ const myFont = localFont({
   src: "../fonts/Yekan.woff",
 });
 
-// const queryClient = new QueryClient();
-
 export default function RootLayout({
   children,
 }: Readonly<{

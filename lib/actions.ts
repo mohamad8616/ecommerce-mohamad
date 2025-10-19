@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { z } from "zod";
+import { safeParse, success, z } from "zod";
 import { auth } from "./auth";
 import { getSession } from "@/app/_customhooks/hooks";
 import { revalidatePath } from "next/cache";
@@ -139,4 +139,60 @@ export const updateProfile = async (userId: string, formData: FormData) => {
     console.error("Update profile failed:", error);
   }
   revalidatePath("/profile");
+};
+
+const updatePassSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(6, "رمز عبور باید 6 رقم و بیشتر باشد")
+      .max(100, "رمز عبور بسیار طولانی است"),
+    currentPassword: z
+      .string()
+      .min(6, "رمز عبور باید 6 رقم و بیشتر باشد")
+      .max(100, "رمز عبور بسیار طولانی است"),
+    confirmNewPassword: z
+      .string()
+      .min(6, "رمز عبور باید 6 رقم و بیشتر باشد")
+      .max(100, "رمز عبور بسیار طولانی است"),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "رمزهای عبور مطابقت ندارند",
+    path: ["confirmNewPassword"],
+  });
+
+export const updatePassword = async (prevState: any, formdata: FormData) => {
+  const data = Object.fromEntries(formdata);
+
+  const session = await getSession();
+  if (!session) {
+    return { success: false, error: "User is not authenticated" };
+  }
+
+  const validatedData = updatePassSchema.safeParse(data);
+  if (!validatedData.success) {
+    return { success: false, error: "Failed form input validation" };
+  }
+
+  if (
+    validatedData.data.confirmNewPassword !== validatedData.data.newPassword
+  ) {
+    return { success: false, error: "Confirm new error failed" };
+  }
+
+  try {
+    const result = await auth.api.changePassword({
+      body: {
+        newPassword: validatedData.data.newPassword,
+        currentPassword: validatedData.data.currentPassword,
+        revokeOtherSessions: true,
+      },
+      headers: await headers(),
+    });
+
+    return { success: true, error: null };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: "عملیات ناموفق" };
+  }
 };

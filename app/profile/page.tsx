@@ -1,13 +1,15 @@
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
-import Image from "next/image";
 import { getSession } from "../_customhooks/hooks";
 
-import ChangePasswordSheet from "../components/profile/ChangePasswordSheet";
 import EditProfileSheet from "../components/profile/EditProfileSheet";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const session = await getSession();
+  if (!session) {
+    redirect("/login");
+  }
   const user = session?.user;
 
   return (
@@ -28,7 +30,7 @@ const page = async () => {
           <CardHeader className="bg-background p-4 md:p-8">
             <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center md:gap-6">
               <div className="flex flex-col items-start gap-3 md:flex-row md:items-center lg:gap-6">
-                <div className="relative h-16 w-16 md:h-32 md:w-32">
+                {/* <div className="relative h-16 w-16 md:h-32 md:w-32">
                   <Image
                     src={
                       user?.image?.includes("https://www.google.com/")
@@ -47,7 +49,7 @@ const page = async () => {
                       فعال
                     </Badge>
                   </div>
-                </div>
+                </div> */}
                 <div className="text-right">
                   <h2 className=" mb-2 font-bold sm:text-lg md:text-2xl">
                     {user?.name}
@@ -118,7 +120,7 @@ const page = async () => {
                     }}
                   />
                 )}
-                <ChangePasswordSheet userId={user?.id} />
+                {/* <ChangePasswordSheet userId={user?.id} /> */}
               </div>
             </div>
           </CardContent>

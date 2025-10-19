@@ -32,13 +32,13 @@ const NavLinks = () => {
           <NavigationMenuTrigger className=" cursor-pointer bg-transparent font-semibold text-stone-900 dark:text-slate-200">
             محصولات
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="grid h-auto w-auto min-w-96 grid-cols-2 border-0 bg-stone-100 text-end ">
-            <NavigationMenuLink className=" text-stone-900 dark:text-slate-200">
+          <NavigationMenuContent className="grid h-auto w-auto min-w-96 grid-cols-2 border-0 text-end ">
+            <NavigationMenuLink className=" ">
               <Link className="w-full p-3" href="/products">
                 مشاهده تمامی محصولات
               </Link>
             </NavigationMenuLink>{" "}
-            <NavigationMenuLink className=" text-stone-900 dark:text-slate-200">
+            <NavigationMenuLink className="">
               <h1 className="w-full p-3 text-lg">دسته بندی ها</h1>
               {categories.map((category) => (
                 <Link

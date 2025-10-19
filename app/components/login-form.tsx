@@ -1,19 +1,18 @@
 "use client";
 import { Button } from "@/app/components/ui/Button";
 import { Card, CardContent } from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/CustomInput";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldSeparator,
 } from "@/app/components/ui/field";
-import { Input } from "@/app/components/ui/CustomInput";
-import { login, signinByGoogle, signout } from "@/lib/actions";
+import { login, signinByGoogle } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -39,7 +38,6 @@ export function LoginForm({
     success: false,
     redirect: "/",
   });
-  const router = useRouter();
 
   const {
     register,

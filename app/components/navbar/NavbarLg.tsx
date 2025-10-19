@@ -71,7 +71,7 @@ const NavbarLg = ({ user }: { user: User | null }) => {
                     src={user.image}
                     className="h-10 w-10 rounded-full"
                   />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback>{user.name}</AvatarFallback>
                 </Avatar>
               )}
               {!user.image && <span>{user.name}</span>}
