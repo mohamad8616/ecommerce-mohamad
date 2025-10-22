@@ -1,17 +1,13 @@
-import React from "react";
-
+import { AllCategories } from "@/lib/definitions";
+import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "../ui/NavigationMenu";
-import Link from "next/link";
-import { AllCategories } from "@/lib/definitions";
 
 const categories: AllCategories = [
   "الکترونیک",
@@ -33,23 +29,22 @@ const NavLinks = () => {
             محصولات
           </NavigationMenuTrigger>
           <NavigationMenuContent className="grid h-auto w-auto min-w-96 grid-cols-2 border-0 text-end ">
-            <NavigationMenuLink className=" ">
+            <NavigationMenuLink className=" " asChild>
               <Link className="w-full p-3" href="/products">
                 مشاهده تمامی محصولات
               </Link>
             </NavigationMenuLink>{" "}
-            <NavigationMenuLink className="">
-              <h1 className="w-full p-3 text-lg">دسته بندی ها</h1>
+            <div>
               {categories.map((category) => (
-                <Link
+                <NavigationMenuLink
                   key={category}
                   className="block w-full p-3 text-end underline-offset-1 hover:underline"
                   href={`/products/${category}`}
                 >
                   {category}
-                </Link>
+                </NavigationMenuLink>
               ))}
-            </NavigationMenuLink>
+            </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>

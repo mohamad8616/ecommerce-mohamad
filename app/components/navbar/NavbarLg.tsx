@@ -1,15 +1,14 @@
 "use client";
-import React from "react";
-import { Button } from "../ui/Button";
-import { IoCartOutline } from "react-icons/io5";
-import NavLinks from "./NavLinks";
-import Image from "next/image";
-import Link from "next/link";
 import { User } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "../ui/Button";
+import NavLinks from "./NavLinks";
 
-import { ModeToggle } from "../DarkmodeToggle";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "../DarkmodeToggle";
+import CartSheet from "./CartSheet";
 
 const NavbarLg = ({ user }: { user: User | null }) => {
   const pathname = usePathname();
@@ -78,13 +77,7 @@ const NavbarLg = ({ user }: { user: User | null }) => {
             </Link>
           )}
           <ModeToggle />
-
-          <button className="relative flex h-10 w-10 cursor-pointer  items-center text-2xl text-slate-200">
-            <span className="absolute top-0 -right-1 rounded-full bg-red-600 px-1 py-0.5 text-xs text-white ">
-              0
-            </span>
-            <IoCartOutline className="text-stone-900 dark:text-slate-200" />
-          </button>
+          <CartSheet />
         </div>
       </nav>
     );
