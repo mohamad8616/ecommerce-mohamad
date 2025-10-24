@@ -1,7 +1,6 @@
-import { auth } from "@/lib/auth";
-import NavbarLg from "./NavbarLg";
-import { headers } from "next/headers";
 import { getSession } from "@/app/_customhooks/hooks";
+import NavbarLg from "./NavbarLg";
+import NavbarSm from "./NavbarSm";
 
 const Navbar = async () => {
   const session = await getSession();
@@ -14,6 +13,7 @@ const Navbar = async () => {
 
   return (
     <main className="sticky top-0 z-50 w-full lg:top-3 ">
+      <NavbarSm user={user} />
       <NavbarLg user={user} />
     </main>
   );

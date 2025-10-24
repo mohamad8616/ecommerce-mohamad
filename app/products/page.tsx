@@ -4,7 +4,7 @@ import { Spinner } from "../components/ui/Spinner";
 
 const page = async () => {
   return (
-    <main className=" mt-10 min-h-screen w-full ">
+    <main className=" mt-10 h-auto min-h-screen w-full">
       <h1 className=" p-8 text-4xl text-slate-800 dark:text-slate-200">
         محصولات
       </h1>

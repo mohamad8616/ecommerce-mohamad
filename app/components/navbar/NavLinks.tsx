@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
 } from "../ui/NavigationMenu";
 
-const categories: AllCategories = [
+export const categories: AllCategories = [
   "الکترونیک",
   "جواهرات",
   "خواربار",
@@ -22,10 +22,10 @@ const categories: AllCategories = [
 
 const NavLinks = () => {
   return (
-    <NavigationMenu className="lg:col-span-2">
+    <NavigationMenu className="items-cente flex w-full">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className=" cursor-pointer bg-transparent font-semibold text-stone-900 dark:text-slate-200">
+          <NavigationMenuTrigger className=" w-full cursor-pointer bg-transparent font-semibold text-stone-900 dark:text-slate-200">
             محصولات
           </NavigationMenuTrigger>
           <NavigationMenuContent className="grid h-auto w-auto min-w-96 grid-cols-2 border-0 text-end ">

@@ -1,12 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { HelpCircle, Home, LogOut, Menu, User, X } from "lucide-react";
+import { HelpCircle, Home, LogOut, User, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { logout } from "@/lib/actions";
+import HamburgerMenu from "../ui/HamburgerMenu";
 
 const CustomSidebar = ({ classname }: { classname: string }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -34,12 +35,7 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
   return (
     <>
       {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsMobileOpen(true)}
-        className="fixed top-4 right-4 z-50 rounded-lg bg-blue-600 p-2 text-white shadow-lg lg:hidden"
-      >
-        <Menu size={24} />
-      </button>
+      <HamburgerMenu onOpen={() => setIsMobileOpen(true)} />
 
       {/* Overlay */}
       {isMobileOpen && (

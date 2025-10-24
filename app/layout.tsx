@@ -31,7 +31,7 @@ export default function RootLayout({
         >
           <Toaster />
           <ReactQueryProvider>
-            <main className="relative mx-auto h-screen w-screen max-w-[1400px] bg-pink-50 dark:bg-stone-900">
+            <main className="relative mx-auto h-auto min-h-screen w-screen max-w-[1400px] bg-pink-50 dark:bg-stone-900">
               <Navbar />
               {children}
             </main>
