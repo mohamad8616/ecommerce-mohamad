@@ -8,7 +8,7 @@ const page = async () => {
       <h1 className=" p-8 text-4xl text-slate-800 dark:text-slate-200">
         محصولات
       </h1>
-      <div className="flex  items-center justify-center">
+      <div className="flex h-full w-full items-center justify-center">
         <Suspense
           fallback={
             <Spinner className="size-10 text-stone-900 dark:text-stone-100" />

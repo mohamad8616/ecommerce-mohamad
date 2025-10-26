@@ -25,7 +25,7 @@ const NavLinks = () => {
     <NavigationMenu className="items-cente flex w-full">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className=" w-full cursor-pointer bg-transparent font-semibold text-stone-900 dark:text-slate-200">
+          <NavigationMenuTrigger className=" w-full cursor-pointer bg-transparent font-semibold">
             محصولات
           </NavigationMenuTrigger>
           <NavigationMenuContent className="grid h-auto w-auto min-w-96 grid-cols-2 border-0 text-end ">
