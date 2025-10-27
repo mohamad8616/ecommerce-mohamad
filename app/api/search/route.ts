@@ -16,13 +16,11 @@ export async function GET(req: Request) {
   const fakeProducts = await prisma.fakeProduct.findMany({
     where: {
       category: { contains: normalized },
-      //   description: { contains: normalized },
     },
     take: 5,
   });
   const dummyProducts = await prisma.dummyProduct.findMany({
     where: {
-      //   description: { contains: normalized },
       category: { contains: normalized },
     },
 
