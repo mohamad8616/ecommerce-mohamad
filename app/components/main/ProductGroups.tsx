@@ -16,14 +16,6 @@ const categories = [
 const ProductGroups = async () => {
   return (
     <section className="mx-auto mt-10 w-full bg-gradient-to-r from-gray-300 to-gray-400 p-6 shadow-md">
-      {/* Header */}
-      <div className="mb-6 text-center">
-        <h1 className="mb-1 text-3xl font-extrabold text-gray-700">
-          بیشترین بازدید
-        </h1>
-        <p className="text-sm text-gray-500">دسته بندی محصولات</p>
-      </div>
-
       {/* Category List */}
       <div className="grid w-full grid-cols-2 place-items-center gap-6 rounded-xl bg-slate-100 p-6 sm:grid-cols-3 md:grid-cols-5">
         {categories.map((cat, index) => (

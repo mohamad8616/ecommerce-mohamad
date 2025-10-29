@@ -10,10 +10,6 @@ const Search = () => {
   const debounced = useDebounce(search, 1000);
   const [results, setResults] = useState<any[]>([]);
 
-  console.log(debounced);
-  console.log("full results", results);
-  console.log("first results", results[0]);
-
   useEffect(() => {
     const loadItems = async () => {
       if (debounced.length >= 2) {
@@ -46,7 +42,7 @@ const Search = () => {
         placeholder="جستجو"
         className="
             relative col-span-2 flex w-auto items-center justify-between gap-2
-            border-0 text-primary transition-all placeholder:text-primary/60 focus:w-60 focus:text-lg xl:w-56 
+            border-0 text-primary ring-2 ring-ring/40 transition-all placeholder:text-slate-300 focus:w-60 focus:text-lg xl:w-56
           "
         value={search}
         onChange={(e) => {

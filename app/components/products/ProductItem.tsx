@@ -1,7 +1,6 @@
 import { DummyProduct, FakeProduct } from "@prisma/client";
-import { Eye, ShoppingCart, Star } from "lucide-react";
+import { Eye, Star } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/Button";
 import Link from "next/link";
 
 const ProductItem = (props: DummyProduct | FakeProduct) => {
