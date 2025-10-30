@@ -22,3 +22,18 @@ export const getCategories = async () => {
       [...dummyCategory, ...fakeCategory][i + 1]?.category,
   );
 };
+
+export const getProductsByCategoryInFake = async (category: string) => {
+  const fakeProducts = await prisma.fakeProduct.findMany({
+    where: { category },
+    take: 4,
+  });
+  return [...fakeProducts];
+};
+
+export const getProductsByCategoryInDummy = async (category: string) => {
+  const dummyProducts = await prisma.dummyProduct.findMany({
+    where: { category },
+  });
+  return [...dummyProducts];
+};
