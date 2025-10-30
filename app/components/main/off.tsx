@@ -1,6 +1,7 @@
 import { getProductsByCategoryInFake } from "@/lib/queries";
 import localFont from "next/font/local";
 import OffSlider from "./OffSlider";
+import { Percent } from "lucide-react";
 
 const myoFont = localFont({
   src: "../../../fonts/AGhasem.ttf",
@@ -24,6 +25,7 @@ const off = async () => {
         >
           بهترین محصولات با تخفیف های ویژه
         </p>
+        <Percent size={150} className="mt-30 hidden text-slate-100 lg:block" />
       </div>
       <div className="w-full lg:w-9/12">
         <OffSlider products={[...electronicProducts, ...jewelryProducts]} />
