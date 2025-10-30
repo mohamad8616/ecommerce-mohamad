@@ -30,3 +30,10 @@ export const getProductsByCategoryInFake = async (category: string) => {
   });
   return [...fakeProducts];
 };
+
+export const getProductsByCategoryInDummy = async (category: string) => {
+  const dummyProducts = await prisma.dummyProduct.findMany({
+    where: { category },
+  });
+  return [...dummyProducts];
+};

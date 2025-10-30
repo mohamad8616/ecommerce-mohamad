@@ -11,7 +11,7 @@ const page = async () => {
       <div className="flex h-full w-full items-center justify-center">
         <Suspense
           fallback={
-            <Spinner className="size-10 text-stone-900 dark:text-stone-100" />
+            <Spinner className="absolute top-1/2 left-1/2 size-20 -translate-x-1/2 -translate-y-1/2 transform text-stone-900 dark:text-stone-100" />
           }
         >
           <ProductList />
