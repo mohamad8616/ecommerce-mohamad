@@ -13,7 +13,7 @@ const MostSales = async () => {
   const beauties = await getProductsByCategoryInDummy("زیبایی");
 
   return (
-    <section className="mt-30 border-4 px-5 py-8">
+    <section className="mt-30 px-5 py-8">
       <h1
         className={`${myoFont.className} mb-8 text-center text-4xl font-bold`}
       >
