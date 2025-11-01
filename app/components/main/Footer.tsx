@@ -1,15 +1,14 @@
-import { ChevronUp, Instagram, X } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import localFont from "next/font/local";
 import Image from "next/image";
-import React from "react";
-import { categories } from "../navbar/NavLinks";
 import {
   IoLogoGithub,
   IoLogoInstagram,
   IoLogoLinkedin,
   IoLogoTwitter,
-  IoLogoXbox,
 } from "react-icons/io5";
+import { categories } from "../navbar/NavLinks";
+import Link from "next/link";
 
 const myoFont = localFont({
   src: "../../../fonts/AGhasem.ttf",
@@ -18,72 +17,126 @@ const myoFont = localFont({
 
 const Footer = () => {
   return (
-    <footer className="mt-30 min-h-[500px] px-8 py-10">
+    <footer className="mt-30 min-h-[500px] bg-blue-100 px-8 py-10 dark:bg-transparent">
       <div className="flex items-center justify-between ">
-        <div className="flex items-center space-x-2">
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={100}
-            height={100}
-            className="rounded-full"
-          />
+        <div className=" flex items-center space-x-1 md:space-x-2">
+          <div className="relative h-16 w-16 lg:h-24 lg:w-24">
+            <Image src="/logo.png" alt="Logo" fill className="rounded-full" />
+          </div>
           <span
-            className={`${myoFont.className} text-2xl font-bold tracking-wider`}
+            className={`${myoFont.className} text-base font-bold tracking-wider md:text-lg lg:text-2xl`}
           >
             فروشگاه برند
           </span>
         </div>
         <a
           href="#hero"
-          className="flex items-center gap-x-2 rounded-sm bg-blue-100 px-2 py-1 text-2xl text-primary dark:bg-secondary"
+          className="flex items-center gap-x-2 rounded-sm bg-blue-100 px-2 py-1 text-sm text-primary md:text-xl lg:text-2xl dark:bg-secondary"
         >
           بازگشت به بالا
           <ChevronUp />
         </a>
       </div>
-      <div className="mt-16 flex items-center justify-between">
-        <div className="space-y-7">
-          <p className="text-xl">
-            شماره تماس:
-            <a href="tel:123-456-7890" className="text-sm">
-              {" "}
-              123-456-7890{" "}
-            </a>
-          </p>
-          <p className="text-xl">آدرس: تهران، خیابان 123</p>
-        </div>
-        <div>
-          <ul className="grid grid-cols-2 gap-x-10 gap-y-3">
-            {categories.map((category, index) => (
-              <li
-                className="my-3 cursor-pointer bg-secondary text-start text-xl"
-                key={index}
-              >
-                {category}
+
+      <div className="my-16 w-full ">
+        {/* Main container  */}
+        <div className="flex flex-col gap-8 lg:gap-12 xl:flex-row xl:items-start xl:justify-between">
+          {/* Contact Information */}
+          <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-4 ">
+            <h3 className="text-lg font-semibold text-gray-800 md:text-xl lg:text-2xl dark:text-white">
+              اطلاعات تماس
+            </h3>
+            <div className="space-y-3 md:space-y-4">
+              <p className="flex flex-col gap-1 text-base md:text-lg lg:text-xl">
+                <span className="text-gray-600 dark:text-gray-300">
+                  شماره تماس:
+                </span>
+                <a
+                  href="tel:123-456-7890"
+                  className="hover:text-primary-dark font-medium text-primary transition-colors duration-200"
+                >
+                  123-456-7890
+                </a>
+              </p>
+              <p className="flex flex-col gap-1 text-base md:text-lg lg:text-xl">
+                <span className="text-gray-600 dark:text-gray-300">آدرس:</span>
+                <span className="text-gray-800 dark:text-gray-200">
+                  تهران، خیابان 123
+                </span>
+              </p>
+            </div>
+          </div>
+
+          {/* Categories  */}
+          <div className="flex-1">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800 md:text-xl lg:text-2xl dark:text-white">
+              دسته‌بندی‌ها
+            </h3>
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-2 xl:grid-cols-3">
+              {categories.map((category, index) => (
+                <li
+                  className="hover:bg-secondary-dark cursor-pointer rounded-lg bg-secondary px-3 py-2 text-center text-sm text-primary transition-all duration-200 hover:shadow-md md:px-4 md:py-3 md:text-base lg:text-lg"
+                  key={index}
+                >
+                  <Link
+                    href={`/products/${category}`}
+                    className="flex items-center justify-center gap-x-2"
+                  >
+                    {category}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social Media  */}
+          <div className="flex-1 place-self-center md:place-self-start">
+            <h3 className="mb-4 text-center text-lg font-semibold text-gray-800 md:text-start md:text-xl lg:text-2xl dark:text-white">
+              شبکه‌های اجتماعی
+            </h3>
+            <ul className="flex w-full justify-center gap-6 md:gap-8 lg:justify-start xl:flex-col ">
+              <li>
+                <a
+                  href="#"
+                  className="block cursor-pointer text-red-500 transition-all duration-200 hover:scale-110 hover:text-red-400"
+                  aria-label="Instagram"
+                >
+                  <IoLogoInstagram className="size-8 md:size-10" />
+                </a>
               </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <ul className="grid grid-cols-2 gap-10">
-            <li className="cursor-pointer text-red-500 duration-100 hover:text-red-400">
-              <IoLogoInstagram size={40} />
-            </li>
-            <li className="cursor-pointer text-blue-400 duration-100 hover:text-blue-300">
-              <IoLogoTwitter size={40} />
-            </li>
-            <li className="cursor-pointer text-blue-500 duration-100 hover:text-blue-400">
-              <IoLogoLinkedin size={40} />
-            </li>
-            <li className="hover:text-primary-dark cursor-pointer text-primary duration-100">
-              <IoLogoGithub size={40} />
-            </li>
-          </ul>
+              <li>
+                <a
+                  href="#"
+                  className="block cursor-pointer text-blue-400 transition-all duration-200 hover:scale-110 hover:text-blue-300"
+                  aria-label="Twitter"
+                >
+                  <IoLogoTwitter className="size-8 md:size-10" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block cursor-pointer text-blue-500 transition-all duration-200 hover:scale-110 hover:text-blue-400"
+                  aria-label="LinkedIn"
+                >
+                  <IoLogoLinkedin className="size-8 md:size-10" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-primary-dark block cursor-pointer text-primary transition-all duration-200 hover:scale-110"
+                  aria-label="GitHub"
+                >
+                  <IoLogoGithub className="size-8 md:size-10" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="border-t-4 border-gray-400">
-        <div className="py-6 text-sm text-gray-600 dark:text-gray-300">
+        <div className="py-6 text-sm/loose tracking-wider text-gray-600 dark:text-gray-300">
           <p className="mb-2">
             تمامی حقوق مادی و معنوی این وب‌سایت متعلق به «فروشگاه برند» است.
             هرگونه استفاده، بازنشر یا تکثیر محتوا بدون اجازه‌ی کتبی پیگرد قانونی

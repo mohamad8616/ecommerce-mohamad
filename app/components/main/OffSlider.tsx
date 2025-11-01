@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Arrow } from "../ui/SliderArrow";
+import { Button } from "../ui/Button";
+import { Skeleton } from "../ui/Skeleton";
 
 type Product = {
   id: number;
@@ -43,13 +45,24 @@ export default function Slider({ products }: { products: Props }) {
       setCurrentSlide(slider.track.details.rel);
     },
     slides: {
-      perView: 2,
       spacing: 20,
     },
     breakpoints: {
-      "(min-width: 768px)": {
+      "(max-width: 849px)": {
         slides: {
           perView: 2,
+          spacing: 25,
+        },
+      },
+      "(min-width: 850px)": {
+        slides: {
+          perView: 3,
+          spacing: 25,
+        },
+      },
+      "(min-width: 1000px)": {
+        slides: {
+          perView: 3,
           spacing: 25,
         },
       },
@@ -91,7 +104,15 @@ export default function Slider({ products }: { products: Props }) {
           <div
             key={product.id}
             className="h-80 w-64 animate-pulse rounded-2xl bg-gray-200 dark:bg-stone-700"
-          ></div>
+          >
+            <div className="flex flex-col space-y-3">
+              <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-full" />
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     );
@@ -99,7 +120,7 @@ export default function Slider({ products }: { products: Props }) {
 
   return (
     <div className="relative">
-      <div ref={sliderRef} className="keen-slider bg-stone-200">
+      <div ref={sliderRef} className="keen-slider ">
         {productsWithDiscounts.map((product) => {
           const discountedPrice = calculateDiscountedPrice(
             product.price,
@@ -134,7 +155,7 @@ export default function Slider({ products }: { products: Props }) {
                   />
 
                   {/* Quick Actions Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/20 group-hover:opacity-100">
+                  {/* <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/20 group-hover:opacity-100">
                     <div className="flex translate-y-4 transform space-x-2 transition-transform duration-500 group-hover:translate-y-0">
                       <button
                         className="rounded-full bg-white/90 p-3 shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white"
@@ -149,13 +170,13 @@ export default function Slider({ products }: { products: Props }) {
                         <ShoppingBag size={20} className="text-gray-700" />
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Product Info */}
                 <div className="p-3 md:p-5">
                   {/* Title */}
-                  <h3 className="mb-3 line-clamp-2 text-sm leading-tight font-semibold text-primary transition-colors duration-200 group-hover:text-blue-600 md:text-lg dark:group-hover:text-blue-400">
+                  <h3 className="mb-3 line-clamp-2 text-sm leading-tight text-primary transition-colors duration-200 group-hover:text-blue-600 md:text-lg lg:text-base dark:group-hover:text-blue-400">
                     {product.title}
                   </h3>
 
@@ -183,11 +204,11 @@ export default function Slider({ products }: { products: Props }) {
                   )}
 
                   {/* Price */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col items-center justify-between md:flex-row">
                     <div className="flex items-center space-x-2">
                       {product.discount > 0 ? (
                         <>
-                          <span className="text-lg font-bold text-primary lg:text-xl xl:text-2xl">
+                          <span className="text-start text-sm text-primary md:text-base ">
                             {formatPrice(discountedPrice)}
                           </span>
                           {/* <span className="text-lg text-gray-500 line-through dark:text-gray-400">
@@ -195,16 +216,22 @@ export default function Slider({ products }: { products: Props }) {
                         </span> */}
                         </>
                       ) : (
-                        <span className="text-lg font-bold text-primary lg:text-xl xl:text-2xl">
+                        <span className="text-start text-sm font-bold text-primary md:text-lg lg:text-xl xl:text-2xl">
                           {formatPrice(product.price)}
                         </span>
                       )}
                     </div>
 
                     {/* Add to Cart Indicator */}
-                    <div className="rounded-full bg-gray-100 p-2 transition-all duration-200 group-hover:bg-blue-100 group-hover:text-blue-600 dark:bg-stone-700 dark:group-hover:bg-blue-900/30">
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-x-1 rounded-sm bg-gray-100  transition-all duration-200 group-hover:bg-blue-100 group-hover:text-blue-600 dark:bg-stone-700 dark:group-hover:bg-blue-900/30"
+                    >
+                      <span className="text-sm text-primary md:text-base">
+                        افزودن به سبد خرید
+                      </span>
                       <ShoppingBag size={18} />
-                    </div>
+                    </Button>
                   </div>
                 </div>
 
