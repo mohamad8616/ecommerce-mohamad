@@ -1,35 +1,6 @@
 import { DummyProduct, FakeProduct } from "@prisma/client";
 import { prisma } from "./prismaClient";
 
-// export const fetchProducts = async (
-
-//   type: "server" | "client" = "client",
-//   page: number = 1,
-//   limit: number = 8,
-// ) => {
-//   if (type === "server") {
-//     const response = await fetch(
-//       `${process.env.APP_URL}/api/data?page=${page}&limit=${limit}`,
-//     );
-
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch products");
-//     }
-
-//     const data = await response.json();
-//     return data.data.products; // Return just the products array
-//   } else {
-//     const response = await fetch(`api/data`);
-
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch products");
-//     }
-
-//     const data = await response.json();
-//     return data.data.products; // Return just the products array
-//   }
-// };
-
 export const fetchProducts = async (
   page = 1,
 ): Promise<{

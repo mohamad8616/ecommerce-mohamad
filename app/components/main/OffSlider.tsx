@@ -1,37 +1,22 @@
 "use client";
 import "@/app/style/slider.css";
+import { digitsEnToFa } from "@persian-tools/persian-tools";
+import { FakeProduct } from "@prisma/client";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import { Eye, ShoppingBag, Star } from "lucide-react";
+import { ShoppingBag, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Arrow } from "../ui/SliderArrow";
 import { Button } from "../ui/Button";
 import { Skeleton } from "../ui/Skeleton";
+import { Arrow } from "../ui/SliderArrow";
 
-type Product = {
-  id: number;
-  externalId: number | null;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: number | null;
-  rate: number | null;
-  count: number | null;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
-type ProductWithDiscount = Product & {
+type ProductWithDiscount = FakeProduct & {
   discount: number;
 };
 
-type Props = Product[];
-
-export default function Slider({ products }: { products: Props }) {
+export default function Slider({ products }: { products: FakeProduct[] }) {
   const [productsWithDiscounts, setProductsWithDiscounts] = useState<
     ProductWithDiscount[]
   >([]);
@@ -89,13 +74,6 @@ export default function Slider({ products }: { products: Props }) {
     return price - (price * discount) / 100;
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price);
-  };
-
   // Don't render slider until mounted to avoid hydration issues
   if (!mounted) {
     return (
@@ -138,7 +116,9 @@ export default function Slider({ products }: { products: Props }) {
                   <span
                     className={`rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-lg`}
                   >
-                    {product.discount > 0 ? `${product.discount}%` : ""}
+                    {product.discount > 0
+                      ? `${digitsEnToFa(product.discount)}%`
+                      : ""}
                   </span>
                 </div>
 
@@ -153,30 +133,12 @@ export default function Slider({ products }: { products: Props }) {
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
                   />
-
-                  {/* Quick Actions Overlay */}
-                  {/* <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/20 group-hover:opacity-100">
-                    <div className="flex translate-y-4 transform space-x-2 transition-transform duration-500 group-hover:translate-y-0">
-                      <button
-                        className="rounded-full bg-white/90 p-3 shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <Eye size={20} className="text-gray-700" />
-                      </button>
-                      <button
-                        className="rounded-full bg-white/90 p-3 shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <ShoppingBag size={20} className="text-gray-700" />
-                      </button>
-                    </div>
-                  </div> */}
                 </div>
 
                 {/* Product Info */}
                 <div className="p-3 md:p-5">
                   {/* Title */}
-                  <h3 className="mb-3 line-clamp-2 text-sm leading-tight text-primary transition-colors duration-200 group-hover:text-blue-600 md:text-lg lg:text-base dark:group-hover:text-blue-400">
+                  <h3 className="mb-3 line-clamp-1 text-sm leading-tight text-primary transition-colors duration-200 group-hover:text-blue-600 md:text-lg lg:text-base dark:group-hover:text-blue-400">
                     {product.title}
                   </h3>
 
@@ -209,15 +171,12 @@ export default function Slider({ products }: { products: Props }) {
                       {product.discount > 0 ? (
                         <>
                           <span className="text-start text-sm text-primary md:text-base ">
-                            {formatPrice(discountedPrice)}
+                            {digitsEnToFa(discountedPrice.toFixed(0))}
                           </span>
-                          {/* <span className="text-lg text-gray-500 line-through dark:text-gray-400">
-                          {formatPrice(product.price)}
-                        </span> */}
                         </>
                       ) : (
                         <span className="text-start text-sm font-bold text-primary md:text-lg lg:text-xl xl:text-2xl">
-                          {formatPrice(product.price)}
+                          {digitsEnToFa(product.price.toFixed(0))}
                         </span>
                       )}
                     </div>

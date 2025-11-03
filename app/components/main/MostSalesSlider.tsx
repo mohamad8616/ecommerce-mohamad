@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/Skeleton";
 import { Arrow } from "../ui/SliderArrow";
 import AddToCart from "../AddToCart";
+import { digitsEnToFa } from "@persian-tools/persian-tools";
 
 const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,6 +58,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
   useEffect(() => {
     setMounted(true);
   }, [products]);
+
   if (!mounted) {
     return (
       <div className="flex w-full space-x-4 overflow-x-hidden">
@@ -77,6 +79,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
       </div>
     );
   }
+
   return (
     <>
       <div className="navigation-wrapper h-auto p-2 md:p-4">
@@ -106,7 +109,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
 
                 <div className="mt-auto flex flex-col items-center justify-between gap-x-1 border-t border-slate-700/50 pt-4 md:flex-row">
                   <p className="text-sm font-semibold text-amber-600 md:text-base lg:text-lg">
-                    {product.price + "$"}
+                    {digitsEnToFa(product.price.toFixed(0)) + "$"}
                   </p>
 
                   <AddToCart />

@@ -34,7 +34,6 @@ const ProductList = () => {
       });
     }
   }, [data, isPlaceholderData, page, queryClient]);
-  console.log(data);
   if (isFetching) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
