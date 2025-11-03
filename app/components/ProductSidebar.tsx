@@ -1,5 +1,3 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -11,8 +9,8 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/app/components/ui/Sidebar";
-import { categories } from "./navbar/NavLinks";
 import { GiClothes } from "react-icons/gi";
+import { categories } from "./navbar/NavLinks";
 
 const items = categories.map((category) => ({
   title: category,
@@ -36,14 +34,22 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    {/* <a href={item.url}> */}
-                    {/* <item.icon /> */}
-                    <span>{item.title}</span>
-                    {/* </a> */}
+                    <div className="my-1 flex w-full items-center justify-between bg-secondary px-4 py-2 text-lg group-checked:bg-blue-100">
+                      <label className="text-primary" htmlFor={item.title}>
+                        {item.title}
+                      </label>
+                      <input
+                        type="checkbox"
+                        className="cursor-pointer has-checked:bg-green-600"
+                      />
+                    </div>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
+            <SidebarMenuButton className=" mt-2 w-full cursor-pointer bg-primary text-center text-secondary transition-colors duration-150">
+              مشاهده نتایج
+            </SidebarMenuButton>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

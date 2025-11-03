@@ -1,10 +1,10 @@
 import React from "react";
 import { Spinner } from "./ui/Spinner";
 
-const Loading = () => {
+const Loading = ({ classname }: { classname?: string }) => {
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <Spinner />
+      <Spinner className={`${classname}`} />
     </div>
   );
 };

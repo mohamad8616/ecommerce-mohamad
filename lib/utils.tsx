@@ -1,0 +1,28 @@
+import { clsx, type ClassValue } from "clsx";
+import { Star } from "lucide-react";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export const renderStars = (rating: number) => {
+  return Array.from({ length: 5 }, (_, index) => (
+    <Star
+      key={index}
+      size={14}
+      className={
+        index < Math.floor(rating)
+          ? "fill-yellow-400 text-yellow-400"
+          : "text-gray-300"
+      }
+    />
+  ));
+};
+
+export const formatToRial = (price: number) => {
+  return new Intl.NumberFormat("fa-IR", {
+    style: "currency",
+    currency: "IRR",
+  }).format(price);
+};

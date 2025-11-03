@@ -16,6 +16,7 @@ export async function GET(req: Request) {
     },
     take: 5,
   });
+
   const dummyProducts = await prisma.dummyProduct.findMany({
     where: {
       category: { contains: normalized },
