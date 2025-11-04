@@ -1,18 +1,20 @@
+import { DummyProduct, FakeProduct } from "@prisma/client";
+
 // types.ts
 export interface FakeProductRating {
   rate: number;
   count: number;
 }
 
-export interface FakeProduct {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: FakeProductRating;
-}
+// export interface FakeProduct {
+//   id: number;
+//   title: string;
+//   price: number;
+//   description: string;
+//   category: string;
+//   image: string;
+//   rating: FakeProductRating;
+// }
 
 export type ProductsArray = FakeProduct[];
 
@@ -76,30 +78,30 @@ export interface DummyMeta {
   qrCode: string;
 }
 
-export interface DummyProduct {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  tags: string[];
-  brand?: string;
-  sku: string;
-  weight: number;
-  dimensions: DummyProductDimensions;
-  warrantyInformation: string;
-  shippingInformation: string;
-  availabilityStatus: string;
-  reviews: DummyReview[];
-  returnPolicy: string;
-  minimumOrderQuantity: number;
-  meta: DummyMeta;
-  images: string[];
-  thumbnail: string;
-}
+// export interface DummyProduct {
+//   id: number;
+//   title: string;
+//   description: string;
+//   category: string;
+//   price: number;
+//   discountPercentage: number;
+//   rating: number;
+//   stock: number;
+//   tags: string[];
+//   brand?: string;
+//   sku: string;
+//   weight: number;
+//   dimensions: DummyProductDimensions;
+//   warrantyInformation: string;
+//   shippingInformation: string;
+//   availabilityStatus: string;
+//   reviews: DummyReview[];
+//   returnPolicy: string;
+//   minimumOrderQuantity: number;
+//   meta: DummyMeta;
+//   images: string[];
+//   thumbnail: string;
+// }
 
 export interface DummyProductsResponse {
   products: DummyProduct[];
@@ -119,3 +121,13 @@ export type SingleCategory =
   | "مبلمان";
 
 export type AllCategories = SingleCategory[];
+
+export type Product = DummyProduct | FakeProduct;
+
+export function isDummyProduct(product: Product): product is DummyProduct {
+  return "images" in product && Array.isArray((product as DummyProduct).images);
+}
+
+export function isFakeProduct(product: Product): product is FakeProduct {
+  return "image" in product && !Array.isArray((product as any).images);
+}

@@ -108,7 +108,7 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
           return (
             <div key={product.id} className="keen-slider__slide p-1 sm:p-2">
               <Link
-                href={`/product/${product.id}`}
+                href={`/products/${product.id}`}
                 className="group block overflow-hidden rounded-2xl border bg-secondary shadow-sm transition-all duration-300 hover:shadow-xl dark:border-stone-700 dark:bg-stone-900"
               >
                 {/* Discount Badge - Show for ALL items */}

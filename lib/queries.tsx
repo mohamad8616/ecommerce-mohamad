@@ -56,6 +56,12 @@ export const getProductsByCategoryInDummy = async (category: string) => {
   return [...dummyProducts];
 };
 
+export const getProductsByCategoryInAll = async (category: string) => {
+  const dummyProduct = await getProductsByCategoryInDummy(category);
+  const fakeProduct = await getProductsByCategoryInFake(category);
+  return fakeProduct.length !== 0 ? fakeProduct : dummyProduct;
+};
+
 export const getProductById = async (id: string) => {
   const [dummyProduct, fakeProduct] = await Promise.all([
     prisma.dummyProduct.findUnique({
