@@ -55,3 +55,15 @@ export const getProductsByCategoryInDummy = async (category: string) => {
   });
   return [...dummyProducts];
 };
+
+export const getProductById = async (id: string) => {
+  const [dummyProduct, fakeProduct] = await Promise.all([
+    prisma.dummyProduct.findUnique({
+      where: { id: Number(id) },
+    }),
+    prisma.fakeProduct.findUnique({
+      where: { id: Number(id) },
+    }),
+  ]);
+  return dummyProduct || fakeProduct;
+};
