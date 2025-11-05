@@ -14,7 +14,7 @@ import { categories } from "./navbar/NavLinks";
 
 const items = categories.map((category) => ({
   title: category,
-  icon: category.includes("لباس") && <GiClothes />,
+  icon: category.title.includes("لباس") && <GiClothes />,
 }));
 
 export function AppSidebar() {
@@ -31,12 +31,15 @@ export function AppSidebar() {
           <SidebarSeparator />
           <SidebarGroupContent className="mt-5">
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {items.map((item, i) => (
+                <SidebarMenuItem key={i}>
                   <SidebarMenuButton asChild>
                     <div className="my-1 flex w-full items-center justify-between bg-secondary px-4 py-2 text-lg group-checked:bg-blue-100">
-                      <label className="text-primary" htmlFor={item.title}>
-                        {item.title}
+                      <label
+                        className="text-primary"
+                        htmlFor={item.title.title}
+                      >
+                        {item.title.title}
                       </label>
                       <input
                         type="checkbox"

@@ -31,7 +31,8 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
   return (
     <div className="group product-item relative max-w-[350px] overflow-hidden border transition-all duration-300 hover:border-stone-700">
       {/* Discount Badge */}
-      {discount && discount > 0 && (
+
+      {isDummyProduct && (
         <div className="absolute top-3 left-3 z-10">
           <span className="rounded-full bg-gradient-to-r from-green-500 to-green-600 px-3 py-1 text-xs font-bold text-white shadow-lg">
             {digitsEnToFa(Math.round(Number(discount))) + "% تخفیف"}
@@ -56,19 +57,14 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
             alt={title}
             width={300}
             height={300}
-            className={`object-fit h-64 w-full transition-transform duration-500 group-hover:scale-105`}
+            className={`${isDummyProduct ? "object-fit" : "object-contain"} h-64 w-full transition-transform duration-500 group-hover:scale-105`}
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
           />
           {/* Quick Actions Overlay */}
           <div className="bg-opacity-0 absolute inset-0 flex items-center justify-center bg-stone-900/80 opacity-0 transition-all duration-300 group-hover:opacity-100">
             <div className="flex translate-y-4 transform space-x-2 transition-transform duration-300 group-hover:translate-y-0">
-              <Link
-                href={`/products/${id}`}
-                className="cursor-pointer rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:scale-110 hover:bg-blue-50"
-              >
-                <Eye size={18} className="text-gray-700" />
-              </Link>
+              <Eye size={18} className="text-gray-700" />
             </div>
           </div>
         </div>

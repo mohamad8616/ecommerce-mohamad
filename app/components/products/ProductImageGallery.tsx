@@ -40,7 +40,7 @@ export default function ProductImageGallery({
 
         {/* Thumbnail Gallery */}
         {images.length > 1 && (
-          <div className="flex space-x-2 space-x-reverse overflow-x-auto">
+          <div className="flex space-x-2  overflow-x-auto">
             {images.map((image, index) => (
               <button
                 key={index}
@@ -57,7 +57,7 @@ export default function ProductImageGallery({
                   alt={`${product.title} - تصویر ${index + 1}`}
                   width={80}
                   height={80}
-                  className="h-full w-full object-cover object-center"
+                  className="h-full w-full cursor-pointer object-cover object-center"
                 />
               </button>
             ))}

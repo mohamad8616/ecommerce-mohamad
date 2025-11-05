@@ -6,11 +6,11 @@ import clothes from "@/public/category/clothes.jpg";
 import beauty from "@/public/category/beauty.jpg";
 
 const categories = [
-  { title: "الکترونیک", img: electronic },
-  { title: "خواربار", img: grocery },
-  { title: "زیبایی و بهداشت", img: beauty },
-  { title: "مبلمان", img: sofa },
-  { title: "لباس", img: clothes },
+  { title: "الکترونیک", img: electronic, link: "electronic" },
+  { title: "خواربار", img: grocery, link: "grocery" },
+  { title: "زیبایی و بهداشت", img: beauty, link: "beauty" },
+  { title: "مبلمان", img: sofa, link: "sofa" },
+  { title: "لباس", img: clothes, link: "menClothes" },
 ];
 
 const ProductGroups = async () => {
@@ -19,7 +19,12 @@ const ProductGroups = async () => {
       {/* Category List */}
       <div className="grid w-full grid-cols-2 place-items-center gap-6 rounded-xl p-6 sm:grid-cols-3 md:grid-cols-5">
         {categories.map((cat, index) => (
-          <ProductsGroupItem key={index} category={cat.title} image={cat.img} />
+          <ProductsGroupItem
+            key={index}
+            categoryTitle={cat.title}
+            image={cat.img}
+            link={cat.link}
+          />
         ))}
       </div>
     </section>

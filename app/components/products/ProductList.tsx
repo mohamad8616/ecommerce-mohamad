@@ -81,7 +81,9 @@ const ProductList = () => {
               <select className="cursor-pointer rounded-xl border bg-white/80 px-4 py-2  dark:border-gray-600 dark:bg-gray-800/80">
                 <option value="all">همه دسته‌بندی‌ها</option>
                 {categories.map((cat, i) => (
-                  <option key={i}>{cat}</option>
+                  <option key={i} value={cat.link}>
+                    {cat.title}
+                  </option>
                 ))}
               </select>
             </div>

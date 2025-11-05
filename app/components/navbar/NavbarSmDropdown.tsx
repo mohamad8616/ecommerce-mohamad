@@ -35,12 +35,12 @@ export default function ProductCategories() {
         <form className="space-y-3 pt-4">
           {categories.map((category, i) => (
             <div key={i} className="flex items-center gap-3">
-              <Checkbox id={`category-${category}`} />
+              <Checkbox id={`category-${category.link}`} />
               <label
                 className="text-sm text-foreground"
-                htmlFor={`category-${category}`}
+                htmlFor={`category-${category.link}`}
               >
-                {category}
+                {category.title}
               </label>
             </div>
           ))}

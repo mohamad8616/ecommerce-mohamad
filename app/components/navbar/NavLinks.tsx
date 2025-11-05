@@ -9,15 +9,15 @@ import {
   NavigationMenuTrigger,
 } from "../ui/NavigationMenu";
 
-export const categories: AllCategories = [
-  "الکترونیک",
-  "جواهرات",
-  "خواربار",
-  "زیبایی",
-  "عطر ها",
-  "لباس زنانه",
-  "لباس مردانه",
-  "مبلمان",
+export const categories = [
+  { title: "الکترونیک", link: "/products/category/electronic" },
+  { title: "جواهرات", link: "/products/category/jewelry" },
+  { title: "خواربار", link: "/products/category/grocery" },
+  { title: "زیبایی", link: "/products/category/beauty" },
+  { title: "عطر ها", link: "/products/category/perfume" },
+  { title: "لباس زنانه", link: "/products/category/womenClothes" },
+  { title: "لباس مردانه", link: "/products/category/menClothes" },
+  { title: "مبلمان", link: "/products/category/sofa" },
 ];
 
 const NavLinks = () => {
@@ -37,11 +37,11 @@ const NavLinks = () => {
             <div>
               {categories.map((category) => (
                 <NavigationMenuLink
-                  key={category}
+                  key={category.title}
                   className="block w-full p-3 text-end underline-offset-1 hover:underline"
-                  href={`/products/${category}`}
+                  href={`${category.link}`}
                 >
-                  {category}
+                  {category.title}
                 </NavigationMenuLink>
               ))}
             </div>

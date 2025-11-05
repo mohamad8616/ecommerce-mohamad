@@ -5,18 +5,22 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 
 const categoryNames = {
   sofa: "مبلمان",
-  grocery: "خواروبار",
+  grocery: "خواربار",
   beauty: "زیبایی",
   perfume: "عطرها",
   electronic: "الکترونیک",
-  "men clothes": "لباس مردانه",
-  "women clothes": "لباس زنانه",
+  menClothes: "لباس مردانه",
+  womenClothes: "لباس زنانه",
   jewelry: "جواهرات",
 };
 
 const page = async ({ params }: { params: { category: string } }) => {
   const { category } = await params;
-  const products = await getProductsByCategoryInAll("خواربار");
+  const persianCategory = Object.entries(categoryNames).find(
+    ([key, value]) => key === category,
+  )?.[1];
+
+  const products = await getProductsByCategoryInAll(persianCategory!);
   const categoryName =
     categoryNames[category as keyof typeof categoryNames] || category;
   const totalProducts = products.length;
