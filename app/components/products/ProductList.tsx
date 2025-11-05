@@ -6,16 +6,14 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { categories } from "../navbar/NavLinks";
-import Pagination from "../ui/pagination";
 import ProductItem from "./ProductItem";
+import Pagination from "../ui/pagination";
 
 const ProductList = () => {
   const [page, setPages] = useState(1);
-  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
 
   const { status, data, error, isFetching, isPlaceholderData } = useQuery({
@@ -102,12 +100,12 @@ const ProductList = () => {
               ),
             )}
           </div>
-          {/* <Pagination
+          <Pagination
             page={page}
             setPages={setPages}
             data={data}
             isPlaceholderData={isPlaceholderData}
-          /> */}
+          />
         </div>
       </div>
     );

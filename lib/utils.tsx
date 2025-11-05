@@ -1,3 +1,4 @@
+import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { clsx, type ClassValue } from "clsx";
 import { Star } from "lucide-react";
 import { twMerge } from "tailwind-merge";
@@ -25,4 +26,10 @@ export const formatToRial = (price: number) => {
     style: "currency",
     currency: "IRR",
   }).format(price);
+};
+
+export const price = (price: number, discont?: boolean) => {
+  return discont
+    ? `${digitsEnToFa(Math.round(price))} %`
+    : `${digitsEnToFa(Math.round(price))} $`;
 };

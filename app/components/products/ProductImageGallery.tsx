@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// import { Product, isProductType1, isProductType2 } from "@/types/product";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { FakeProduct, DummyProduct } from "@prisma/client";
@@ -28,7 +27,7 @@ export default function ProductImageGallery({
     return (
       <div className="flex flex-col space-y-4">
         {/* Main Image */}
-        <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
+        <div className="aspect-square w-full overflow-hidden rounded-lg">
           <Image
             src={images[selectedImage]}
             alt={product.title}
@@ -70,7 +69,7 @@ export default function ProductImageGallery({
 
   if ("image" in product) {
     return (
-      <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
+      <div className="aspect-square w-full overflow-hidden rounded-lg">
         <Image
           src={product.image}
           alt={product.title}

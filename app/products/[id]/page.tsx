@@ -20,7 +20,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const relatedProducts = await getProductsByCategoryInAll(product.category);
-  console.log(product.category, relatedProducts);
   return (
     <div className="min-h-screen bg-secondary">
       <div className="container mx-auto px-4 py-8">

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Product, isDummyProduct } from "@/lib/definitions";
 import { Button } from "@/app/components/ui/Button";
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent } from "@/app/components/ui/card";
-import { cn, formatToRial } from "@/lib/utils";
+import { Product, isDummyProduct } from "@/lib/definitions";
+import { cn, price } from "@/lib/utils";
+import { useState } from "react";
 
 interface ProductInfoProps {
   product: Product;
@@ -28,7 +28,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     <Card>
       <CardContent className="p-6">
         {/* Title */}
-        <h1 className="mb-4 text-2xl font-bold text-gray-900">
+        <h1 className="mb-4 text-2xl font-bold text-primary">
           {product.title}
         </h1>
 
@@ -51,16 +51,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
         {/* Price */}
         <div className="mb-4 flex items-center gap-3">
-          <span className="text-2xl font-bold text-gray-900">
-            {formatToRial(finalPrice)}
+          <span className="text-2xl font-bold text-primary">
+            {price(finalPrice)}
           </span>
           {isDummyProduct(product) && product.discountPercentage && (
             <>
               <span className="text-lg text-gray-500 line-through">
-                {formatToRial(product.price)}
+                {price(product.price)}
               </span>
               <Badge variant="destructive" className="text-sm">
-                {product.discountPercentage}% تخفیف
+                {price(product.discountPercentage, true)} تخفیف
               </Badge>
             </>
           )}
@@ -84,7 +84,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
         {/* Quantity Selector */}
         <div className="mb-6 flex items-center gap-4">
-          <span className="text-sm font-medium text-gray-700">تعداد:</span>
+          <span className="text-sm font-medium ">تعداد:</span>
           <div className="flex items-center rounded-lg border border-gray-300">
             <Button
               variant="ghost"
@@ -120,7 +120,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </Button>
 
         {/* Additional Info */}
-        <div className="mt-6 space-y-2 text-sm text-gray-600">
+        <div className="mt-6 space-y-2 text-sm">
           {isDummyProduct(product) && product.brand && (
             <div className="flex justify-between">
               <span>برند:</span>

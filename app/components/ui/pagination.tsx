@@ -1,15 +1,20 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Button } from "./Button";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
+import { DummyProduct, FakeProduct } from "@prisma/client";
 
 interface PaginationProps {
   page: number;
   setPages: Dispatch<SetStateAction<number>>;
   data: {
-    projects: Array<{
-      name: string;
-      id: number;
-    }>;
+    products: {
+      products: Array<DummyProduct | FakeProduct>;
+      summary: {
+        totalCombined: number;
+        totalFake: number;
+        totalDummy: number;
+      };
+    };
     hasMore: boolean;
     totalPage: number;
   };

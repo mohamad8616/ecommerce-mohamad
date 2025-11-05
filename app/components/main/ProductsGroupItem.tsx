@@ -14,7 +14,7 @@ function ProductsGroupItem({ category, image }: Props) {
           src={image}
           alt={category}
           className="h-full w-full rounded-full object-cover"
-          fill // Use fill instead of h-full w-full for better Next.js optimization
+          fill
         />
       </div>
 

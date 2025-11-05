@@ -1,5 +1,6 @@
 "use client";
 import "@/app/style/slider.css";
+import { price, renderStars } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { FakeProduct } from "@prisma/client";
 import "keen-slider/keen-slider.min.css";
@@ -144,24 +145,8 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
 
                   {/* Rating */}
                   {(product.rating || product.rate) && (
-                    <div className="mb-3 flex items-center space-x-1">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={16}
-                            className={`${
-                              i <
-                              Math.floor(product.rating || product.rate || 0)
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "fill-gray-300 text-gray-300"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        ({product.count || 0})
-                      </span>
+                    <div className="flex items-center space-x-1">
+                      {renderStars(product.rating! || product.rate!)}
                     </div>
                   )}
 
@@ -171,12 +156,12 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
                       {product.discount > 0 ? (
                         <>
                           <span className="text-start text-sm text-primary md:text-base ">
-                            {digitsEnToFa(discountedPrice.toFixed(0))}
+                            {price(discountedPrice)}
                           </span>
                         </>
                       ) : (
                         <span className="text-start text-sm font-bold text-primary md:text-lg lg:text-xl xl:text-2xl">
-                          {digitsEnToFa(product.price.toFixed(0))}
+                          {price(product.price)}
                         </span>
                       )}
                     </div>

@@ -4,7 +4,7 @@ import { Button } from "@/app/components/ui/Button";
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { Product, isDummyProduct } from "@/lib/definitions";
-import { cn, formatToRial } from "@/lib/utils";
+import { cn, price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { useState } from "react";
 
@@ -26,12 +26,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   };
 
   return (
-    <Card>
-      <CardContent className="p-6">
+    <Card className="bg-transparent">
+      <CardContent className="p-6 text-primary">
         {/* Title */}
-        <h1 className="mb-4 text-2xl font-bold text-primary">
-          {product.title}
-        </h1>
+        <h1 className="mb-4 text-2xl font-bold">{product.title}</h1>
 
         {/* Rating */}
 
@@ -39,7 +37,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <div className="mb-4 flex items-center">
             <div className="flex items-center">
               <span className="ml-1 text-yellow-400">★</span>
-              <span className="text-gray-700">
+              <span>
                 {digitsEnToFa(product.rating!) || (product as any).rate}
               </span>
             </div>
@@ -53,16 +51,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
         {/* Price */}
         <div className="mb-4 flex items-center gap-3">
-          <span className="text-2xl font-bold text-gray-900">
-            {formatToRial(finalPrice)}
-          </span>
+          <span className="text-2xl font-bold ">{price(finalPrice)} </span>
           {isDummyProduct(product) && product.discountPercentage && (
             <>
-              <span className="text-lg text-gray-500 line-through">
-                {formatToRial(product.price)}
+              <span className=" text-gray-500 line-through">
+                {price(product.price)}
               </span>
               <Badge variant="destructive" className="text-sm">
-                {digitsEnToFa(product.discountPercentage)}% تخفیف
+                {price(product.discountPercentage, true)} تخفیف
               </Badge>
             </>
           )}
@@ -104,6 +100,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               size="sm"
               onClick={() => setQuantity((q) => q + 1)}
               className="px-3"
+              disabled={isDummyProduct(product) && quantity >= product.stock!}
             >
               +
             </Button>

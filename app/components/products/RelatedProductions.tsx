@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/app/components/ui/card";
-import { formatToRial } from "@/lib/utils";
+import { price } from "@/lib/utils";
 import { DummyProduct, FakeProduct } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +47,7 @@ export default function RelatedProducts({
                 </h3>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-lg font-bold text-gray-900">
-                    {formatToRial(product.price)}
+                    {price(product.price)}
                   </span>
                   {"rating" in product && product.rating && (
                     <div className="flex items-center text-sm text-gray-600">

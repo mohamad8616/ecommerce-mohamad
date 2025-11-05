@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import ProductList from "../components/products/ProductList";
 import { Spinner } from "../components/ui/Spinner";
 
-const page = async () => {
+const page = () => {
   return (
     <main className=" mt-10 h-auto min-h-screen w-full">
       <div className="flex h-full w-full items-center justify-center">

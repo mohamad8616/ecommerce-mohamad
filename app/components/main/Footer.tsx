@@ -18,7 +18,7 @@ const myoFont = localFont({
 const Footer = () => {
   return (
     <footer className="mt-30 min-h-[500px] bg-blue-100 px-8 py-10 dark:bg-transparent">
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between gap-x-2">
         <div className=" flex items-center space-x-1 md:space-x-2">
           <div className="relative h-16 w-16 lg:h-24 lg:w-24">
             <Image src="/logo.png" alt="Logo" fill className="rounded-full" />
@@ -31,7 +31,7 @@ const Footer = () => {
         </div>
         <a
           href="#hero"
-          className="flex items-center gap-x-2 rounded-sm bg-blue-100 px-2 py-1 text-sm text-primary md:text-xl lg:text-2xl dark:bg-secondary"
+          className="flex items-center gap-x-1 rounded-sm bg-blue-100 px-1 py-1 text-sm text-primary md:gap-x-2 md:px-2 md:text-xl lg:text-2xl dark:bg-secondary"
         >
           بازگشت به بالا
           <ChevronUp />
@@ -42,11 +42,11 @@ const Footer = () => {
         {/* Main container  */}
         <div className="flex flex-col gap-8 lg:gap-12 xl:flex-row xl:items-start xl:justify-between">
           {/* Contact Information */}
-          <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-4 ">
+          <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-4">
             <h3 className="text-lg font-semibold text-gray-800 md:text-xl lg:text-2xl dark:text-white">
               اطلاعات تماس
             </h3>
-            <div className="space-y-3 md:space-y-4">
+            <div className="flex items-center justify-between space-y-3 md:space-y-4">
               <p className="flex flex-col gap-1 text-base md:text-lg lg:text-xl">
                 <span className="text-gray-600 dark:text-gray-300">
                   شماره تماس:
