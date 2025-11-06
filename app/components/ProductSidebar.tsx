@@ -9,12 +9,12 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/app/components/ui/Sidebar";
-import { GiClothes } from "react-icons/gi";
+import Link from "next/link";
 import { categories } from "./navbar/NavLinks";
 
 const items = categories.map((category) => ({
   title: category,
-  icon: category.title.includes("لباس") && <GiClothes />,
+  link: category.link,
 }));
 
 export function AppSidebar() {
@@ -29,30 +29,30 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="text-xl">دسته بندی</SidebarGroupLabel>
           <SidebarSeparator />
-          <SidebarGroupContent className="mt-5">
+          <SidebarGroupContent className="mt-5 flex justify-center p-2">
             <SidebarMenu>
+              <SidebarMenuButton asChild>
+                <Link
+                  href={"/products"}
+                  className="my-1 flex w-full items-center justify-between bg-secondary px-4 py-2 text-lg"
+                >
+                  <span>مشاهده همه محصولات</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarSeparator />
               {items.map((item, i) => (
                 <SidebarMenuItem key={i}>
                   <SidebarMenuButton asChild>
-                    <div className="my-1 flex w-full items-center justify-between bg-secondary px-4 py-2 text-lg group-checked:bg-blue-100">
-                      <label
-                        className="text-primary"
-                        htmlFor={item.title.title}
-                      >
-                        {item.title.title}
-                      </label>
-                      <input
-                        type="checkbox"
-                        className="cursor-pointer has-checked:bg-green-600"
-                      />
-                    </div>
+                    <Link
+                      href={item.link}
+                      className="my-1 flex w-full items-center justify-between bg-secondary px-4 py-2 "
+                    >
+                      <span>{item.title.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
-            <SidebarMenuButton className=" mt-2 w-full cursor-pointer bg-primary text-center text-secondary transition-colors duration-150">
-              مشاهده نتایج
-            </SidebarMenuButton>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

@@ -27,7 +27,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const relatedProducts = await getProductsByCategoryInAll(product.category);
   const reviews = await getDummyProductReviews(id);
-  console.log(reviews);
   return (
     <div className="min-h-screen space-y-16 bg-secondary">
       <div className="container mx-auto px-4 py-8">

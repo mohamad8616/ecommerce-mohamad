@@ -22,6 +22,7 @@ export default function RelatedProducts({
   const categoryURL = categories.find(
     (category) => category.title === relatedProducts[0].category,
   )?.link as string;
+  console.log(categoryURL);
 
   if (relatedProducts.length === 0) return null;
 
@@ -69,7 +70,6 @@ export default function RelatedProducts({
         ))}
         <div className="flex items-center">
           <Link className="underline underline-offset-4" href={categoryURL}>
-            {" "}
             مشاهده همه محصولات مرتبط &larr;
           </Link>
         </div>
