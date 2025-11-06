@@ -73,3 +73,10 @@ export const getProductById = async (id: string) => {
   ]);
   return dummyProduct || fakeProduct;
 };
+
+export const getDummyProductReviews = async (id: string) => {
+  const reviews = await prisma.dummyReview.findMany({
+    where: { productId: Number(id) },
+  });
+  return reviews;
+};

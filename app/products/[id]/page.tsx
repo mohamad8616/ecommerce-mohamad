@@ -1,9 +1,15 @@
-import ProductDescription from "@/app/components/products/ProductDescription";
 import ProductImageGallery from "@/app/components/products/ProductImageGallery";
 import ProductInfo from "@/app/components/products/ProductInfo";
+import ProductsReviews from "@/app/components/products/ProductsReviews";
 import RelatedProducts from "@/app/components/products/RelatedProductions";
-import { getProductById, getProductsByCategoryInAll } from "@/lib/queries";
+import {
+  getDummyProductReviews,
+  getProductById,
+  getProductsByCategoryInAll,
+} from "@/lib/queries";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import Loading from "./Loading";
 
 interface ProductPageProps {
   params: {
@@ -20,31 +26,47 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const relatedProducts = await getProductsByCategoryInAll(product.category);
+  const reviews = await getDummyProductReviews(id);
+  console.log(reviews);
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen space-y-16 bg-secondary">
       <div className="container mx-auto px-4 py-8">
         {/* Main Product Section */}
         <div className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Product Images */}
           <div>
-            <ProductImageGallery product={product} />
+            <Suspense fallback={<Loading />}>
+              <ProductImageGallery product={product} />
+            </Suspense>
           </div>
 
           {/* Product Info */}
           <div>
-            <ProductInfo product={product} />
+            <Suspense fallback={<Loading />}>
+              <ProductInfo product={product} />
+            </Suspense>
           </div>
-        </div>
-
-        {/* Description Section */}
-        <div className="mb-12">
-          <ProductDescription product={product} />
         </div>
 
         {/* Related Products */}
         {relatedProducts && (
-          <RelatedProducts products={relatedProducts} currentProductId={id} />
+          <Suspense fallback={<Loading />}>
+            <RelatedProducts products={relatedProducts} currentProductId={id} />
+          </Suspense>
         )}
+
+        {/* Product Reviews */}
+        <Suspense
+          fallback={
+            <div className="animate-pulse">
+              <div className="mb-6 h-8 w-1/4 rounded bg-gray-200"></div>
+              <div className="mb-4 h-32 rounded bg-gray-200"></div>
+              <div className="mb-4 h-24 rounded bg-gray-200"></div>
+            </div>
+          }
+        >
+          <ProductsReviews reviews={reviews} />
+        </Suspense>
       </div>
     </div>
   );
@@ -52,7 +74,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
 // export async function generateStaticParams({ params }: ProductPageProps) {
 //   const { id } = await params;
-//   const products = await getProductById(id);
+//   const products = await getProductById(id.toString());
 
 //   return products?.title;
 // }

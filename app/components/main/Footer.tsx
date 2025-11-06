@@ -79,10 +79,10 @@ const Footer = () => {
                   key={index}
                 >
                   <Link
-                    href={`/products/${category}`}
+                    href={`${category.link}`}
                     className="flex items-center justify-center gap-x-2"
                   >
-                    {category}
+                    {category.title}
                   </Link>
                 </li>
               ))}
@@ -135,6 +135,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Copyright role */}
       <div className="border-t-4 border-gray-400">
         <div className="py-6 text-sm/loose tracking-wider text-gray-600 dark:text-gray-300">
           <p className="mb-2">

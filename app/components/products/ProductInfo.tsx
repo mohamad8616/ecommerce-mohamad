@@ -27,9 +27,11 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
   return (
     <Card className="bg-transparent">
-      <CardContent className="p-6 text-primary">
+      <CardContent className="space-y-12 p-6 text-primary md:space-y-12 lg:space-y-16">
         {/* Title */}
-        <h1 className="mb-4 text-2xl font-bold">{product.title}</h1>
+        <h1 className="mb-4 text-base font-bold lg:text-xl xl:text-2xl">
+          {product.title}
+        </h1>
 
         {/* Rating */}
 
@@ -80,46 +82,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         )}
 
-        {/* Quantity Selector */}
-        <div className="mb-6 flex items-center gap-4">
-          <span className="text-sm font-medium text-gray-700">تعداد:</span>
-          <div className="flex items-center rounded-lg border border-gray-300">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-3"
-            >
-              -
-            </Button>
-            <span className="px-4 py-2 text-sm font-medium">
-              {quantity.toLocaleString("fa-IR")}
-            </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setQuantity((q) => q + 1)}
-              className="px-3"
-              disabled={isDummyProduct(product) && quantity >= product.stock!}
-            >
-              +
-            </Button>
-          </div>
-        </div>
-
-        {/* Add to Cart Button */}
-        <Button
-          onClick={handleAddToCart}
-          className="w-full py-3 text-lg"
-          disabled={isDummyProduct(product) && product.stock === 0}
-        >
-          {isDummyProduct(product) && product.stock === 0
-            ? "ناموجود"
-            : "افزودن به سبد خرید"}
-        </Button>
-
         {/* Additional Info */}
-        <div className="mt-6 space-y-2 text-sm text-gray-600">
+        <div className="mt-6 space-y-2 text-sm">
           {isDummyProduct(product) && product.brand && (
             <div className="flex justify-between">
               <span>برند:</span>
@@ -138,6 +102,54 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               <span>{product.category}</span>
             </div>
           )}
+        </div>
+
+        {/* Quantity and Price */}
+        <div className="flex flex-col items-start justify-start py-6">
+          {/* Quantity Selector */}
+          <div className="gap- mb-6 flex w-full items-center justify-between">
+            <span className="text-sm font-medium ">تعداد:</span>
+            <div className="flex items-center rounded-lg border border-gray-300">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                className="px-3"
+              >
+                -
+              </Button>
+              <span className="px-4 py-2 text-sm font-medium">
+                {quantity.toLocaleString("fa-IR")}
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setQuantity((q) => q + 1)}
+                className="px-3"
+                disabled={isDummyProduct(product) && quantity >= product.stock!}
+              >
+                +
+              </Button>
+            </div>
+          </div>
+          <div className="flex w-full items-center justify-between">
+            <div className="flex items-center justify-between gap-x-1.5">
+              <span className="text-sm font-medium ">:قیمت نهایی</span>
+              <span className=" text-lg font-bold">
+                {price(finalPrice * quantity)}
+              </span>
+            </div>
+            {/* Add to Cart Button */}
+            <Button
+              onClick={handleAddToCart}
+              className=" bg-blue-600 py-3 text-sm text-stone-100 lg:text-lg"
+              disabled={isDummyProduct(product) && product.stock === 0}
+            >
+              {isDummyProduct(product) && product.stock === 0
+                ? "ناموجود"
+                : "افزودن به سبد خرید"}
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
