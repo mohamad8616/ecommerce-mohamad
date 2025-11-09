@@ -10,7 +10,7 @@ const myoFont = localFont({
 
 const off = async () => {
   const electronicProducts = await getProductsByCategoryInFake("الکترونیک");
-  const jewelryProducts = await getProductsByCategoryInFake("جواهرات");
+  const jewelryProducts = await getProductsByCategoryInFake("لباس زنانه");
 
   return (
     <section className="mt-20 flex w-full flex-col items-center justify-between space-y-6 overflow-hidden bg-secondary p-2 text-primary lg:flex-row lg:border-4 lg:border-rose-500">

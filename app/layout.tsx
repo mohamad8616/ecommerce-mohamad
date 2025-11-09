@@ -5,6 +5,7 @@ import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import "./globals.css";
 import { ThemeProvider } from "./components/providers/Themeprovider";
 import { Toaster } from "sonner";
+import { MainPagePrefetcher } from "./components/MainPagePrefetcher";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",
@@ -31,7 +32,8 @@ export default function RootLayout({
         >
           <Toaster />
           <ReactQueryProvider>
-            <main className="relative mx-auto h-auto min-h-screen w-full max-w-[1700px] overflow-x-hidden bg-secondary lg:p-3">
+            <MainPagePrefetcher />
+            <main className="relative mx-auto h-auto min-h-screen w-full max-w-[1700px] bg-secondary">
               <Navbar />
               {children}
             </main>

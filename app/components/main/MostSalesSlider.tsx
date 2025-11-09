@@ -1,5 +1,6 @@
 "use client";
 import "@/app/style/slider.css";
+import { price } from "@/lib/utils";
 import { DummyProduct } from "@prisma/client";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -8,9 +9,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/Skeleton";
 import { Arrow } from "../ui/SliderArrow";
-import AddToCart from "../AddToCart";
-import { digitsEnToFa } from "@persian-tools/persian-tools";
-import { price } from "@/lib/utils";
 
 const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -42,6 +40,12 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
       "( min-width: 769px)": {
         slides: {
           perView: 3,
+          spacing: 25,
+        },
+      },
+      "( min-width: 1000px)": {
+        slides: {
+          perView: 4,
           spacing: 25,
         },
       },
@@ -104,16 +108,13 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
 
               {/* Content */}
               <div className="flex flex-grow flex-col p-2">
-                <h3 className="mb-2 line-clamp-1 text-sm leading-tight font-light text-primary md:text-base">
-                  {product.title}
-                </h3>
-
                 <div className="mt-auto flex flex-col items-center justify-between gap-x-1 border-t border-slate-700/50 pt-4 md:flex-row">
+                  <h3 className="mb-2 line-clamp-1 text-sm leading-tight font-light text-primary md:text-base">
+                    {product.title.substring(0, 16) + "..."}
+                  </h3>
                   <p className="text-sm font-semibold text-amber-600 md:text-base lg:text-lg">
                     {price(product.price)}
                   </p>
-
-                  <AddToCart />
                 </div>
               </div>
 

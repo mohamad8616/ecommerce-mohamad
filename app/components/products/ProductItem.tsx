@@ -102,7 +102,7 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
               </span>
             )}
           </div>
-          <AddToCart classname="bg-transparent text-primary" />
+          <AddToCart productId={id} classname="bg-transparent text-primary" />
         </div>
       </div>
 

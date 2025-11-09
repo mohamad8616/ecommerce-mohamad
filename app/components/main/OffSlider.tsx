@@ -2,7 +2,7 @@
 import "@/app/style/slider.css";
 import { price, renderStars } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
-import { FakeProduct } from "@prisma/client";
+import { DummyProduct, FakeProduct } from "@prisma/client";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { ShoppingBag, Star } from "lucide-react";
@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/Button";
 import { Skeleton } from "../ui/Skeleton";
 import { Arrow } from "../ui/SliderArrow";
+import useCart from "@/app/stores/CartStore";
+import { isDummyProduct } from "@/lib/definitions";
 
 type ProductWithDiscount = FakeProduct & {
   discount: number;
@@ -24,7 +26,7 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const { addToCart } = useCart();
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {
@@ -36,19 +38,19 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
     breakpoints: {
       "(max-width: 849px)": {
         slides: {
-          perView: 2,
+          perView: 3,
           spacing: 25,
         },
       },
       "(min-width: 850px)": {
         slides: {
-          perView: 3,
+          perView: 4,
           spacing: 25,
         },
       },
       "(min-width: 1000px)": {
         slides: {
-          perView: 3,
+          perView: 5,
           spacing: 25,
         },
       },
@@ -140,42 +142,32 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
                 <div className="p-3 md:p-5">
                   {/* Title */}
                   <h3 className="mb-3 line-clamp-1 text-sm leading-tight text-primary transition-colors duration-200 group-hover:text-blue-600 md:text-lg lg:text-base dark:group-hover:text-blue-400">
-                    {product.title}
+                    {product.title.substring(0, 20) + "..."}
                   </h3>
 
-                  {/* Rating */}
-                  {(product.rating || product.rate) && (
-                    <div className="flex items-center space-x-1">
-                      {renderStars(product.rating! || product.rate!)}
-                    </div>
-                  )}
-
-                  {/* Price */}
-                  <div className="flex flex-col items-center justify-between md:flex-row">
-                    <div className="flex items-center space-x-2">
-                      {product.discount > 0 ? (
-                        <>
-                          <span className="text-start text-sm text-primary md:text-base ">
-                            {price(discountedPrice)}
+                  <div className="flex w-full items-center justify-between">
+                    {/* Rating */}
+                    {(product.rating || product.rate) && (
+                      <div className="flex items-center space-x-1">
+                        {renderStars(product.rating! || product.rate!)}
+                      </div>
+                    )}
+                    {/* Price */}
+                    <div className="flex flex-col items-center justify-between md:flex-row">
+                      <div className="flex items-center space-x-2">
+                        {product.discount > 0 ? (
+                          <>
+                            <span className="text-start text-sm text-primary md:text-base ">
+                              {price(discountedPrice)}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-start text-sm font-bold text-primary md:text-base">
+                            {price(product.price)}
                           </span>
-                        </>
-                      ) : (
-                        <span className="text-start text-sm font-bold text-primary md:text-lg lg:text-xl xl:text-2xl">
-                          {price(product.price)}
-                        </span>
-                      )}
+                        )}
+                      </div>
                     </div>
-
-                    {/* Add to Cart Indicator */}
-                    <Button
-                      variant="outline"
-                      className="flex items-center gap-x-1 rounded-sm bg-gray-100  transition-all duration-200 group-hover:bg-blue-100 group-hover:text-blue-600 dark:bg-stone-700 dark:group-hover:bg-blue-900/30"
-                    >
-                      <span className="text-sm text-primary md:text-base">
-                        افزودن به سبد خرید
-                      </span>
-                      <ShoppingBag size={18} />
-                    </Button>
                   </div>
                 </div>
 

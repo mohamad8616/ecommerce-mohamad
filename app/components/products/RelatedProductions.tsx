@@ -22,7 +22,6 @@ export default function RelatedProducts({
   const categoryURL = categories.find(
     (category) => category.title === relatedProducts[0].category,
   )?.link as string;
-  console.log(categoryURL);
 
   if (relatedProducts.length === 0) return null;
 

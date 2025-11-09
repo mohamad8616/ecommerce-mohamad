@@ -6,10 +6,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import CartBtn from "../Cart/CartBtn";
 import { ModeToggle } from "../DarkmodeToggle";
-import CartSheet from "./CartSheet";
-import NavLinks from "./NavLinks";
 import Search from "../search/Search";
+import NavLinks from "./NavLinks";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/Tootltip";
+import localFont from "next/font/local";
+
+const myoFont = localFont({
+  src: "../../../fonts/AGhasem.ttf",
+  display: "swap",
+});
 
 const NavbarLg = ({ user }: { user: User | null }) => {
   const pathname = usePathname();
@@ -20,14 +27,14 @@ const NavbarLg = ({ user }: { user: User | null }) => {
   return (
     <nav
       className="
-        mx-auto hidden w-11/12 grid-cols-6 items-center justify-between
+        mx-auto hidden w-11/12 grid-cols-5 items-center justify-between
         rounded-full border border-stone-700/40 bg-stone-900/60
         px-6 py-2 text-slate-100 shadow-xl shadow-black/10
         backdrop-blur-md lg:grid
       "
     >
       {/* LOGO / SEARCH */}
-      <div className="flex items-center justify-start space-x-6 px-3 lg:col-span-2">
+      <div className="flex items-center justify-start space-x-6 px-3 lg:col-span-1">
         <Link href="/" className="flex items-center space-x-4">
           <Image
             src="/Logo.png"
@@ -36,19 +43,20 @@ const NavbarLg = ({ user }: { user: User | null }) => {
             height={55}
             className="rounded-full"
           />
+          <span className={myoFont.className}>فروشگاه برند</span>
         </Link>
-
+      </div>
+      <div className="lg:col-span-2">
         {/* SEARCH BUTTON */}
         <Search />
       </div>
 
-      {/* NAVLINKS */}
-      <div className="flex items-center justify-center lg:col-span-2">
-        <NavLinks />
-      </div>
-
       {/* RIGHT CONTROL SECTION */}
-      <div className="flex items-center justify-end space-x-6 lg:col-span-2">
+      <div className="flex items-center justify-between space-x-6 lg:col-span-2">
+        {/* NAVLINKS */}
+        <NavLinks />
+
+        {/* Navbar profile */}
         {!user ? (
           <Link
             href="/login"
@@ -61,21 +69,31 @@ const NavbarLg = ({ user }: { user: User | null }) => {
           </Link>
         ) : (
           <Link href="/profile">
-            <div className="flex items-center gap-2 transition hover:opacity-80">
-              <Avatar>
-                <AvatarImage
-                  src={user.image ?? ""}
-                  className="h-10 w-10 rounded-full"
-                />
-                <AvatarFallback></AvatarFallback>
-              </Avatar>
-              <span className="hidden font-medium xl:inline">{user.name}</span>
-            </div>
+            <Tooltip>
+              <TooltipTrigger className="flex cursor-pointer items-center gap-2  transition-all">
+                {" "}
+                <Avatar>
+                  <AvatarImage
+                    src={user.image ?? ""}
+                    className="h-10 w-10 rounded-full"
+                  />
+                  <AvatarFallback></AvatarFallback>
+                </Avatar>
+                <span className="hidden font-medium xl:inline">
+                  {user.name}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent className="bg-stone-100 text-stone-800">
+                <p>نمایش کل پروفایل</p>
+              </TooltipContent>
+            </Tooltip>
           </Link>
         )}
-
+        {/* Darkmode toggle */}
         <ModeToggle />
-        <CartSheet />
+
+        {/* Cart button */}
+        <CartBtn />
       </div>
     </nav>
   );

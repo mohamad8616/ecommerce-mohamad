@@ -41,8 +41,8 @@ const Search = () => {
       <Input
         placeholder="جستجو"
         className="
-            relative col-span-2 flex w-auto items-center justify-between gap-2
-            border-0 text-primary ring-2 ring-ring/40 transition-all placeholder:text-slate-300 focus:w-60 focus:text-lg xl:w-56
+            relative flex w-auto items-center justify-between gap-2
+            border-0 text-primary ring-2 ring-ring/40 transition-all placeholder:text-slate-300 focus:w-11/12 focus:text-lg xl:w-9/12
           "
         value={search}
         onChange={(e) => {

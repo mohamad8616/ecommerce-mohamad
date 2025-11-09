@@ -6,9 +6,9 @@ import Profile from "../profile";
 import HamburgerMenu from "../ui/HamburgerMenu";
 
 import NavbarSmAside from "./NavbarSmAside";
-import CartSheet from "./CartSheet";
 import Link from "next/link";
 import { IoPerson } from "react-icons/io5";
+import CartBtn from "../Cart/CartBtn";
 
 const NavbarSm = ({ user }: { user: User | null }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -49,7 +49,7 @@ const NavbarSm = ({ user }: { user: User | null }) => {
             <span>ورود</span>
           </Link>
         )}
-        <CartSheet />
+        <CartBtn />
       </div>
     </nav>
   );

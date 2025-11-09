@@ -80,3 +80,12 @@ export const getDummyProductReviews = async (id: string) => {
   });
   return reviews;
 };
+
+export const fetchProductById = async (id: number) => {
+  const res = await fetch(`/api/single?id=${id}`);
+  if (!res.ok) {
+    throw new Error("Product not found");
+  }
+  const data: DummyProduct | FakeProduct = await res.json();
+  return data;
+};
