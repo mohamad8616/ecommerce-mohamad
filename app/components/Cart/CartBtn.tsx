@@ -1,6 +1,6 @@
 "use client";
 import useCart from "@/app/stores/CartStore";
-import { cn } from "@/lib/utils";
+import { cn, price } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import CartItem from "./CartItem";
 const CartBtn = () => {
   const pathname = usePathname();
   const isProductPage = pathname.startsWith("/products");
-  const { cartItems } = useCart();
+  const { cartItems, totalPrice, recalculateTotalPrice } = useCart();
   const [showCartBtn, setShowCartBtn] = useState(false);
   const [mount, setMounted] = useState(false);
 
@@ -18,10 +18,25 @@ const CartBtn = () => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      recalculateTotalPrice();
+    }
+  }, [cartItems]);
+
   // Prevent scroll propagation
   const handleCartScroll = (e: React.WheelEvent) => {
     e.stopPropagation();
   };
+
+  // For hide cart items section after purge it
+  useEffect(() => {
+    if (cartItems.length === 0 && showCartBtn === true) {
+      setTimeout(() => {
+        setShowCartBtn(false);
+      }, 2500);
+    }
+  }, [showCartBtn]);
 
   return (
     <>
@@ -45,9 +60,12 @@ const CartBtn = () => {
           onMouseLeave={() => setShowCartBtn(false)}
           className={cn(`relative text-primary`)}
         >
-          <span className="absolute top-[-5px] right-[-10px] rounded-sm border-2 border-white bg-red-500 px-0.5 text-xs text-white">
-            {cartItems.length}
-          </span>
+          {mount && (
+            <span className="absolute top-[-5px] right-[-10px] rounded-sm border-2 border-white bg-red-500 px-0.5 text-xs text-white">
+              {cartItems.length}
+            </span>
+          )}
+
           <IoCartOutline size={24} className="text-white" />
         </button>
 
@@ -86,7 +104,9 @@ const CartBtn = () => {
               {/* Footer - fixed height */}
               {cartItems.length > 0 && (
                 <div className="mt-2 flex flex-shrink-0 items-center justify-between gap-2  border-t-2 border-amber-500 pt-3">
-                  <span className="font-medium">مجموع قیمت</span>
+                  <span className="font-medium">
+                    مجموع قیمت: {price(totalPrice)}
+                  </span>
                   <Link
                     href="/checkout"
                     className="flex h-10 flex-1 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"

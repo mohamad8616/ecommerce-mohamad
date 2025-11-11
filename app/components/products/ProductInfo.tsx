@@ -3,6 +3,7 @@
 import { Button } from "@/app/components/ui/Button";
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent } from "@/app/components/ui/card";
+import useCart from "@/app/stores/CartStore";
 import { Product, isDummyProduct } from "@/lib/definitions";
 import { cn, price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
@@ -14,17 +15,19 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
-
+  const { addToCart } = useCart();
   const finalPrice =
     isDummyProduct(product) && product.discountPercentage
       ? product.price * (1 - product.discountPercentage / 100)
       : product.price;
 
-  const handleAddToCart = () => {
-    // Add to cart logic here
-    console.log("Added to cart:", { product, quantity });
+  const handleAddToCart = (
+    productId: number,
+    price: number,
+    quantity: number,
+  ) => {
+    addToCart({ productId, price, quantity });
   };
-
   return (
     <Card className="bg-transparent">
       <CardContent className="space-y-12 p-6 text-primary md:space-y-12 lg:space-y-16">
@@ -132,6 +135,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               </Button>
             </div>
           </div>
+
+          {/* Price and add to cart*/}
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center justify-between gap-x-1.5">
               <span className="text-sm font-medium ">:قیمت نهایی</span>
@@ -141,7 +146,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             </div>
             {/* Add to Cart Button */}
             <Button
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart(product.id, finalPrice, quantity)}
               className=" bg-blue-600 py-3 text-sm text-stone-100 lg:text-lg"
               disabled={isDummyProduct(product) && product.stock === 0}
             >

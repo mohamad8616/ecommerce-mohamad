@@ -19,7 +19,6 @@ const CartItem = ({
   const { data, status } = useQuery({
     queryKey: ["product", productId],
     queryFn: () => fetchProductById(productId),
-    // _optimisticResults: "optimistic",
   });
   const { removeFromCart, incrementQuantity, decreaseQuantity } = useCart();
 
@@ -92,7 +91,7 @@ const CartItem = ({
 
         {/* Right Side: Actions / Price */}
 
-        <div className="flex h-full w-full flex-col items-end justify-between">
+        <div className="flex h-full w-full flex-col items-end justify-between space-y-4">
           <Button
             onClick={() => removeFromCart(productId)}
             variant="destructive"
@@ -105,12 +104,30 @@ const CartItem = ({
             {priceFn(data.price)}
           </span>
           <div>
-            <button onClick={() => incrementQuantity(productId)}>+</button>
-
-            <span className="text-sm font-semibold text-primary">
-              {digitsEnToFa(quantity)}
-            </span>
-            <button onClick={() => decreaseQuantity(productId)}>-</button>
+            <div className="gap- mb-6 flex w-full items-center justify-between">
+              <div className="flex items-center rounded-lg border border-gray-300">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => decreaseQuantity(productId)}
+                  className="px-3"
+                >
+                  -
+                </Button>
+                <span className="px-4 py-2 text-sm font-medium">
+                  {quantity.toLocaleString("fa-IR")}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => incrementQuantity(productId)}
+                  className="px-3"
+                  disabled={isDummyProduct(data) && quantity >= data.stock!}
+                >
+                  +
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
