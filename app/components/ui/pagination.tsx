@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Button } from "./Button";
+import { cn } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { DummyProduct, FakeProduct } from "@prisma/client";
+import { Dispatch, SetStateAction } from "react";
 
 interface PaginationProps {
   page: number;
@@ -28,23 +28,27 @@ const Pagination = ({
   isPlaceholderData,
 }: PaginationProps) => {
   return (
-    <div className="mx-auto mt-8 flex w-full items-center justify-evenly gap-4 p-4 xl:w-3/4">
+    <div className="mx-auto mt-8 flex w-full items-center justify-evenly gap-4 lg:p-4 xl:w-3/4">
       <button
         onClick={() => setPages((old) => Math.max(old - 1, 1))}
         disabled={page === 1}
-        className="font-semibold disabled:text-gray-600"
+        className={cn(
+          "cursor-pointer",
+          "text-sm",
+          page === 1 ? "text-gray-600" : "",
+        )}
       >
         صفحه قبل
       </button>{" "}
       <ul className="flex w-1/2 items-center justify-between font-bold">
         {/* Always show first page */}
         <li>
-          <Button
+          <button
             onClick={() => setPages(1)}
-            className={page === 1 ? "bg-blue-600" : ""}
+            className={cn("cursor-pointer", page === 1 ? "text-blue-600" : "")}
           >
             {digitsEnToFa("1")}
-          </Button>
+          </button>
         </li>
 
         {page > 3 && <li>...</li>}
@@ -66,12 +70,15 @@ const Pagination = ({
           if (pageNumber > 1 && pageNumber < data?.totalPage) {
             return (
               <li key={pageNumber}>
-                <Button
+                <button
                   onClick={() => setPages(pageNumber)}
-                  className={page === pageNumber ? "bg-blue-600" : ""}
+                  className={cn(
+                    "cursor-pointer",
+                    page === pageNumber ? "text-blue-600" : "",
+                  )}
                 >
                   {digitsEnToFa(pageNumber.toString())}
-                </Button>
+                </button>
               </li>
             );
           }
@@ -81,19 +88,23 @@ const Pagination = ({
         {page < data?.totalPage - 2 && <li>...</li>}
 
         {/* Always show last page */}
-        <Button
+        <button
           onClick={() => setPages(data?.totalPage)}
-          className={page === data?.totalPage ? "bg-blue-600" : ""}
+          className={page === data?.totalPage ? "text-blue-600" : ""}
         >
           <li>{digitsEnToFa(data?.totalPage.toString())}</li>
-        </Button>
+        </button>
       </ul>
       <button
         onClick={() => {
           setPages((old) => (data?.hasMore ? old + 1 : old));
         }}
         disabled={isPlaceholderData || !data?.hasMore}
-        className="font-semibold disabled:text-gray-600"
+        className={cn(
+          "cursor-pointer",
+          "text-sm",
+          isPlaceholderData || !data?.hasMore ? "text-gray-600" : "",
+        )}
       >
         صفحه بعد
       </button>

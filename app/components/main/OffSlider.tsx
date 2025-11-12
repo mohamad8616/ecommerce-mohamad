@@ -31,7 +31,13 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
       spacing: 20,
     },
     breakpoints: {
-      "(max-width: 849px)": {
+      "(max-width: 768px)": {
+        slides: {
+          perView: 2,
+          spacing: 25,
+        },
+      },
+      "(min-width: 769px)": {
         slides: {
           perView: 3,
           spacing: 25,

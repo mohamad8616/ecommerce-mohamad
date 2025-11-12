@@ -67,6 +67,7 @@ export default function RelatedProducts({
             </Card>
           </Link>
         ))}
+
         <div className="flex items-center">
           <Link className="underline underline-offset-4" href={categoryURL}>
             مشاهده همه محصولات مرتبط &larr;

@@ -13,7 +13,7 @@ export const categories = [
   { title: "جواهرات", link: "/products/category/jewelry" },
   { title: "خواربار", link: "/products/category/grocery" },
   { title: "زیبایی", link: "/products/category/beauty" },
-  { title: "عطر ها", link: "/products/category/perfume" },
+  { title: "عطرها", link: "/products/category/perfume" },
   { title: "لباس زنانه", link: "/products/category/womenClothes" },
   { title: "لباس مردانه", link: "/products/category/menClothes" },
   { title: "مبلمان", link: "/products/category/sofa" },

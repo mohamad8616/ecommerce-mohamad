@@ -72,13 +72,13 @@ const ProductList = () => {
             </div>
 
             <div className="flex gap-3">
-              <select className="cursor-pointer rounded-xl border border-gray-200 bg-white/80 px-4 py-2 dark:border-gray-600 dark:bg-gray-800/80">
+              <select className="cursor-pointer rounded-xl border border-gray-200 bg-white/80 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base dark:border-gray-600 dark:bg-gray-800/80">
                 <option value="latest">جدیدترین</option>
                 <option value="cheapest">ارزان ترین</option>
                 <option value="expensive">گران ترین</option>
               </select>
 
-              <select className="cursor-pointer rounded-xl border bg-white/80 px-4 py-2  dark:border-gray-600 dark:bg-gray-800/80">
+              <select className="cursor-pointer rounded-xl border bg-white/80 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base  dark:border-gray-600 dark:bg-gray-800/80">
                 <option value="all">همه دسته‌بندی‌ها</option>
                 {categories.map((cat, i) => (
                   <option key={i} value={cat.link}>
@@ -90,7 +90,7 @@ const ProductList = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-1 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {data.products.products.map(
               (product: DummyProduct | FakeProduct) => (
                 <div

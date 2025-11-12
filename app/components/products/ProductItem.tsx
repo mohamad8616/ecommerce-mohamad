@@ -3,7 +3,6 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { DummyProduct, FakeProduct } from "@prisma/client";
 import { Eye } from "lucide-react";
 import Image from "next/image";
-import AddToCart from "../AddToCart";
 import Link from "next/link";
 
 const ProductItem = (props: DummyProduct | FakeProduct) => {
@@ -22,7 +21,7 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
     discount && discount > 0 ? props.price * (1 - discount / 100) : null;
 
   return (
-    <div className="group product-item relative max-w-[350px] overflow-hidden border transition-all duration-300 hover:border-stone-700">
+    <div className="group product-item relative flex h-full max-w-[350px] flex-col items-center justify-between overflow-hidden border transition-all duration-300 hover:border-stone-700">
       {/* Discount Badge */}
 
       {isDummyProduct && (
@@ -35,7 +34,7 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
 
       {/* Stock Status */}
       {stock !== undefined && stock && stock < 10 && stock > 0 && (
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute top-3 right-3 z-10 hidden md:block">
           <span className="rounded-full bg-red-500 px-1 py-0.5 text-xs font-bold text-white">
             فقط {digitsEnToFa(stock)} عدد باقی مانده
           </span>
@@ -44,27 +43,22 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
 
       {/* Image Container */}
       <Link href={`/products/${id}`}>
-        <div className="relative overflow-hidden bg-gray-50 dark:bg-stone-800">
+        <div className="relative flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-stone-800">
           <Image
             src={image}
             alt={title}
             width={300}
             height={300}
-            className={`${isDummyProduct ? "object-fit" : "object-contain"} h-64 w-full transition-transform duration-500 group-hover:scale-105`}
+            className={`w-2/3 object-contain  pt-4 transition-transform duration-500 group-hover:scale-105`}
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
           />
           {/* Quick Actions Overlay */}
-          <div className="bg-opacity-0 absolute inset-0 flex items-center justify-center bg-stone-900/80 opacity-0 transition-all duration-300 group-hover:opacity-100">
-            <div className="flex translate-y-4 transform space-x-2 transition-transform duration-300 group-hover:translate-y-0">
-              <Eye size={18} className="text-gray-700" />
-            </div>
-          </div>
         </div>
       </Link>
 
       {/* Product Info */}
-      <div className="p-5 xl:p-3">
+      <div className="p-1 xl:p-3">
         {/* Title */}
         <h3 className="mb-2 line-clamp-2 leading-tight font-bold text-gray-900 transition-colors duration-200 group-hover:text-blue-600 dark:font-normal dark:text-stone-200">
           {title}
@@ -95,7 +89,6 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
               </span>
             )}
           </div>
-          <AddToCart productId={id} classname="bg-transparent text-primary" />
         </div>
       </div>
 

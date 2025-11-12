@@ -1,7 +1,9 @@
 import clsx from "clsx";
-import { IoClose } from "react-icons/io5";
+import Link from "next/link";
+import { IoCartOutline, IoClose } from "react-icons/io5";
 import { Button } from "../ui/Button";
-import NavbarSmDropdown from "./NavbarSmDropdown";
+import { categories } from "./NavLinks";
+
 type NavbarSmAsideProps = {
   onToggle: () => void;
   onOpen: () => void;
@@ -38,10 +40,58 @@ const NavbarSmAside = ({ onClose, isOpen }: NavbarSmAsideProps) => {
           <IoClose />
         </Button>
         <div className="h-20 w-full border-b-2"></div>
-        <ul className="p y-8 flex w-full flex-col items-start space-y-2    px-3 text-lg text-primary md:px-10 md:text-xl">
-          <li> صفحه اصلی</li>
-          <NavbarSmDropdown />
-        </ul>
+        <nav
+          onClick={(e) => {
+            const target = e.target as HTMLElement;
+            if (target.closest("a")) {
+              setTimeout(() => {
+                onClose();
+              }, 1700);
+            }
+          }}
+          className="mt-8 flex h-full flex-1 flex-col justify-between overflow-y-auto px-4 pb-4"
+        >
+          <ul className="space-y-2">
+            <li>
+              <Link
+                href="/"
+                className="group flex items-center gap-3 rounded-xl bg-gradient-to-r from-primary/10 to-transparent px-4 py-3 text-base font-medium text-primary transition-all duration-300 hover:from-primary/20 hover:shadow-md active:scale-[0.98]"
+              >
+                <span className="h-2 w-2 rounded-full bg-primary/40 transition-all group-hover:bg-primary" />
+                صفحه اصلی
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/products"
+                className="group flex items-center gap-3 rounded-xl px-4 py-3 text-base  text-primary transition-all duration-300 hover:from-primary/20 hover:shadow-md active:scale-[0.98]"
+              >
+                <span className="h-2 w-2 rounded-full bg-secondary-foreground/20 transition-all group-hover:bg-primary" />
+                همه محصولات
+              </Link>
+            </li>
+            {categories.map((cat) => (
+              <li key={cat.title}>
+                <Link
+                  href={cat.link}
+                  className="group flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-secondary-foreground/80 transition-all duration-300 hover:bg-secondary-foreground/5 hover:text-secondary-foreground active:scale-[0.98]"
+                >
+                  <span className="h-2 w-2 rounded-full bg-secondary-foreground/20 transition-all group-hover:bg-secondary-foreground/60" />
+                  {cat.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link href="/cart" className="block w-full">
+            <Button
+              className="w-full border-2 border-destructive-foreground text-secondary-foreground dark:border-muted-foreground"
+              variant="outline"
+            >
+              سبد خرید
+              <IoCartOutline className="inline-block size-6 text-red-500 dark:text-muted-foreground" />
+            </Button>
+          </Link>
+        </nav>
       </div>
     </aside>
   );

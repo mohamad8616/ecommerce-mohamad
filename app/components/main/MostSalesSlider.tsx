@@ -24,13 +24,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
       spacing: 20,
     },
     breakpoints: {
-      "(max-width: 500px)": {
-        slides: {
-          perView: 1,
-          spacing: 10,
-        },
-      },
-      "(min-width: 501px)": {
+      "(max-width: 768px)": {
         slides: {
           perView: 2,
           spacing: 10,
@@ -93,7 +87,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
             <Link
               href={`/products/${product.id}`}
               key={product.id}
-              className="keen-slider__slide group relative flex flex-col rounded-sm border-2 border-gray-400 bg-secondary pt-5 transition-all  duration-150 hover:border-slate-500/70"
+              className="keen-slider__slide group relative flex flex-col rounded-sm border-2 border-gray-400 bg-secondary pt-1 transition-all duration-150  hover:border-slate-500/70 md:pt-5"
             >
               {/* Image Container */}
               <div className="relative overflow-hidden ">
@@ -102,7 +96,7 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
                   alt={product.title}
                   width={280}
                   height={280}
-                  className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="h-64 w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
