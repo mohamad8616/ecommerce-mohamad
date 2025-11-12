@@ -8,12 +8,7 @@ type NavbarSmAsideProps = {
   onClose: () => void;
   isOpen: boolean;
 };
-const NavbarSmAside = ({
-  onToggle,
-  onOpen,
-  onClose,
-  isOpen,
-}: NavbarSmAsideProps) => {
+const NavbarSmAside = ({ onClose, isOpen }: NavbarSmAsideProps) => {
   return (
     <aside>
       {/* BLACK BACKGOUND */}

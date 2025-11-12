@@ -17,7 +17,12 @@ export async function GET(req: Request) {
 
     // Build where condition
     const buildWhereCondition = () => {
-      const where: any = {};
+      const where: {
+        OR?: {
+          name?: { contains: string; mode: "insensitive" };
+          description?: { contains: string; mode: "insensitive" };
+        }[];
+      } = {};
 
       if (search) {
         where.OR = [
@@ -67,8 +72,8 @@ export async function GET(req: Request) {
 
     const sortedProducts = combinedProducts.sort((a, b) => {
       // Use a type-safe approach by checking the field
-      let aValue: any;
-      let bValue: any;
+      let aValue: number | string;
+      let bValue: number | string;
 
       switch (sortBy) {
         case "title":

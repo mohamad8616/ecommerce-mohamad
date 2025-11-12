@@ -4,16 +4,12 @@ import { Button } from "@/app/components/ui/Button";
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent } from "@/app/components/ui/card";
 import useCart from "@/app/stores/CartStore";
-import { Product, isDummyProduct } from "@/lib/definitions";
+import { Product, isDummyProduct, isFakeProduct } from "@/lib/definitions";
 import { cn, price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { useState } from "react";
 
-interface ProductInfoProps {
-  product: Product;
-}
-
-export default function ProductInfo({ product }: ProductInfoProps) {
+export default function ProductInfo({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const finalPrice =
@@ -37,18 +33,15 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </h1>
 
         {/* Rating */}
-
-        {(product.rating || (product as any).rate) && (
+        {product.rating && (
           <div className="mb-4 flex items-center">
             <div className="flex items-center">
               <span className="ml-1 text-yellow-400">★</span>
-              <span>
-                {digitsEnToFa(product.rating!) || (product as any).rate}
-              </span>
+              <span>{digitsEnToFa(product.rating!)}</span>
             </div>
-            {(product as any).count && (
+            {isFakeProduct(product) && product.count && (
               <span className="mr-2 text-sm text-gray-500">
-                ({(product as any).count.toLocaleString("fa-IR")} نظر)
+                ({product.count.toLocaleString("fa-IR")} نظر)
               </span>
             )}
           </div>

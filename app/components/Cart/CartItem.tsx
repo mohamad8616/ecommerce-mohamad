@@ -40,7 +40,7 @@ const CartItem = ({
     );
   }
   if (status === "success") {
-    const { title, price } = data;
+    const { title } = data;
 
     const isDummy = isDummyProduct(data!);
 

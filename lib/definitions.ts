@@ -129,5 +129,5 @@ export function isDummyProduct(product: Product): product is DummyProduct {
 }
 
 export function isFakeProduct(product: Product): product is FakeProduct {
-  return "image" in product && !Array.isArray((product as any).images);
+  return "image" in product;
 }

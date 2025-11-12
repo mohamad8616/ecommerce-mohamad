@@ -2,14 +2,11 @@
 import useCart from "@/app/stores/CartStore";
 import { cn, price } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import CartItem from "./CartItem";
 
 const CartBtn = () => {
-  const pathname = usePathname();
-  const isProductPage = pathname.startsWith("/products");
   const { cartItems, totalPrice, recalculateTotalPrice } = useCart();
   const [showCartBtn, setShowCartBtn] = useState(false);
   const [mount, setMounted] = useState(false);
@@ -17,12 +14,6 @@ const CartBtn = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (cartItems.length === 0) {
-      recalculateTotalPrice();
-    }
-  }, [cartItems]);
 
   // Prevent scroll propagation
   const handleCartScroll = (e: React.WheelEvent) => {
@@ -32,11 +23,12 @@ const CartBtn = () => {
   // For hide cart items section after purge it
   useEffect(() => {
     if (cartItems.length === 0 && showCartBtn === true) {
+      recalculateTotalPrice();
       setTimeout(() => {
         setShowCartBtn(false);
       }, 2500);
     }
-  }, [showCartBtn]);
+  }, [cartItems.length, showCartBtn, recalculateTotalPrice]);
 
   return (
     <>

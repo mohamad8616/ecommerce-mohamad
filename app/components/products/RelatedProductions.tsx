@@ -46,20 +46,20 @@ export default function RelatedProducts({
                     alt={product.title}
                     width={200}
                     height={200}
-                    className="h-full w-full object-cover object-center"
+                    className="h-full w-full object-contain object-center"
                   />
                 </div>
-                <h3 className="mb-2 line-clamp-2 font-medium">
+                <h3 className="mb-2 line-clamp-1 font-medium">
                   {product.title}
                 </h3>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-lg font-bold">
                     {price(product.price)}
                   </span>
-                  {"rating" in product && product.rating && (
+                  {product.rating && (
                     <div className="flex items-center text-sm text-gray-600">
                       <span className="ml-1 text-yellow-400">★</span>
-                      {product.rating || (product as any).rate}
+                      {product.rating}
                     </div>
                   )}
                 </div>

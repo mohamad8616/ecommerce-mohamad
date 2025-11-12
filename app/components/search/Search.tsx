@@ -3,12 +3,13 @@ import useDebounce from "@/hooks/useDebounce";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/Input";
 import Link from "next/link";
+import { Product } from "@/lib/definitions";
 
 const Search = () => {
   const [search, setSearch] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const debounced = useDebounce(search, 1000);
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Product[]>([]);
 
   useEffect(() => {
     const loadItems = async () => {
@@ -64,19 +65,14 @@ const Search = () => {
 
             {!loading && results?.length > 0 && (
               <ul className="flex flex-col space-y-2">
-                {results.map(
-                  (item, index) => (
-                    console.log("ssss"),
-                    (
-                      <li
-                        key={index}
-                        className="cursor-pointer rounded px-2 py-1 text-sm text-stone-700 transition hover:bg-gray-100"
-                      >
-                        <Link href={`/products/${item.id}`}> {item.title}</Link>
-                      </li>
-                    )
-                  ),
-                )}
+                {results.map((item, index) => (
+                  <li
+                    key={index}
+                    className="cursor-pointer rounded px-2 py-1 text-sm text-stone-700 transition hover:bg-gray-100"
+                  >
+                    <Link href={`/products/${item.id}`}> {item.title}</Link>
+                  </li>
+                ))}
               </ul>
             )}
           </div>

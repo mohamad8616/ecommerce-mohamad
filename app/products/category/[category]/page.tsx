@@ -17,7 +17,7 @@ const categoryNames = {
 const page = async ({ params }: { params: { category: string } }) => {
   const { category } = await params;
   const persianCategory = Object.entries(categoryNames).find(
-    ([key, value]) => key === category,
+    ([key]) => key === category,
   )?.[1];
 
   const products = await getProductsByCategoryInAll(persianCategory!);
@@ -57,7 +57,7 @@ const page = async ({ params }: { params: { category: string } }) => {
               محصولی یافت نشد
             </h3>
             <p className="text-gray-500 dark:text-gray-400">
-              در حال حاضر محصولی در دسته‌بندی "{categoryName}" موجود نیست.
+              در حال حاضر محصولی در دسته‌بندی {categoryName} موجود نیست.
             </p>
           </div>
         )}

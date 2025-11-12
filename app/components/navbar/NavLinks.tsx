@@ -1,4 +1,3 @@
-import { AllCategories } from "@/lib/definitions";
 import Link from "next/link";
 import {
   NavigationMenu,

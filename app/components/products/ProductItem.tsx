@@ -9,7 +9,7 @@ import Link from "next/link";
 const ProductItem = (props: DummyProduct | FakeProduct) => {
   const isDummyProduct = "images" in props;
 
-  const { title, category, id } = props;
+  const { title, id } = props;
 
   const image = isDummyProduct ? props.images[0] : props.image;
   const rating = isDummyProduct ? props.rating : props.rating;
@@ -17,16 +17,9 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
   const discount = isDummyProduct ? props.discountPercentage : 0;
   const stock = isDummyProduct ? props.stock : undefined;
 
-  // Format price
-  const formattedPrice = digitsEnToFa(props.price);
-
   // Calculate discounted price
   const discountedPrice =
     discount && discount > 0 ? props.price * (1 - discount / 100) : null;
-
-  const formattedDiscountedPrice = discountedPrice
-    ? digitsEnToFa(Math.round(Number(discountedPrice)))
-    : null;
 
   return (
     <div className="group product-item relative max-w-[350px] overflow-hidden border transition-all duration-300 hover:border-stone-700">

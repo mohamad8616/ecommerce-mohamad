@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
 import "@/app/style/slider.css";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
-import { Arrow } from "../ui/SliderArrow";
 import BlackMenBlouse from "@/public/blackMenBlouse.jpg";
 import MenClothes from "@/public/menClothes.jpg";
 import WomenClothes from "@/public/womanClothes.jpg";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
+import React, { useState } from "react";
+import { Arrow } from "../ui/SliderArrow";
 
 export default function ClothesProvider() {
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -89,14 +89,14 @@ export default function ClothesProvider() {
           <>
             <Arrow
               left
-              onClick={(e: any) =>
+              onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.prev()
               }
               disabled={currentSlide === 0}
             />
 
             <Arrow
-              onClick={(e: any) =>
+              onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.next()
               }
               disabled={

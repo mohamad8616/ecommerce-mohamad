@@ -10,7 +10,7 @@ type Inputs = {
   password: string;
 };
 
-const page = () => {
+const Page = () => {
   const {
     reset,
     register,
@@ -100,4 +100,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

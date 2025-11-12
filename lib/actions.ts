@@ -1,11 +1,11 @@
 "use server";
 
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { safeParse, success, z } from "zod";
-import { auth } from "./auth";
 import { getSession } from "@/app/_customhooks/hooks";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { auth } from "./auth";
 import { prisma } from "./prismaClient";
 
 //LOGIN

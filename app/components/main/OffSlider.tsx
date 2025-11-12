@@ -2,18 +2,14 @@
 import "@/app/style/slider.css";
 import { price, renderStars } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
-import { DummyProduct, FakeProduct } from "@prisma/client";
+import { FakeProduct } from "@prisma/client";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import { ShoppingBag, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/Button";
 import { Skeleton } from "../ui/Skeleton";
 import { Arrow } from "../ui/SliderArrow";
-import useCart from "@/app/stores/CartStore";
-import { isDummyProduct } from "@/lib/definitions";
 
 type ProductWithDiscount = FakeProduct & {
   discount: number;
@@ -26,7 +22,6 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { addToCart } = useCart();
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {
@@ -182,16 +177,12 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
         <div>
           <Arrow
             left
-            onClick={(e: any) =>
-              e.stopPropagation() || instanceRef.current?.prev()
-            }
+            onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
             disabled={currentSlide === 0}
           />
 
           <Arrow
-            onClick={(e: any) =>
-              e.stopPropagation() || instanceRef.current?.next()
-            }
+            onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
             disabled={
               currentSlide ===
               instanceRef.current.track.details.slides.length - 1

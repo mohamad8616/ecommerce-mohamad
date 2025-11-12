@@ -58,7 +58,7 @@ const EditprofileForm = ({ user }: { user: EditProf }) => {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
       });
-  }, [form.formState.isSubmitting]);
+  }, [form.formState.isSubmitting, form.formState.isSubmitSuccessful]);
   return (
     <Form {...form}>
       <form
