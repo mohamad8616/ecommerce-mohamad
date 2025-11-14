@@ -23,24 +23,36 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
+  invoices      Invoice[]
 
   @@unique([email])
   @@map("user")
 }
 
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Invoice {
+  id            Int    @id @default(autoincrement())
+  invoiceNumber String @unique
+  userId        String
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
-  @@map("session")
+  totalPrice Decimal @db.Decimal(10, 2)
+  currency   String  @default("USD")
+  status     String  @default("pending") // pending, paid, canceled, etc.
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  items InvoiceItem[]
+}
+
+model InvoiceItem {
+  id        Int     @id @default(autoincrement())
+  invoiceId Int
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  name     String
+  quantity Int     @default(1)
+  price    Decimal @db.Decimal(10, 2)
 }
 
 model Account {
@@ -62,6 +74,21 @@ model Account {
   @@map("account")
 }
 
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
 model Verification {
   id         String   @id
   identifier String
@@ -76,8 +103,8 @@ model Verification {
 // Alternative schema with separate tables
 
 model FakeProduct {
-  id          Int      @id @default(autoincrement())
-  externalId  Int?     // ID from the external API
+  id          Int    @id @default(autoincrement())
+  externalId  Int? // ID from the external API
   title       String
   price       Float
   description String
@@ -86,62 +113,62 @@ model FakeProduct {
   rating      Float?
   rate        Float?
   count       Int?
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("fake_products")
 }
 
 model DummyProduct {
-  id                    Int      @id @default(autoincrement())
-  externalId            Int?     // ID from the external API
-  title                 String
-  description           String
-  category              String
-  price                 Float
-  discountPercentage    Float?
-  rating                Float?
-  stock                 Int?
-  tags                  String[]
-  brand                 String?
-  sku                   String?   @unique
-  weight                Float?
-  warrantyInformation   String?
-  shippingInformation   String?
-  availabilityStatus    String?
-  returnPolicy          String?
-  minimumOrderQuantity  Int?
-  images                String[]
-  thumbnail             String?
-  
+  id                   Int      @id @default(autoincrement())
+  externalId           Int? // ID from the external API
+  title                String
+  description          String
+  category             String
+  price                Float
+  discountPercentage   Float?
+  rating               Float?
+  stock                Int?
+  tags                 String[]
+  brand                String?
+  sku                  String?  @unique
+  weight               Float?
+  warrantyInformation  String?
+  shippingInformation  String?
+  availabilityStatus   String?
+  returnPolicy         String?
+  minimumOrderQuantity Int?
+  images               String[]
+  thumbnail            String?
+
   // Dimensions
-  width   Float?
-  height  Float?
-  depth   Float?
-  
+  width  Float?
+  height Float?
+  depth  Float?
+
   // Meta
-  barcode    String?
-  qrCode     String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  
+  barcode   String?
+  qrCode    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // Relations
   reviews DummyReview[]
-  
+
   @@map("dummy_products")
 }
 
 model DummyReview {
-  id             Int      @id @default(autoincrement())
-  rating         Float
-  comment        String
-  date           DateTime
-  reviewerName   String
-  reviewerEmail  String
-  productId      Int
-  
-  product        DummyProduct  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
+  id            Int      @id @default(autoincrement())
+  rating        Float
+  comment       String
+  date          DateTime
+  reviewerName  String
+  reviewerEmail String
+  productId     Int
+
+  product DummyProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
   @@map("dummy_reviews")
 }

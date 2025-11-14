@@ -196,3 +196,11 @@ export const updatePassword = async (prevState: any, formdata: FormData) => {
     return { success: false, error: "عملیات ناموفق" };
   }
 };
+
+export const createInvoice = async (formdata: FormData) => {
+  const data = Object.fromEntries(formdata);
+  // const validatedData = invoiceSchema.safeParse(data);
+  // if (!validatedData.success) {
+  //   throw new Error(validatedData.error.message);
+  // }
+};
