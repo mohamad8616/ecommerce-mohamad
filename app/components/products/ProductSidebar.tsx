@@ -10,7 +10,7 @@ import {
   SidebarSeparator,
 } from "@/app/components/ui/Sidebar";
 import Link from "next/link";
-import { categories } from "./navbar/NavLinks";
+import { categories } from "../navbar/NavLinks";
 
 const items = categories.map((category) => ({
   title: category,

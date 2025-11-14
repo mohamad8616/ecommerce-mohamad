@@ -3,8 +3,8 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Textarea } from "@/app/components/ui/textarea";
 import { Star } from "lucide-react";
-import { Button } from "./ui/Button";
-import { Card, CardContent } from "./ui/card";
+import { Button } from "../ui/Button";
+import { Card, CardContent } from "../ui/card";
 
 const ReviewForm = () => {
   const [reviewForm, setReviewForm] = useState({

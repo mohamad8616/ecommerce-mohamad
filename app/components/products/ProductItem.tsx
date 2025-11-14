@@ -1,7 +1,6 @@
 import { price, renderStars } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { DummyProduct, FakeProduct } from "@prisma/client";
-import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

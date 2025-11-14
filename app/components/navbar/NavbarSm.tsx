@@ -2,7 +2,7 @@
 import { User } from "@/lib/auth";
 import { useEffect, useState } from "react";
 import { ModeToggle } from "../DarkmodeToggle";
-import Profile from "../profile";
+import Profile from "./profile";
 import HamburgerMenu from "../ui/HamburgerMenu";
 
 import NavbarSmAside from "./NavbarSmAside";

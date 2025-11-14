@@ -1,10 +1,11 @@
 "use client";
 import { Button } from "@/app/components/ui/Button";
-import { Card, CardContent } from "@/app/components/ui/card";
 import { ScrollArea } from "@/app/components/ui/scroll-area";
 import { Separator } from "@/app/components/ui/Separator";
-import useCart from "../stores/CartStore";
+import { price } from "@/lib/utils";
+import Link from "next/link";
 import CartItem from "../components/Cart/CartItem";
+import useCart from "../stores/CartStore";
 
 const CartPage = () => {
   const { cartItems, totalPrice } = useCart();
@@ -48,16 +49,18 @@ const CartPage = () => {
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm text-muted-foreground">مجموع:</span>
           <span className="text-base font-semibold text-foreground">
-            {totalPrice.toLocaleString()} تومان
+            {price(totalPrice)}
           </span>
         </div>
-        <Button
-          className="w-full text-sm font-medium"
-          size="lg"
-          disabled={cartItems.length === 0}
-        >
-          تکمیل خرید
-        </Button>
+        <Link href="/invoice">
+          <Button
+            className="w-full text-sm font-medium"
+            size="lg"
+            disabled={cartItems.length === 0}
+          >
+            تکمیل خرید
+          </Button>
+        </Link>
       </footer>
     </main>
   );

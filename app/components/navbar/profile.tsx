@@ -9,8 +9,9 @@ import {
 import { logout } from "@/lib/actions";
 import { User } from "@/lib/auth";
 import { IoPerson } from "react-icons/io5";
-import { Button } from "./ui/Button";
+
 import { ChevronDown } from "lucide-react";
+import { Button } from "../ui/Button";
 
 const Profile = ({ user }: { user: User }) => {
   return (

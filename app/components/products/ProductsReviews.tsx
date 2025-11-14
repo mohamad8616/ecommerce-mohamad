@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/app/components/ui/card";
 import { DummyReview } from "@prisma/client";
 import { Star } from "lucide-react";
 import { useState } from "react";
-import ReviewCard from "../ReviewCard";
-import ReviewForm from "../ReviewForm";
+import ReviewCard from "../review/ReviewCard";
+import ReviewForm from "../review/ReviewForm";
 import StarRating from "../ui/starRating";
 
 const ProductsReviews = ({ reviews }: { reviews: DummyReview[] }) => {

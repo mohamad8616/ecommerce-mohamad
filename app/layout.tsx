@@ -5,7 +5,7 @@ import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import "./globals.css";
 import { ThemeProvider } from "./components/providers/Themeprovider";
 import { Toaster } from "sonner";
-import { MainPagePrefetcher } from "./components/MainPagePrefetcher";
+import { MainPagePrefetcher } from "./components/main/MainPagePrefetcher";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",

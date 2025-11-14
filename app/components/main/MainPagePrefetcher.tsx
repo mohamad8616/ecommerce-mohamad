@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { fetchProductById } from "@/lib/queries";
-import useCart from "../stores/CartStore";
+import useCart from "@/app/stores/CartStore";
 
 export const MainPagePrefetcher = () => {
   const queryClient = useQueryClient();

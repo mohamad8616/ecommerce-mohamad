@@ -1,0 +1,168 @@
+"use client";
+
+import { Input } from "@/app/components/ui/Input";
+import { Label } from "@/app/components/ui/Label";
+import { Separator } from "@/app/components/ui/Separator";
+import { Textarea } from "@/app/components/ui/textarea";
+import { price } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import z from "zod";
+import useCart from "../../stores/CartStore";
+import { Button } from "../ui/Button";
+
+const formSchema = z.object({
+  firstName: z.string().min(3, "نام باید حداقل 3 کاراکتر باشد"),
+  lastName: z.string().min(3, "نام خانوادگی باید حداقل 3 کاراکتر باشد"),
+  email: z.string().email({ message: "ایمیل معتبر نیست" }),
+  mobile: z.string().regex(/^\d{11}$/, "شماره موبایل باید 11 رقم باشد"),
+  address: z.string().min(10, "آدرس باید حداقل 10 کاراکتر باشد"),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+const ErrorText = ({ message, id }: { message?: string; id: string }) =>
+  message ? (
+    <p id={id} className="text-sm text-red-500">
+      {message}
+    </p>
+  ) : null;
+
+const InvoiceForm = () => {
+  const { totalPrice } = useCart();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const formattedTotalPrice = useMemo(() => price(totalPrice), [totalPrice]);
+
+  function onSubmit(data: FormValues) {
+    console.log(data);
+  }
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* First Name */}
+        <div className="flex flex-col space-y-1.5">
+          <Label htmlFor="firstName">نام</Label>
+          <Input
+            id="firstName"
+            placeholder="نام خود را وارد کنید"
+            autoComplete="given-name"
+            aria-invalid={!!errors.firstName}
+            aria-describedby="firstName-error"
+            disabled={isSubmitting}
+            {...register("firstName")}
+          />
+          <ErrorText id="firstName-error" message={errors.firstName?.message} />
+        </div>
+        {/* Last Name */}
+        <div className="flex flex-col space-y-1.5">
+          <Label htmlFor="lastName">نام خانوادگی</Label>
+          <Input
+            id="lastName"
+            placeholder="نام خانوادگی خود را وارد کنید"
+            autoComplete="family-name"
+            aria-invalid={!!errors.lastName}
+            aria-describedby="lastName-error"
+            disabled={isSubmitting}
+            {...register("lastName")}
+          />
+          <ErrorText id="lastName-error" message={errors.lastName?.message} />
+        </div>
+      </div>
+      {/* Email */}
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="email">ایمیل</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="example@email.com"
+          autoComplete="email"
+          aria-invalid={!!errors.email}
+          aria-describedby="email-error"
+          disabled={isSubmitting}
+          {...register("email")}
+        />
+        <ErrorText id="email-error" message={errors.email?.message} />
+      </div>
+      {/* Mobile */}
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="mobile">شماره موبایل</Label>
+        <Input
+          id="mobile"
+          type="tel"
+          inputMode="numeric"
+          pattern="^\d{11}$"
+          placeholder="0912XXXXXXX"
+          aria-invalid={!!errors.mobile}
+          aria-describedby="mobile-error"
+          disabled={isSubmitting}
+          {...register("mobile")}
+        />
+        <ErrorText id="mobile-error" message={errors.mobile?.message} />
+      </div>
+      {/* Address */}
+      <div className="flex flex-col space-y-1.5">
+        <Label htmlFor="address">آدرس</Label>
+        <Textarea
+          id="address"
+          placeholder="آدرس دقیق محل تحویل را وارد کنید"
+          rows={3}
+          autoComplete="street-address"
+          aria-invalid={!!errors.address}
+          aria-describedby="address-error"
+          disabled={isSubmitting}
+          {...register("address")}
+        />
+        <ErrorText id="address-error" message={errors.address?.message} />
+      </div>
+
+      <Separator className="my-4" />
+
+      <div className="hidden items-center justify-between md:flex">
+        <span className="text-sm text-muted-foreground">مجموع کل:</span>
+        <span className="text-base font-semibold text-primary">
+          {formattedTotalPrice}
+        </span>
+      </div>
+
+      <div className="hidden md:block">
+        <Button
+          type="submit"
+          className="w-full text-sm font-medium"
+          size="lg"
+          disabled={totalPrice === 0 || isSubmitting}
+        >
+          خرید
+        </Button>
+      </div>
+
+      {/* <InvoicePageFooter /> */}
+      <footer className="sticky bottom-0 z-20 border-t bg-background px-4 py-3 md:hidden">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">مجموع:</span>
+          <span className="text-base font-semibold text-foreground">
+            {formattedTotalPrice}
+          </span>
+        </div>
+        {/* Submit Button */}
+        <Button
+          type="submit"
+          className="w-full text-sm font-medium"
+          size="lg"
+          disabled={totalPrice === 0 || isSubmitting}
+        >
+          تکمیل خرید
+        </Button>
+      </footer>
+    </form>
+  );
+};
+
+export default InvoiceForm;

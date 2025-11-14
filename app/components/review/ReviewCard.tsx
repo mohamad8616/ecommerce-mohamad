@@ -1,6 +1,6 @@
 import { User } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
-import StarRating from "./ui/starRating";
+import { Card, CardContent } from "../ui/card";
+import StarRating from "../ui/starRating";
 import { DummyReview } from "@prisma/client";
 
 const ReviewCard = ({ review }: { review: DummyReview }) => {
