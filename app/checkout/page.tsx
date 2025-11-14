@@ -4,8 +4,8 @@ import { getSession } from "../_customhooks/hooks";
 import InvoiceForm from "../components/invoice/invoiceForm";
 
 const InvoicePage = async () => {
+  //Authentication
   const session = await getSession();
-
   if (!session) redirect("/login");
 
   return (

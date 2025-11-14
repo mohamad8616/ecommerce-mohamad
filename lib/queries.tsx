@@ -89,3 +89,18 @@ export const fetchProductById = async (id: number) => {
   const data: DummyProduct | FakeProduct = await res.json();
   return data;
 };
+
+export const getInvoices = async (userId: string) => {
+  const res = await prisma.invoice.findMany({
+    where: { userId },
+  });
+  return res;
+};
+
+export const getInvoiceById = async (id: number) => {
+  const invoice = await prisma.invoice.findUnique({
+    where: { id },
+    include: { items: true },
+  });
+  return invoice;
+};

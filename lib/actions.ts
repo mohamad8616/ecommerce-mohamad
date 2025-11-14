@@ -181,7 +181,7 @@ export const updatePassword = async (prevState: any, formdata: FormData) => {
   }
 
   try {
-    const result = await auth.api.changePassword({
+    await auth.api.changePassword({
       body: {
         newPassword: validatedData.data.newPassword,
         currentPassword: validatedData.data.currentPassword,
@@ -197,10 +197,76 @@ export const updatePassword = async (prevState: any, formdata: FormData) => {
   }
 };
 
+//create Invoice
+const InvoiceSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email"),
+  mobile: z.string().min(5, "Mobile number is required"),
+  address: z.string().min(1, "Address is required"),
+  totalPrice: z.string().min(1, "Total price is required"),
+  items: z.array(
+    z.object({
+      productId: z.number(),
+      quantity: z.number().min(1),
+      price: z.number().min(0),
+    }),
+  ),
+});
+type InvoiceState = {
+  success: boolean;
+  message?: string;
+};
+
 export const createInvoice = async (formdata: FormData) => {
+  //Authentication
+  const session = await getSession();
+  if (!session) {
+    throw new Error("User is not authenticated");
+  }
+  console.log(formdata);
+  // Validation
   const data = Object.fromEntries(formdata);
-  // const validatedData = invoiceSchema.safeParse(data);
-  // if (!validatedData.success) {
-  //   throw new Error(validatedData.error.message);
-  // }
+  const cartItems = JSON.parse(formdata.get("items") as string);
+  const validatedData = InvoiceSchema.safeParse({
+    ...data,
+    items: cartItems,
+    totalPrice: data.totalPrice.toString(),
+  });
+
+  if (!validatedData.success) {
+    throw new Error(validatedData.error.message);
+  }
+
+  const { firstName, lastName, email, mobile, address, items, totalPrice } =
+    validatedData.data;
+
+  try {
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: Math.floor(
+          10000000 + Math.random() * 90000000,
+        ).toString(),
+
+        userId: session.user.id,
+        totalPrice: Number(totalPrice),
+        status: "paid",
+
+        items: {
+          create: items,
+        },
+
+        firstname: firstName,
+        lastname: lastName,
+        email,
+        mobile,
+        address,
+      },
+    });
+  } catch (error) {
+    console.error("Create invoice failed:", error);
+  }
+  revalidatePath("/userInvoices");
+
+  redirect("/thanks");
 };

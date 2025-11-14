@@ -30,29 +30,29 @@ model User {
 }
 
 model Invoice {
-  id            Int    @id @default(autoincrement())
-  invoiceNumber String @unique
+  id            Int           @id @default(autoincrement())
+  invoiceNumber String        @unique
   userId        String
-  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  totalPrice Decimal @db.Decimal(10, 2)
-  currency   String  @default("USD")
-  status     String  @default("pending") // pending, paid, canceled, etc.
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  items InvoiceItem[]
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalPrice    Decimal       @db.Decimal(10, 2)
+  status        String        @default("pending") // pending, paid, canceled, etc.
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+  items         InvoiceItem[]
+  firstname     String
+  lastname      String
+  email         String
+  mobile        String
+  address       String
 }
 
 model InvoiceItem {
-  id        Int     @id @default(autoincrement())
-  invoiceId Int
-  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-
-  name     String
-  quantity Int     @default(1)
-  price    Decimal @db.Decimal(10, 2)
+  id        Int      @id @default(autoincrement())
+  quantity  Int      @default(1)
+  price     Decimal  @db.Decimal(10, 2)
+  productId Int
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId Int?
 }
 
 model Account {
@@ -100,7 +100,7 @@ model Verification {
   @@map("verification")
 }
 
-// Alternative schema with separate tables
+
 
 model FakeProduct {
   id          Int    @id @default(autoincrement())

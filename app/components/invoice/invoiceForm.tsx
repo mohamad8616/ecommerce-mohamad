@@ -4,6 +4,7 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Separator } from "@/app/components/ui/Separator";
 import { Textarea } from "@/app/components/ui/textarea";
+import { createInvoice } from "@/lib/actions";
 import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
@@ -30,7 +31,7 @@ const ErrorText = ({ message, id }: { message?: string; id: string }) =>
   ) : null;
 
 const InvoiceForm = () => {
-  const { totalPrice } = useCart();
+  const { totalPrice, cartItems } = useCart();
   const {
     register,
     handleSubmit,
@@ -41,9 +42,18 @@ const InvoiceForm = () => {
 
   const formattedTotalPrice = useMemo(() => price(totalPrice), [totalPrice]);
 
-  function onSubmit(data: FormValues) {
-    console.log(data);
+  async function onSubmit(data: FormValues) {
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    formData.append("items", JSON.stringify(cartItems));
+    formData.append("totalPrice", totalPrice.toString());
+
+    await createInvoice(formData);
   }
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -61,6 +71,7 @@ const InvoiceForm = () => {
           />
           <ErrorText id="firstName-error" message={errors.firstName?.message} />
         </div>
+
         {/* Last Name */}
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="lastName">نام خانوادگی</Label>
@@ -76,6 +87,7 @@ const InvoiceForm = () => {
           <ErrorText id="lastName-error" message={errors.lastName?.message} />
         </div>
       </div>
+
       {/* Email */}
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="email">ایمیل</Label>
@@ -91,6 +103,7 @@ const InvoiceForm = () => {
         />
         <ErrorText id="email-error" message={errors.email?.message} />
       </div>
+
       {/* Mobile */}
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="mobile">شماره موبایل</Label>
@@ -107,6 +120,7 @@ const InvoiceForm = () => {
         />
         <ErrorText id="mobile-error" message={errors.mobile?.message} />
       </div>
+
       {/* Address */}
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="address">آدرس</Label>
