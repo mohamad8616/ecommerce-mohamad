@@ -1,19 +1,18 @@
-import React from "react";
-import Link from "next/link";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/Button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/card";
-import { Badge } from "@/app/components/ui/badge";
 import { Separator } from "@/app/components/ui/Separator";
-import { Button } from "@/app/components/ui/Button";
-import { cn, price } from "@/lib/utils";
-import { fetchProductById, getInvoiceById } from "@/lib/queries";
 import { isDummyProduct, Product } from "@/lib/definitions";
+import { getInvoiceById } from "@/lib/queries";
+import { cn, price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import Image from "next/image";
+import Link from "next/link";
 
 const fetchProduct = async (id: string) => {
   const res = await fetch(`${process.env.APP_URL}/api/single?id=${id}`);

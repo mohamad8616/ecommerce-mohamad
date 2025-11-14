@@ -17,7 +17,7 @@ const LoginSchema = z.object({
     .max(100),
 });
 
-export const login = async (prevState: any, formData: FormData) => {
+export const login = async (prevState: unknown, formData: FormData) => {
   //VALIDATION
   const data = Object.fromEntries(formData);
 
@@ -32,7 +32,7 @@ export const login = async (prevState: any, formData: FormData) => {
 
   // lOGIN
   try {
-    const res = await auth.api.signInEmail({
+    await auth.api.signInEmail({
       body: {
         email: result.data.email,
         password: result.data.password,
@@ -161,7 +161,10 @@ const updatePassSchema = z
     path: ["confirmNewPassword"],
   });
 
-export const updatePassword = async (prevState: any, formdata: FormData) => {
+export const updatePassword = async (
+  prevState: unknown,
+  formdata: FormData,
+) => {
   const data = Object.fromEntries(formdata);
 
   const session = await getSession();
@@ -213,10 +216,6 @@ const InvoiceSchema = z.object({
     }),
   ),
 });
-type InvoiceState = {
-  success: boolean;
-  message?: string;
-};
 
 export const createInvoice = async (formdata: FormData) => {
   //Authentication

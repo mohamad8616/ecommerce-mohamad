@@ -1,7 +1,7 @@
 export function Arrow(props: {
   disabled: boolean;
   left?: boolean;
-  onClick: (e: any) => void;
+  onClick: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }) {
   const disabled = props.disabled ? " arrow--disabled" : "";
   return (
