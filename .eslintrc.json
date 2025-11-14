@@ -3,14 +3,5 @@
   "rules": {
     "no-unused-vars": "error",
     "no-console": "warn"
-  },
-  "settings": {
-    "prettier": {
-      "singleQuote": true,
-      "semi": true,
-      "tabWidth": 2,
-      "trailingComma": "all",
-      "printWidth": 100
-    }
   }
 }

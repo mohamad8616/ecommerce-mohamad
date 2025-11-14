@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@hookform/resolvers": "^5.2.2",
     "@persian-tools/persian-tools": "^4.0.4",
     "@prisma/client": "^6.17.1",
@@ -43,13 +44,12 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@tanstack/eslint-plugin-query": "^5.91.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^9.39.0",
     "eslint-config-next": "15.5.4",
     "eslint-config-prettier": "^10.1.8",
     "next": "15.5.4",
