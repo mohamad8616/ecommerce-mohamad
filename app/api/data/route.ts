@@ -1,4 +1,3 @@
-"use server";
 import { prisma } from "@/lib/prismaClient";
 import { NextResponse } from "next/server";
 
