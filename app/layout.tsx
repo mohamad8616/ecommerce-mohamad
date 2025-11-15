@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 import Navbar from "./components/navbar/Navbar";
 import ReactQueryProvider from "./components/providers/ReactQueryProvider";
-import "./globals.css";
 import { ThemeProvider } from "./components/providers/Themeprovider";
-import { Toaster } from "sonner";
-import { MainPagePrefetcher } from "./components/main/MainPagePrefetcher";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",
@@ -32,7 +31,7 @@ export default function RootLayout({
         >
           <Toaster />
           <ReactQueryProvider>
-            <MainPagePrefetcher />
+            {/* <Mai OnPagePrefetcher /> */}
             <main className="relative mx-auto h-auto min-h-screen w-full max-w-[1700px] bg-secondary">
               <Navbar />
               {children}
