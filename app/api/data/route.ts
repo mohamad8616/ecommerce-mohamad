@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prismaClient";
+import { DummyProduct, FakeProduct } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -60,11 +61,11 @@ export async function GET(req: Request) {
 
     // Combine products
     const combinedProducts = [
-      ...fakeProducts.map((product) => ({
+      ...fakeProducts.map((product: FakeProduct) => ({
         ...product,
         productType: "fake" as const,
       })),
-      ...dummyProducts.map((product) => ({
+      ...dummyProducts.map((product: DummyProduct) => ({
         ...product,
         productType: "dummy" as const,
       })),
