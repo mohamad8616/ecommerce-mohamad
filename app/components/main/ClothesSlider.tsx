@@ -1,7 +1,7 @@
 "use client";
 import "@/app/style/slider.css";
-import BlackMenBlouse from "@/public/blackMenBlouse.jpg";
-import MenClothes from "@/public/menClothes.jpg";
+import BlackMenBlouse from "@/public/blackMenBlouse.webp";
+import MenClothes from "@/public/menClothes.webp";
 import WomenClothes from "@/public/womanClothes.jpg";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -89,16 +89,18 @@ export default function ClothesProvider() {
           <>
             <Arrow
               left
-              onClick={(e) =>
-                e.stopPropagation() || instanceRef.current?.prev()
-              }
+              onClick={(e) => {
+                e.stopPropagation();
+                instanceRef.current?.prev();
+              }}
               disabled={currentSlide === 0}
             />
 
             <Arrow
-              onClick={(e) =>
-                e.stopPropagation() || instanceRef.current?.next()
-              }
+              onClick={(e) => {
+                e.stopPropagation();
+                instanceRef.current?.prev();
+              }}
               disabled={
                 currentSlide ===
                 instanceRef.current.track.details.slides.length - 1

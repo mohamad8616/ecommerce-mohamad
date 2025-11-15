@@ -20,7 +20,7 @@ const ProductItem = (props: DummyProduct | FakeProduct) => {
     discount && discount > 0 ? props.price * (1 - discount / 100) : null;
 
   return (
-    <div className="group product-item relative flex h-full max-w-[350px] flex-col items-center justify-between overflow-hidden border transition-all duration-300 hover:border-stone-700">
+    <div className=" group product-item relative mx-auto flex h-full max-w-[350px] flex-col items-center justify-between overflow-hidden border transition-all duration-300 hover:border-stone-700">
       {/* Discount Badge */}
 
       {isDummyProduct && (

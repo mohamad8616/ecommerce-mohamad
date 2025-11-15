@@ -1,6 +1,4 @@
-import { DummyProduct, FakeProduct } from "./definitions";
-
-export const products: DummyProduct[] = [
+export const products = [
   {
     id: 1,
     title: "ریمل اسنس شاهزاده خانگ مژه",
@@ -1771,7 +1769,7 @@ export const products: DummyProduct[] = [
       "https://cdn.dummyjson.com/product-images/groceries/kiwi/thumbnail.webp",
   },
 ];
-export const fakestoreData: FakeProduct[] = [
+export const fakestoreData = [
   {
     id: 1,
     title: "کوله پشتی فجل ریون - فولدسک شماره 1، مناسب برای 15 لپ تاپ",

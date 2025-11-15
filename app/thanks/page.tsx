@@ -1,6 +1,12 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "../components/ui/Button";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "تکمیل پرداخت",
+  description: "صفحه تایید پرداخت موفقیت آمیز",
+};
 
 const page = () => {
   return (

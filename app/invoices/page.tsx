@@ -1,15 +1,19 @@
-import { Badge } from "@/app//components/ui/badge";
-import { Button } from "@/app//components/ui/Button";
-import { Card, CardContent } from "@/app//components/ui/card";
-import { Skeleton } from "@/app//components/ui/Skeleton";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/Button";
+import { Card, CardContent } from "@/app/components/ui/card";
 import { getInvoices } from "@/lib/queries";
 import { price } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "../_customhooks/hooks";
 
-// Accessible status colors using shadcn variables
+export const metadata: Metadata = {
+  title: "فاکتورها",
+  description: "صفحه فاکتورها",
+};
+
 const statusColors: Record<string, string> = {
   paid: "bg-green-500/15 text-green-700 dark:text-green-400",
   pending: "bg-yellow-500/15 text-yellow-700 dark:text-yellow-400",
@@ -94,26 +98,6 @@ export default async function UserInvoicesPage() {
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
-      </div>
-    </main>
-  );
-}
-
-export function UserInvoicesSkeleton() {
-  return (
-    <main className="mx-auto max-w-3xl space-y-4 p-4">
-      <Skeleton className="mx-auto h-6 w-32" />
-      <div className="space-y-4">
-        {[1, 2, 3].map((i) => (
-          <Card
-            key={i}
-            className="space-y-3 rounded-2xl border border-border p-4"
-          >
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-4 w-1/2" />
           </Card>
         ))}
       </div>

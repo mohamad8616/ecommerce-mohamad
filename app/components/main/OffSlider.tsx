@@ -183,12 +183,18 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
         <div>
           <Arrow
             left
-            onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.prev();
+            }}
             disabled={currentSlide === 0}
           />
 
           <Arrow
-            onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.next();
+            }}
             disabled={
               currentSlide ===
               instanceRef.current.track.details.slides.length - 1

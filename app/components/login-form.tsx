@@ -175,7 +175,7 @@ export function LoginForm({
           </div>
           <div className="relative hidden bg-muted md:block">
             <Image
-              src="/coloredShirts.jpg"
+              src="/coloredShirts.webp"
               alt="Image"
               fill
               className="object-fit absolute inset-0 dark:brightness-[0.8] dark:grayscale"

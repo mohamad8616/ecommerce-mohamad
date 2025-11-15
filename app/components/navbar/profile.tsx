@@ -12,6 +12,7 @@ import { IoPerson } from "react-icons/io5";
 
 import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/Button";
+import Link from "next/link";
 
 const Profile = ({ user }: { user: User }) => {
   return (
@@ -27,12 +28,22 @@ const Profile = ({ user }: { user: User }) => {
       >
         <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="ml-autotext-right">
-          <span className="ml-auto">پروفایل</span>
+        <DropdownMenuItem className="ml-auto text-right" asChild>
+          <Link
+            href="/profile"
+            className="ml-auto inline-block rounded px-2 py-1"
+          >
+            پروفایل
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          {" "}
-          <span className="ml-auto">سوابق خرید</span>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link
+            href="/invoices"
+            className="ml-auto inline-block rounded px-2 py-1"
+          >
+            سوابق خرید
+          </Link>
         </DropdownMenuItem>
         <form action={logout}>
           <Button variant="destructive" type="submit" className="ml-auto">

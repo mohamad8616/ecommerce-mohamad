@@ -1,7 +1,8 @@
-import { getProductsByCategoryInAll } from "@/lib/queries";
 import ProductItem from "@/app/components/products/ProductItem";
-import { DummyProduct, FakeProduct } from "@prisma/client";
+import { getProductsByCategoryInAll } from "@/lib/queries";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
+import { DummyProduct, FakeProduct } from "@prisma/client";
+import type { Metadata } from "next";
 
 const categoryNames = {
   sofa: "مبلمان",
@@ -14,7 +15,23 @@ const categoryNames = {
   jewelry: "جواهرات",
 };
 
-const page = async ({ params }: { params: { category: string } }) => {
+type Props = {
+  params: Promise<{ category: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const category = (await params).category;
+  const persianCategory = Object.entries(categoryNames).find(
+    ([key]) => key === category,
+  )?.[1];
+
+  return {
+    title: persianCategory,
+    description: `محصولات دسته‌بندی  -${persianCategory}`,
+  };
+}
+
+const page = async ({ params }:  Props ) => {
   const { category } = await params;
   const persianCategory = Object.entries(categoryNames).find(
     ([key]) => key === category,
@@ -44,7 +61,7 @@ const page = async ({ params }: { params: { category: string } }) => {
             {products.map((product: DummyProduct | FakeProduct) => (
               <div
                 key={product.id}
-                className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/80 shadow-xl backdrop-blur-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl dark:border-gray-700/50 dark:bg-gray-800/80"
+                className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/80 py-2 shadow-xl backdrop-blur-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl dark:border-gray-700/50 dark:bg-gray-800/80"
               >
                 <ProductItem {...product} />
               </div>

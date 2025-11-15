@@ -7,13 +7,24 @@ import {
   getProductById,
   getProductsByCategoryInAll,
 } from "@/lib/queries";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "./Loading";
 
 interface ProductPageProps {
-  params: {
-    id: string;
+  params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const id = (await params).id;
+  const product = await getProductById(id);
+
+  return {
+    title: product?.title ?? "محصول",
+    description: product?.description ?? "جزئیات محصول",
   };
 }
 

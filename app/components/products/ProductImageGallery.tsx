@@ -33,7 +33,7 @@ export default function ProductImageGallery({
             alt={product.title}
             width={600}
             height={600}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-contain object-center"
             priority
           />
         </div>
@@ -57,7 +57,7 @@ export default function ProductImageGallery({
                   alt={`${product.title} - تصویر ${index + 1}`}
                   width={80}
                   height={80}
-                  className="h-full w-full cursor-pointer object-cover object-center"
+                  className={`h-full w-full cursor-pointer object-contain object-center`}
                 />
               </button>
             ))}
@@ -69,13 +69,13 @@ export default function ProductImageGallery({
 
   if ("image" in product) {
     return (
-      <div className="aspect-square w-full overflow-hidden rounded-lg">
+      <div className="flex aspect-square h-auto w-full items-center justify-center overflow-hidden rounded-lg">
         <Image
           src={product.image}
           alt={product.title}
-          width={600}
-          height={600}
-          className="h-full w-full object-contain object-center"
+          width={300}
+          height={100}
+          className={`${product.category !== "جواهرات" ? "h-full w-full" : "mx-auto w-2/4"} object-contain object-center`}
           priority
         />
       </div>

@@ -46,7 +46,10 @@ export default function ProductInfo({ product }: { product: Product }) {
             )}
           </div>
         )}
-
+        {/* description */}
+        <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
+          {product.description}
+        </p>
         {/* Price */}
         <div className="mb-4 flex items-center gap-3">
           <span className="text-2xl font-bold ">{price(finalPrice)} </span>

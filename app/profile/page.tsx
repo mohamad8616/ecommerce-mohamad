@@ -1,9 +1,18 @@
 import { Badge } from "@/app/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
-import { getSession } from "../_customhooks/hooks";
-
-import EditProfileSheet from "../components/profile/EditProfileSheet";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { getSession } from "../_customhooks/hooks";
+import EditProfileSheet from "../components/profile/EditProfileSheet";
+
+//metadat
+export async function generateMetadata(): Promise<Metadata> {
+  const session = await getSession();
+
+  return {
+    title: ` اطلاعات کاربری -${session?.user?.name}` || "پروفایل کاربری",
+  };
+}
 
 const page = async () => {
   const session = await getSession();

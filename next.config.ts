@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "i.imgur.com",
         port: "",
-        pathname: "/*",
+        pathname: "/**",
         search: "",
       },
       {
@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "www.google.com",
+        hostname: "lh3.googleusercontent.com",
         port: "",
         pathname: "/**",
       },
@@ -52,4 +52,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-// cdn.dummyjson.com;

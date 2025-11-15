@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { redirect } from "next/navigation";
 import { getSession } from "../_customhooks/hooks";
 import InvoiceForm from "../components/invoice/invoiceForm";
+
+export const metadata: Metadata = {
+  title: "صورت حساب خرید ",
+  description: "صفحه سبد خرید و صورت‌حساب",
+};
 
 const InvoicePage = async () => {
   //Authentication

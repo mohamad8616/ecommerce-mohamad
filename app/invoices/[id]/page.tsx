@@ -11,6 +11,7 @@ import { isDummyProduct, Product } from "@/lib/definitions";
 import { getInvoiceById } from "@/lib/queries";
 import { cn, price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,10 +24,22 @@ const fetchProduct = async (id: string) => {
   return data;
 };
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  return {
+    title: `فاکتور شماره ${id}`,
+    description: `جزئیات فاکتور شماره ${id}`,
+  };
+}
+
 export default async function SingleInvoicePage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
 

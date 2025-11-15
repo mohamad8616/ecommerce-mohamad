@@ -2,7 +2,7 @@ import promotionImage from "@/public/image1.jpg";
 import { Spinner } from "../ui/Spinner";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import hero2 from "@/public/hero2.jpg";
+import hero2 from "@/public/hero2.webp";
 import hero3 from "@/public/hero3.jpg";
 import hero4 from "@/public/hero4.jpg";
 import hero5 from "@/public/whiteCart.jpg";
