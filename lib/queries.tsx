@@ -1,4 +1,3 @@
-"use server";
 import { DummyProduct, FakeProduct } from "@prisma/client";
 import { prisma } from "./prismaClient";
 
