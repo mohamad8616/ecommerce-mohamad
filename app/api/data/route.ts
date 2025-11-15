@@ -1,6 +1,5 @@
 "use server";
 import { prisma } from "@/lib/prismaClient";
-import type { DummyProduct, FakeProduct } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
