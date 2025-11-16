@@ -1,6 +1,6 @@
 import CategoryBoxes from "./components/main/CategoryBoxes";
 import Clothes from "./components/main/Clothes";
-import Footer from "./components/main/Footer";
+
 import Hero from "./components/main/Hero";
 import MostSales from "./components/main/MostSales";
 import Off from "./components/main/off";
@@ -15,7 +15,6 @@ export default async function Home() {
       <CategoryBoxes />
       <MostSales />
       <Clothes />
-      <Footer />
     </div>
   );
 }

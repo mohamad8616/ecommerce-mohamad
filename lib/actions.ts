@@ -47,6 +47,19 @@ export const login = async (prevState: unknown, formData: FormData) => {
   // redirect("/");
 };
 
+export const signinByGithub = async () => {
+  const result = await auth.api.signInSocial({
+    body: {
+      provider: "github",
+      callbackURL: "/",
+    },
+  });
+
+  if (result.url) {
+    redirect(result.url);
+  }
+};
+
 //SIGNUP
 const SignupSchema = z.object({
   name: z
@@ -80,35 +93,22 @@ export const signup = async (formData: FormData) => {
   redirect("/login");
 };
 
+//Signout
 export const signout = async () => {
   await auth.api.signOut({
-    // This endpoint requires session cookies.
     headers: await headers(),
   });
   redirect("/");
-};
-
-export const signinByGoogle = async () => {
-  const result = await auth.api.signInSocial({
-    body: {
-      provider: "google",
-      callbackURL: "/",
-    },
-  });
-
-  if (result.url) {
-    redirect(result.url);
-  }
 };
 
 export const logout = async () => {
   await auth.api.signOut({
-    // This endpoint requires session cookies.
     headers: await headers(),
   });
   redirect("/");
 };
 
+//update profile
 const updateFormSchema = z.object({
   name: z.string().min(4).max(100),
   image: z.string().url(),
@@ -141,6 +141,7 @@ export const updateProfile = async (userId: string, formData: FormData) => {
   revalidatePath("/profile");
 };
 
+//Update password
 const updatePassSchema = z
   .object({
     newPassword: z

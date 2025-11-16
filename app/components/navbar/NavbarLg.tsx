@@ -62,7 +62,6 @@ const NavbarLg = ({ user }: { user: User | null }) => {
             href="/login"
             className="
               py-2 text-sm underline-offset-4 transition hover:underline
-              xl:text-lg
             "
           >
             ورود | ثبت نام

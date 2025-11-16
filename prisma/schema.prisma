@@ -24,7 +24,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   invoices      Invoice[]
-
+  phoneNumber   String?
+  phoneNumberVerified Boolean @default(false)
   @@unique([email])
   @@map("user")
 }

@@ -15,7 +15,7 @@ const categories = [
 
 const ProductGroups = async () => {
   return (
-    <section className="mx-auto mt-20 w-full bg-gradient-to-r from-gray-200 to-gray-500 p-6 shadow-md">
+    <section className="mx-auto mt-20 w-full p-6 shadow-md">
       {/* Category List */}
       <div className="grid w-full grid-cols-2 place-items-center gap-6 rounded-xl p-6 sm:grid-cols-3 md:grid-cols-5">
         {categories.map((cat, index) => (

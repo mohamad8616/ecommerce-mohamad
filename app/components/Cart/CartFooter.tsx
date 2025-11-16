@@ -14,7 +14,7 @@ const CartFooter = () => {
           {price(totalPrice)}
         </span>
       </div>
-      <Link href="/invoice">
+      <Link href="/checkout">
         <Button
           className="w-full text-sm font-medium"
           size="lg"

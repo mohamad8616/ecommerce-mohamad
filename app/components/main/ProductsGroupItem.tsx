@@ -22,7 +22,7 @@ function ProductsGroupItem({ categoryTitle, image, link }: Props) {
         </Link>
       </div>
 
-      <p className="mt-2 text-center text-sm font-bold text-gray-700">
+      <p className="mt-2 text-center text-sm font-bold text-primary">
         {categoryTitle}
       </p>
     </div>

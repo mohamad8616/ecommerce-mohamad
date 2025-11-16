@@ -13,18 +13,18 @@ const off = async () => {
   const jewelryProducts = await getProductsByCategoryInFake("لباس زنانه");
 
   return (
-    <section className="mt-20 flex w-full flex-col items-center justify-between space-y-6 overflow-hidden bg-secondary p-2 text-primary lg:flex-row lg:border-4 lg:border-rose-500">
-      <div className="w-full text-center lg:w-3/12">
+    <section className="mx-auto mt-20 flex w-full flex-col items-center justify-between space-y-6 overflow-hidden bg-secondary text-primary lg:flex-row lg:border-4 lg:border-rose-500 lg:p-2">
+      <div className="w-full bg-red-500 text-center text-white lg:w-3/12 lg:bg-transparent lg:text-primary">
         <h1
           className={`text-xl font-bold md:text-2xl lg:text-3xl ${myoFont.className} w-full p-5 tracking-wider  `}
         >
           جشنواره تخفیفات هفتگی
         </h1>
-        <p
+        <h2
           className={`text-lg ${myoFont.className} w-full p-5 font-semibold tracking-wider `}
         >
           بهترین محصولات با تخفیف های ویژه
-        </p>
+        </h2>
         <Percent
           size={160}
           className="mx-auto mt-30 hidden text-rose-500 lg:block"

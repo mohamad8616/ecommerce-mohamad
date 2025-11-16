@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import { ThemeProvider } from "./components/providers/Themeprovider";
 import "./globals.css";
+import Footer from "./components/main/Footer";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body className={`${myFont.className}`}>
         <ThemeProvider
           attribute="class"
@@ -31,11 +32,11 @@ export default function RootLayout({
         >
           <Toaster />
           <ReactQueryProvider>
-            {/* <Mai OnPagePrefetcher /> */}
             <main className="relative mx-auto h-auto min-h-screen w-full max-w-[1700px] bg-secondary">
               <Navbar />
               {children}
             </main>
+            <Footer />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

@@ -1,3 +1,5 @@
+"use client";
+import { MouseEvent } from "react";
 import { ChevronUp } from "lucide-react";
 import localFont from "next/font/local";
 import Image from "next/image";
@@ -16,8 +18,14 @@ const myoFont = localFont({
 });
 
 const Footer = () => {
+  const scrollToTop = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
   return (
-    <footer className="mt-30 min-h-[500px] bg-blue-100 px-8 py-10 dark:bg-transparent">
+    <footer className="mt-30 min-h-[500px] px-8 py-10 dark:bg-transparent">
       <div className="flex items-center justify-between gap-x-2">
         <div className=" flex items-center space-x-1 md:space-x-2">
           <div className="relative h-16 w-16 lg:h-24 lg:w-24">
@@ -32,6 +40,7 @@ const Footer = () => {
         <a
           href="#hero"
           className="flex items-center gap-x-1 rounded-sm bg-blue-100 px-1 py-1 text-sm text-primary md:gap-x-2 md:px-2 md:text-xl lg:text-2xl dark:bg-secondary"
+          onClick={scrollToTop}
         >
           بازگشت به بالا
           <ChevronUp />
