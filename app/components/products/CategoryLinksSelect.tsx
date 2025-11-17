@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { categories as defaultCategories } from "../navbar/NavLinks";
 import {

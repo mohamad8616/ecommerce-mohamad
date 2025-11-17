@@ -1,5 +1,5 @@
-import { Card } from "./ui/card";
-import { Skeleton } from "./ui/Skeleton";
+import { Card } from "../ui/card";
+import { Skeleton } from "../ui/Skeleton";
 
 function UserInvoicesSkeleton() {
   return (
