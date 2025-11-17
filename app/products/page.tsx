@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 const page = () => {
   return (
-    <main className=" mt-10 h-auto min-h-screen w-full">
+    <main className=" mt-10 h-auto w-full overflow-hidden">
       <div className="flex h-full w-full items-center justify-center">
         <Suspense
           fallback={

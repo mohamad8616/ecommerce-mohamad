@@ -1,12 +1,19 @@
 # E‑Commerce App (Next.js)
 
+![Main page](public/readme/lightMode.png)
+![Main page](public/readme/darkmode.png)
+
 Modern, production‑ready e‑commerce application built with Next.js App Router, Prisma, Tailwind CSS v4, Zod, React Hook Form, Zustand, and Better Auth. This project is designed as a portfolio/resume showcase focused on clean architecture, accessibility, and practical commerce features.
 
 ## Highlights
 
 - Authentication‑guarded flows using Better Auth with Prisma adapter (`app/invoice/page.tsx:6–10`, `lib/auth.ts:9–31`)
+  ![Login](public/readme/login.png)
+
 - Robust form validation and RTL UI for Persian language (`app/components/invoice/invoiceForm.tsx:15–21`, `app/globals.css:34–35`)
 - Cart state persisted with Zustand and derived totals (`app/stores/CartStore.tsx:22–48`)
+  ![cart](public/readme/cart.png)
+
 - Typed data access via Prisma with Postgres (`prisma/schema.prisma:11–14`)
 - Mobile‑first, accessible components and consistent design tokens (Tailwind v4 in `app/globals.css:1–3`, `@theme inline` tokens)
 
@@ -87,18 +94,6 @@ Modern, production‑ready e‑commerce application built with Next.js App Route
 - Accessible and validated invoice form using Zod + RHF (`app/components/invoice/invoiceForm.tsx:15–46`)
 - Persisted cart with derived `totalPrice` and pure update functions (`app/stores/CartStore.tsx:20–48`, `app/stores/CartStore.tsx:59–86`)
 - Responsive, RTL‑friendly UI built on Radix and Tailwind tokens (`app/components/ui/*`, `app/globals.css`)
-
-## Project Structure
-
-```
-app/
-  api/                 # server routes (auth, data, search, single)
-  components/          # UI & domain components
-  products/, cart/, checkout/, invoice/, invoices/  # routes
-  stores/              # Zustand stores
-lib/                   # auth & prisma clients
-prisma/                # schema, migrations, seed
-```
 
 ## Environment & Integration Notes
 

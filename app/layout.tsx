@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
-      <body className={`${myFont.className}`}>
+      <body className={myFont.className} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -32,11 +32,11 @@ export default function RootLayout({
         >
           <Toaster />
           <ReactQueryProvider>
-            <main className="relative mx-auto h-auto min-h-screen w-full max-w-[1700px] bg-secondary">
+            <main className="relative mx-auto h-auto w-full max-w-[1700px] bg-secondary">
               <Navbar />
               {children}
+              <Footer />
             </main>
-            <Footer />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

@@ -8,9 +8,9 @@ import {
 } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
-import { categories } from "../navbar/NavLinks";
-import ProductItem from "./ProductItem";
 import Pagination from "../ui/pagination";
+import CategoryLinksSelect from "./CategoryLinksSelect";
+import ProductItem from "./ProductItem";
 
 const ProductList = () => {
   const [page, setPages] = useState(1);
@@ -32,6 +32,8 @@ const ProductList = () => {
       });
     }
   }, [data, isPlaceholderData, page, queryClient]);
+
+  //Loading UI
   if (isFetching) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -39,6 +41,8 @@ const ProductList = () => {
       </div>
     );
   }
+
+  // Error UI
   if (status === "error") {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -50,6 +54,7 @@ const ProductList = () => {
     );
   }
 
+  // Loading UI
   if (status === "pending") {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -58,9 +63,10 @@ const ProductList = () => {
     );
   }
 
+  // Success UI
   if (status === "success") {
     return (
-      <div className="min-h-screen bg-secondary">
+      <div className="h-auto bg-secondary">
         <div className="mx-auto w-full max-w-7xl px-4 py-8">
           {/* Header with Filters */}
           <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -72,20 +78,13 @@ const ProductList = () => {
             </div>
 
             <div className="flex gap-3">
-              <select className="cursor-pointer rounded-xl border border-gray-200 bg-white/80 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base dark:border-gray-600 dark:bg-gray-800/80">
+              {/* Sort Filtering */}
+              {/* <select className="cursor-pointer rounded-xl border border-gray-200 bg-white/80 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base dark:border-gray-600 dark:bg-gray-800/80">
                 <option value="latest">جدیدترین</option>
                 <option value="cheapest">ارزان ترین</option>
                 <option value="expensive">گران ترین</option>
-              </select>
-
-              <select className="cursor-pointer rounded-xl border bg-white/80 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base  dark:border-gray-600 dark:bg-gray-800/80">
-                <option value="all">همه دسته‌بندی‌ها</option>
-                {categories.map((cat, i) => (
-                  <option key={i} value={cat.link}>
-                    {cat.title}
-                  </option>
-                ))}
-              </select>
+              </select> */}
+              <CategoryLinksSelect />
             </div>
           </div>
 

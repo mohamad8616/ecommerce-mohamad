@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { HelpCircle, Home, LogOut, User, X } from "lucide-react";
+import { HelpCircle, Home, HistoryIcon, User, X, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -27,6 +27,7 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
   const menuItems = [
     { icon: Home, label: "صفحه اصلی", href: "/" },
     { icon: User, label: "پروفایل", href: "/profile" },
+    { icon: HistoryIcon, label: "سوابق خرید", href: "/invoices" },
     { icon: HelpCircle, label: "پشتیبانی", href: "/support" },
   ];
 

@@ -15,7 +15,7 @@ const InvoicePage = async () => {
   if (!session) redirect("/login");
 
   return (
-    <main className="flex flex-col overflow-hidden bg-background text-foreground lg:mt-6">
+    <main className="relative flex min-h-[700px] flex-col overflow-hidden bg-background text-foreground lg:mt-6">
       {/* HEADER */}
       <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur-sm lg:top-20">
         <div className="flex items-center justify-between px-4 py-3">
@@ -27,7 +27,7 @@ const InvoicePage = async () => {
       </header>
 
       {/* FORM SECTION */}
-      <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6">
+      <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6 md:mt-8 lg:mt-12">
         <Card className="border border-border shadow-sm">
           <CardContent className="space-y-4 p-4">
             <InvoiceForm />
