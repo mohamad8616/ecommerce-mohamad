@@ -1,6 +1,7 @@
 # E‑Commerce App (Next.js)
 
-[live-demo]:ecommerce-mohamad.vercel.app
+
+visit [live-demo]:(ecommerce-mohamad.vercel.app)
 
 Modern, production‑ready e‑commerce application built with Next.js App Router, Prisma, Tailwind CSS v4, Zod, React Hook Form, Zustand, and Better Auth. This project is designed as a portfolio/resume showcase focused on clean architecture, accessibility, and practical commerce features.
 
