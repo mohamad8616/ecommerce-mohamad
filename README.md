@@ -2,9 +2,9 @@
 
 [live-demo]:ecommerce-mohamad.vercel.app
 
-![Main page](public/readme/lightMode.png)
 Modern, production‑ready e‑commerce application built with Next.js App Router, Prisma, Tailwind CSS v4, Zod, React Hook Form, Zustand, and Better Auth. This project is designed as a portfolio/resume showcase focused on clean architecture, accessibility, and practical commerce features.
 
+![Main page](public/readme/lightMode.png)
 ## Highlights
 
 - Authentication‑guarded flows using Better Auth with Prisma adapter (`app/invoice/page.tsx:6–10`, `lib/auth.ts:9–31`)
