@@ -1,5 +1,5 @@
 "use client";
-import { MouseEvent } from "react";
+import { MouseEvent, useRef } from "react";
 import { ChevronUp } from "lucide-react";
 import localFont from "next/font/local";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import {
 } from "react-icons/io5";
 import { categories } from "../navbar/NavLinks";
 import Link from "next/link";
+import { useInView, motion } from "framer-motion";
 
 const myoFont = localFont({
   src: "../../../fonts/AGhasem.ttf",
@@ -18,6 +19,10 @@ const myoFont = localFont({
 });
 
 const Footer = () => {
+  //framer motion
+  const slider = useRef(null);
+  const inView = useInView(slider);
+
   const scrollToTop = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (typeof window !== "undefined") {
@@ -25,7 +30,13 @@ const Footer = () => {
     }
   };
   return (
-    <footer className="mt-30 min-h-[500px] px-8 py-10 dark:bg-transparent">
+    <motion.footer
+      initial={{ opacity: 0, y: 80 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      ref={slider}
+      className="mt-30 min-h-[500px] px-8 py-10 dark:bg-transparent"
+    >
       <div className="flex items-center justify-between gap-x-2">
         <div className=" flex items-center space-x-1 md:space-x-2">
           <div className="relative h-16 w-16 lg:h-24 lg:w-24">
@@ -158,7 +169,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

@@ -1,9 +1,12 @@
+"use client";
 import ProductsGroupItem from "./ProductsGroupItem";
 import grocery from "@/public/category/apple.jpg";
 import electronic from "@/public/category/laptop.jpg";
 import sofa from "@/public/category/sofa.jpg";
 import clothes from "@/public/category/clothes.jpg";
 import beauty from "@/public/category/beauty.jpg";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
 
 const categories = [
   { title: "الکترونیک", img: electronic, link: "electronic" },
@@ -13,9 +16,18 @@ const categories = [
   { title: "لباس", img: clothes, link: "menClothes" },
 ];
 
-const ProductGroups = async () => {
+const ProductGroups = () => {
+  //framer motion
+  const slider = useRef(null);
+  const inView = useInView(slider);
   return (
-    <section className="mx-auto mt-20 w-full p-6 shadow-md">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      ref={slider}
+      className="mx-auto mt-20 w-full p-6 shadow-md"
+    >
       {/* Category List */}
       <div className="grid w-full grid-cols-2 place-items-center gap-6 rounded-xl p-6 sm:grid-cols-3 md:grid-cols-5">
         {categories.map((cat, index) => (
@@ -27,7 +39,7 @@ const ProductGroups = async () => {
           />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

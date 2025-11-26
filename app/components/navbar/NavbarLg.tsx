@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import localFont from "next/font/local";
 import CartBtn from "../Cart/CartBtn";

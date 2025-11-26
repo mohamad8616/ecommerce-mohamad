@@ -7,7 +7,7 @@ import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "../ui/Skeleton";
 import { Arrow } from "../ui/SliderArrow";
 
@@ -22,6 +22,7 @@ export default function Slider({ products }: { products: FakeProduct[] }) {
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  //keen slider hook
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {

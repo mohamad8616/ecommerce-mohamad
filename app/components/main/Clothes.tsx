@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import ClothesSlider from "./ClothesSlider";
 import localFont from "next/font/local";
+import { useInView, motion } from "framer-motion";
 
 const myoFont = localFont({
   src: "../../../fonts/AGhasem.ttf",
@@ -8,8 +10,18 @@ const myoFont = localFont({
 });
 
 const Clothes = () => {
+  //framer motion
+  const slider = useRef(null);
+  const inView = useInView(slider);
+
   return (
-    <section className="mt-30 flex w-full flex-col lg:flex-row">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      ref={slider}
+      className="mt-30 flex w-full flex-col lg:flex-row"
+    >
       {/* Text Section */}
       <div className="flex w-full flex-col items-center justify-center space-y-4 bg-secondary p-4 text-primary lg:w-1/2 lg:space-y-6">
         <div className="w-full space-y-4 border-4 border-secondary/50 p-4 lg:space-y-6 lg:p-8">
@@ -57,7 +69,7 @@ const Clothes = () => {
           <ClothesSlider />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

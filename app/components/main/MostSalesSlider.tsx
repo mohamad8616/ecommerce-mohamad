@@ -14,6 +14,8 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  //Keen slider error
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     rtl: true,
     initial: 0,
@@ -54,10 +56,13 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
       setLoaded(true);
     },
   });
+
+  //For avoiding hydration error
   useEffect(() => {
     setMounted(true);
   }, [products]);
 
+  //For avoiding hydration error
   if (!mounted) {
     return (
       <div className="flex w-full space-x-4 overflow-x-hidden">
@@ -80,68 +85,66 @@ const MostSalesSlider = ({ products }: { products: DummyProduct[] }) => {
   }
 
   return (
-    <>
-      <div className="navigation-wrapper h-auto p-2 md:p-4">
-        <div ref={sliderRef} className="keen-slider">
-          {products.map((product) => (
-            <Link
-              href={`/products/${product.id}`}
-              key={product.id}
-              className="keen-slider__slide group relative flex flex-col rounded-sm border-2 border-gray-400 bg-secondary pt-1 transition-all duration-150  hover:border-slate-500/70 md:pt-5"
-            >
-              {/* Image Container */}
-              <div className="relative overflow-hidden ">
-                <Image
-                  src={product.images[0]}
-                  alt={product.title}
-                  width={280}
-                  height={280}
-                  className="h-64 w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                />
+    <div className="navigation-wrapper h-auto p-2 md:p-4">
+      <div ref={sliderRef} className="keen-slider">
+        {products.map((product) => (
+          <Link
+            href={`/products/${product.id}`}
+            key={product.id}
+            className="keen-slider__slide group relative flex flex-col rounded-sm border-2 border-gray-400 bg-secondary pt-1 transition-all duration-150  hover:border-slate-500/70 md:pt-5"
+          >
+            {/* Image Container */}
+            <div className="relative overflow-hidden ">
+              <Image
+                src={product.images[0]}
+                alt={product.title}
+                width={280}
+                height={280}
+                className="h-64 w-full object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-grow flex-col p-2">
+              <div className="mt-auto flex flex-col items-center justify-between gap-x-1 border-t border-slate-700/50 pt-4 md:flex-row">
+                <h3 className="mb-2 line-clamp-1 text-sm leading-tight font-light text-primary md:text-base">
+                  {product.title.substring(0, 16) + "..."}
+                </h3>
+                <p className="text-sm font-semibold text-amber-600 md:text-base lg:text-lg">
+                  {price(product.price)}
+                </p>
               </div>
+            </div>
 
-              {/* Content */}
-              <div className="flex flex-grow flex-col p-2">
-                <div className="mt-auto flex flex-col items-center justify-between gap-x-1 border-t border-slate-700/50 pt-4 md:flex-row">
-                  <h3 className="mb-2 line-clamp-1 text-sm leading-tight font-light text-primary md:text-base">
-                    {product.title.substring(0, 16) + "..."}
-                  </h3>
-                  <p className="text-sm font-semibold text-amber-600 md:text-base lg:text-lg">
-                    {price(product.price)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Hover effect overlay */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-            </Link>
-          ))}
-        </div>
-        {loaded && instanceRef.current && (
-          <>
-            <Arrow
-              left
-              onClick={(e) => {
-                e.stopPropagation();
-                instanceRef.current?.prev();
-              }}
-              disabled={currentSlide === 0}
-            />
-
-            <Arrow
-              onClick={(e) => {
-                e.stopPropagation();
-                instanceRef.current?.next();
-              }}
-              disabled={
-                currentSlide ===
-                instanceRef.current.track.details.slides.length - 1
-              }
-            />
-          </>
-        )}
+            {/* Hover effect overlay */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          </Link>
+        ))}
       </div>
-    </>
+      {loaded && instanceRef.current && (
+        <>
+          <Arrow
+            left
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.prev();
+            }}
+            disabled={currentSlide === 0}
+          />
+
+          <Arrow
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.next();
+            }}
+            disabled={
+              currentSlide ===
+              instanceRef.current.track.details.slides.length - 1
+            }
+          />
+        </>
+      )}
+    </div>
   );
 };
 

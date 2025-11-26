@@ -1,14 +1,25 @@
+"use client";
 import perfume from "@/public/categoryBox/perfume2.jpg";
 import sofa from "@/public/categoryBox/sofaBox.jpg";
 import grocery from "@/public/categoryBox/groceryBox.jpg";
 import beauty from "@/public/categoryBox/beauty2.jpg";
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useInView, motion } from "framer-motion";
 
 const CategoryBoxes = () => {
+  //framer motion
+  const slider = useRef(null);
+  const inView = useInView(slider);
   return (
-    <section className="mt-30 flex h-auto w-full items-center justify-center p-4">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      ref={slider}
+      className="mt-30 flex h-auto w-full items-center justify-center p-4"
+    >
       <div className="grid w-full max-w-6xl grid-cols-1 justify-between gap-4 md:grid-cols-2 md:gap-10">
         {/* Sofa */}
         <div className="flex justify-center">
@@ -80,7 +91,7 @@ const CategoryBoxes = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

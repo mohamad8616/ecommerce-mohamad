@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "صفحه سبد خرید و صورت‌حساب",
 };
 
-const CartPage = () => {
+const CartPage = async () => {
   return (
     <main className="flex min-h-screen flex-col bg-background text-foreground">
       {/* Header */}

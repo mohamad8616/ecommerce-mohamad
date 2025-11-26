@@ -1,4 +1,3 @@
-"use client";
 import useCart from "@/app/stores/CartStore";
 import { cn, price } from "@/lib/utils";
 import Link from "next/link";
