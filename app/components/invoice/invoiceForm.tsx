@@ -4,7 +4,7 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Separator } from "@/app/components/ui/Separator";
 import { Textarea } from "@/app/components/ui/textarea";
-import { createInvoice } from "@/lib/actions";
+import initiatePayment, { createInvoice } from "@/lib/actions";
 import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
@@ -50,8 +50,8 @@ const InvoiceForm = () => {
     });
     formData.append("items", JSON.stringify(cartItems));
     formData.append("totalPrice", totalPrice.toString());
-
-    await createInvoice(formData);
+    await initiatePayment();
+    // await createInvoice(formData);
   }
 
   return (
@@ -165,6 +165,7 @@ const InvoiceForm = () => {
             {formattedTotalPrice}
           </span>
         </div>
+
         {/* Submit Button */}
         <Button
           type="submit"

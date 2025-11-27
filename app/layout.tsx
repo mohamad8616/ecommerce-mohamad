@@ -6,6 +6,7 @@ import ReactQueryProvider from "./components/providers/ReactQueryProvider";
 import { ThemeProvider } from "./components/providers/Themeprovider";
 import "./globals.css";
 import Footer from "./components/main/Footer";
+import MobileToolbar from "./components/Toolbar";
 
 export const metadata: Metadata = {
   title: "فروشگاه آنلاین",
@@ -36,6 +37,7 @@ export default function RootLayout({
               <Navbar />
               {children}
               <Footer />
+              <MobileToolbar />
             </main>
           </ReactQueryProvider>
         </ThemeProvider>

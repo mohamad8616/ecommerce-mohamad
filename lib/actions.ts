@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { auth } from "./auth";
 import { prisma } from "./prismaClient";
+import zarinpal from "./zarinPal";
 
 //LOGIN
 const LoginSchema = z.object({
@@ -270,3 +271,24 @@ export const createInvoice = async (formdata: FormData) => {
 
   redirect("/thanks");
 };
+
+//ZarinPal payment
+export default async function initiatePayment() {
+  try {
+    const baseUrl = zarinpal.getBaseUrl();
+    const response = await zarinpal.payments.create({
+      amount: 10000,
+      callback_url: "https://yourwebsite.com/callback",
+      description: "Payment for order #1234",
+      mobile: "09123456789",
+      email: "customer@example.com",
+      cardPan: ["6219861034529007", "5022291073776543"],
+      referrer_id: "affiliate123",
+    });
+    console.log(baseUrl);
+    console.log(response);
+    console.log(response.data.message);
+  } catch (error) {
+    console.error(error);
+  }
+}

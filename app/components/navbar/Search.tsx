@@ -49,7 +49,7 @@ const Search = ({
         placeholder="جستجو"
         className={`relative ${input}
             flex w-auto items-center justify-between gap-2 border-0
-            text-primary ring-2 ring-ring/40 transition-all placeholder:text-slate-300 focus:w-11/12 focus:text-lg sm:text-sm xl:w-9/12
+            text-primary ring-2 ring-ring/40 transition-all placeholder:text-slate-300 focus:w-11/12 sm:text-sm lg:focus:text-lg xl:w-9/12
           `}
         value={search}
         onChange={(e) => {

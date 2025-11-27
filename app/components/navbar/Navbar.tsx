@@ -12,7 +12,7 @@ const Navbar = async () => {
     : null;
 
   return (
-    <main className="sticky top-0 z-50 w-full lg:top-3">
+    <main className="top-0 z-50 w-full lg:sticky lg:top-3">
       <NavbarSm user={user} />
       <NavbarLg user={user} />
     </main>
