@@ -4,7 +4,7 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Separator } from "@/app/components/ui/Separator";
 import { Textarea } from "@/app/components/ui/textarea";
-import initiatePayment, { createInvoice } from "@/lib/actions";
+import initiatePayment, { createInvoice, pay } from "@/lib/actions";
 import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import useCart from "../../stores/CartStore";
 import { Button } from "../ui/Button";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "نام باید حداقل 3 کاراکتر باشد"),
@@ -30,7 +31,7 @@ const ErrorText = ({ message, id }: { message?: string; id: string }) =>
     </p>
   ) : null;
 
-const InvoiceForm = () => {
+const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
   const { totalPrice, cartItems } = useCart();
   const {
     register,
@@ -50,8 +51,11 @@ const InvoiceForm = () => {
     });
     formData.append("items", JSON.stringify(cartItems));
     formData.append("totalPrice", totalPrice.toString());
-    await initiatePayment();
+    const response = await initiatePayment(formData);
+    const authority = response.data.authority;
+    redirect(`https://sandbox.zarinpal.com/pg/StartPay/${authority}`);
     // await createInvoice(formData);
+    // await pay();
   }
 
   return (
@@ -66,7 +70,8 @@ const InvoiceForm = () => {
             autoComplete="given-name"
             aria-invalid={!!errors.firstName}
             aria-describedby="firstName-error"
-            disabled={isSubmitting}
+            disabled={true}
+            defaultValue={name}
             {...register("firstName")}
           />
           <ErrorText id="firstName-error" message={errors.firstName?.message} />
@@ -98,7 +103,8 @@ const InvoiceForm = () => {
           autoComplete="email"
           aria-invalid={!!errors.email}
           aria-describedby="email-error"
-          disabled={isSubmitting}
+          disabled={true}
+          defaultValue={email}
           {...register("email")}
         />
         <ErrorText id="email-error" message={errors.email?.message} />

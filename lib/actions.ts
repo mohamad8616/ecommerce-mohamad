@@ -4,7 +4,7 @@ import { getSession } from "@/app/_customhooks/hooks";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { z } from "zod";
+import { email, z } from "zod";
 import { auth } from "./auth";
 import { prisma } from "./prismaClient";
 import zarinpal from "./zarinPal";
@@ -210,6 +210,7 @@ const InvoiceSchema = z.object({
   mobile: z.string().min(5, "Mobile number is required"),
   address: z.string().min(1, "Address is required"),
   totalPrice: z.string().min(1, "Total price is required"),
+
   items: z.array(
     z.object({
       productId: z.number(),
@@ -219,13 +220,13 @@ const InvoiceSchema = z.object({
   ),
 });
 
-export const createInvoice = async (formdata: FormData) => {
+export const createInvoice = async (formdata: FormData, authority: string) => {
   //Authentication
   const session = await getSession();
   if (!session) {
     throw new Error("User is not authenticated");
   }
-  console.log(formdata);
+
   // Validation
   const data = Object.fromEntries(formdata);
   const cartItems = JSON.parse(formdata.get("items") as string);
@@ -248,15 +249,12 @@ export const createInvoice = async (formdata: FormData) => {
         invoiceNumber: Math.floor(
           10000000 + Math.random() * 90000000,
         ).toString(),
-
+        authority,
         userId: session.user.id,
         totalPrice: Number(totalPrice),
-        status: "paid",
-
         items: {
           create: items,
         },
-
         firstname: firstName,
         lastname: lastName,
         email,
@@ -273,22 +271,50 @@ export const createInvoice = async (formdata: FormData) => {
 };
 
 //ZarinPal payment
-export default async function initiatePayment() {
+
+const PaymentFormSchema = z.object({
+  amount: z.number().min(10000, "Amount must be at least 10000"),
+  description: z.string().min(1, "Description is required").optional(),
+  mobile: z.string().min(11, "Mobile number is required"),
+  email: z.string().email("Invalid email"),
+  cardPan: z.array(z.string()).optional(),
+});
+
+export default async function initiatePayment(formData: FormData) {
+  //Authentication
+  const session = await getSession();
+  if (!session) {
+    throw new Error("User is not authenticated");
+  }
+
+  //Get data from form
+  const data = Object.fromEntries(formData);
+
+  // Validation
+  const validatedData = PaymentFormSchema.safeParse(data);
+  if (!validatedData.success) {
+    throw new Error(validatedData.error.message);
+  }
+
+  const { amount, description, mobile, email } = validatedData.data;
   try {
-    const baseUrl = zarinpal.getBaseUrl();
     const response = await zarinpal.payments.create({
       amount: 10000,
-      callback_url: "https://yourwebsite.com/callback",
-      description: "Payment for order #1234",
-      mobile: "09123456789",
-      email: "customer@example.com",
-      cardPan: ["6219861034529007", "5022291073776543"],
-      referrer_id: "affiliate123",
+      callback_url: `${process.env.APP_URL}/thanks`,
+      description: description ?? `Payment for order ${email}`,
+      mobile,
+      email,
     });
-    console.log(baseUrl);
-    console.log(response);
-    console.log(response.data.message);
+    return response;
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function pay() {
+  const res = await fetch(`${process.env.APP_URL}/api/payment/request`, {
+    method: "POST",
+  });
+  const data = await res.json();
+  redirect(data.url);
 }

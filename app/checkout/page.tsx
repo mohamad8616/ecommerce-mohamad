@@ -30,7 +30,7 @@ const InvoicePage = async () => {
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6 md:mt-8 lg:mt-12">
         <Card className="border border-border shadow-sm">
           <CardContent className="space-y-4 p-4">
-            <InvoiceForm />
+            <InvoiceForm email={session.user.email} name={session.user.name} />
           </CardContent>
         </Card>
       </div>

@@ -36,7 +36,6 @@ model Invoice {
   userId        String
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   totalPrice    Decimal       @db.Decimal(10, 2)
-  status        String        @default("pending") // pending, paid, canceled, etc.
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @default(now()) @updatedAt
   items         InvoiceItem[]
@@ -45,6 +44,7 @@ model Invoice {
   email         String
   mobile        String
   address       String
+  authority     String
 }
 
 model InvoiceItem {
