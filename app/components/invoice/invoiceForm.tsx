@@ -4,18 +4,17 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Separator } from "@/app/components/ui/Separator";
 import { Textarea } from "@/app/components/ui/textarea";
+import initiatePayment from "@/lib/actions";
 import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { digitsEnToFa } from "@persian-tools/persian-tools";
+import { CreditCard, Package } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import useCart from "../../stores/CartStore";
-import { Button } from "../ui/Button";
-import { redirect } from "next/navigation";
-import initiatePayment from "@/lib/actions";
-import { CreditCard, Package } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { digitsEnToFa } from "@persian-tools/persian-tools";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "نام باید حداقل 3 کاراکتر باشد"),

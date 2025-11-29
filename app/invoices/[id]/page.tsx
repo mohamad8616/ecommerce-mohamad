@@ -1,4 +1,3 @@
-import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/Button";
 import {
   Card,
@@ -9,7 +8,7 @@ import {
 import { Separator } from "@/app/components/ui/Separator";
 import { isDummyProduct, Product } from "@/lib/definitions";
 import { getInvoiceById } from "@/lib/queries";
-import { cn, price } from "@/lib/utils";
+import { price } from "@/lib/utils";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -74,17 +73,6 @@ export default async function SingleInvoicePage({
           <div className="flex flex-col gap-1">
             <CardTitle className="flex items-center justify-between text-lg font-semibold">
               <span>اطلاعات خریدار</span>
-              <Badge
-                className={cn(
-                  invoice.status === "paid" && "bg-green-500",
-                  invoice.status === "pending" && "bg-yellow-500",
-                  invoice.status === "canceled" && "bg-red-500",
-                )}
-              >
-                {invoice.status === "paid" && "پرداخت شده"}
-                {invoice.status === "pending" && "در انتظار پرداخت"}
-                {invoice.status === "canceled" && "لغو شده"}
-              </Badge>
             </CardTitle>
           </div>
         </CardHeader>

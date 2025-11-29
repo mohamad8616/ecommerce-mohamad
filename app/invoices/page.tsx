@@ -1,4 +1,3 @@
-import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/Button";
 import { Card, CardContent } from "@/app/components/ui/card";
 import { getInvoices } from "@/lib/queries";
@@ -73,17 +72,6 @@ export default async function UserInvoicesPage() {
                 <span className="text-sm font-medium text-muted-foreground">
                   وضعیت:
                 </span>
-                <Badge
-                  className={`${statusColors[invoice.status] || "bg-muted text-foreground"} rounded-full px-3 py-1 text-xs`}
-                >
-                  {invoice.status === "paid"
-                    ? "پرداخت شده"
-                    : invoice.status === "pending"
-                      ? "در انتظار پرداخت"
-                      : invoice.status === "canceled"
-                        ? "لغو شده"
-                        : invoice.status}
-                </Badge>
               </div>
 
               <div className="flex justify-end pt-2">
