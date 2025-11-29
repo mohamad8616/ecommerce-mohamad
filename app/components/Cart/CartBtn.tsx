@@ -100,7 +100,7 @@ const CartBtn = () => {
                   </span>
                   <Link
                     href="/checkout"
-                    className="flex h-10 flex-1 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                    className="flex h-10 flex-1 items-center justify-center rounded-md border border-input bg-blue-700 px-4 text-sm font-medium text-blue-50 ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
                     onClick={() => setShowCartBtn(false)}
                   >
                     رفتن به صفحه پرداخت
