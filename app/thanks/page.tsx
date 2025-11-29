@@ -8,14 +8,6 @@ import { Button } from "@/app/components/ui/Button";
 import { toast } from "sonner";
 import useCart from "../stores/CartStore";
 
-interface PersistedCart {
-  cartItems: { productId: number; price: number; quantity: number }[];
-  totalPrice: number;
-  lastName?: string;
-  mobile?: string;
-  address?: string;
-}
-
 export default function ThanksPage() {
   const clearCartAndStorage = useCart((s) => s.clearCartAndStorage);
   const searchParams = useSearchParams();
@@ -88,13 +80,14 @@ export default function ThanksPage() {
       } catch (err) {
         toast.error("خطا در ارتباط با سرور");
         setError("خطا در ثبت سفارش");
+        console.error(err);
       } finally {
         setIsProcessing(false);
       }
     }
 
     saveOrder();
-  }, [authority, status]);
+  }, [authority, status, clearCartAndStorage]);
 
   // Failed payment
   if (status !== "OK") {

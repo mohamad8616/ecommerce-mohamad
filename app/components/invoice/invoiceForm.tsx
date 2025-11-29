@@ -33,8 +33,7 @@ const ErrorText = ({ message, id }: { message?: string; id: string }) =>
 
 const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
   // Get cart data from store
-  const { totalPrice, cartItems, setUserData, mobile, lastName, address } =
-    useCart();
+  const { totalPrice, cartItems, setUserData } = useCart();
 
   //React hook form
   const {

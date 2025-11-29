@@ -4,7 +4,7 @@ import { getSession } from "@/app/_customhooks/hooks";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { email, z } from "zod";
+import { z } from "zod";
 import { auth } from "./auth";
 import { prisma } from "./prismaClient";
 import zarinpal from "./zarinPal";
@@ -320,7 +320,7 @@ export async function createInvoiceAction(data: unknown) {
     console.log("invoice created");
     revalidatePath("/userInvoices");
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Invoice creation failed:", error);
     return { success: false, error: "ثبت سفارش ناموفق بود" };
   }
