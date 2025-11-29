@@ -55,7 +55,7 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
     formData.append("items", JSON.stringify(cartItems));
     formData.append("totalPrice", totalPrice.toString());
 
-    // Save user data to store
+    // Save user data to store and local storage
     setUserData(data.lastName, data.mobile, data.address);
 
     // Initiate payment
@@ -66,7 +66,11 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
   }
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className="relative space-y-4"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* First Name */}
         <div className="flex flex-col space-y-1.5">
@@ -162,16 +166,16 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
       <div className="hidden md:block">
         <Button
           type="submit"
-          className="w-full text-sm font-medium"
+          className="w-full bg-blue-700 text-sm font-semibold tracking-wide text-blue-50"
           size="lg"
           disabled={totalPrice === 0 || isSubmitting}
         >
-          خرید
+          تکمیل خرید و رفتن به درگاه پرداخت
         </Button>
       </div>
 
       {/* <InvoicePageFooter /> */}
-      <footer className="sticky bottom-0 z-20 border-t bg-background px-4 py-3 md:hidden">
+      <footer className="sticky bottom-12 z-20 w-full border-t bg-background px-4 py-3 md:hidden">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm text-muted-foreground">مجموع:</span>
           <span className="text-base font-semibold text-foreground">
@@ -182,11 +186,11 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
         {/* Submit Button */}
         <Button
           type="submit"
-          className="w-full text-sm font-medium"
+          className="w-full bg-blue-700 text-sm font-semibold tracking-wide text-blue-50"
           size="lg"
           disabled={totalPrice === 0 || isSubmitting}
         >
-          تکمیل خرید
+          تکمیل خرید و رفتن به درگاه پرداخت
         </Button>
       </footer>
     </form>

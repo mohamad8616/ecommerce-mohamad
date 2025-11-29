@@ -305,7 +305,11 @@ export async function createInvoiceAction(data: unknown) {
 
     await prisma.invoice.create({
       data: {
-        invoiceNumber: Math.floor(100000 + Math.random()).toString(),
+        invoiceNumber:
+          Date.now().toString() +
+          Math.floor(Math.random() * 10000)
+            .toString()
+            .padStart(4, "0"),
         authority: parsed.authority,
         userId: session.user.id,
         totalPrice: Number(parsed.totalPrice),

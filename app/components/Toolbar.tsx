@@ -27,7 +27,7 @@ export default function MobileToolbar() {
   const { cartItems } = useCart();
 
   return (
-    <div className="fixed right-0 bottom-0 left-0 z-50 flex items-center justify-around border-t border-border bg-secondary p-2 text-primary shadow-lg md:justify-evenly lg:hidden">
+    <div className="fixed right-0 bottom-0 left-0 z-50 flex h-12 items-center justify-around border-t border-border bg-secondary p-2 text-primary shadow-lg md:justify-evenly lg:hidden">
       {/* Main page */}
       <Link href="/" className="flex flex-col items-center text-xs md:text-sm">
         <LucideHome className="h-6 w-6" />

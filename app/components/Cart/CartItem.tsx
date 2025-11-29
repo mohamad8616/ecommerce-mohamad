@@ -16,6 +16,7 @@ const CartItem = ({
   productId: number;
   quantity: number;
 }) => {
+  console.log(productId);
   const { data, status } = useQuery({
     queryKey: ["product", productId],
     queryFn: () => fetchProductById(productId),

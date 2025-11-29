@@ -7,7 +7,7 @@ const CartFooter = () => {
   const { cartItems, totalPrice } = useCart();
 
   return (
-    <footer className="sticky bottom-0 z-20 border-t bg-background px-4 py-3">
+    <footer className="sticky bottom-12 z-20 border-t bg-background px-4 py-3">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-sm text-muted-foreground">مجموع:</span>
         <span className="text-base font-semibold text-foreground">
@@ -16,7 +16,7 @@ const CartFooter = () => {
       </div>
       <Link href="/checkout">
         <Button
-          className="w-full text-sm font-medium"
+          className="w-full bg-blue-700 text-sm font-medium text-blue-50"
           size="lg"
           disabled={cartItems.length === 0}
         >

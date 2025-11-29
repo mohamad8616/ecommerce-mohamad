@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 
 const CartItems = () => {
   const { cartItems } = useCart();
+  console.log(cartItems);
 
   {
     return cartItems.length === 0 ? (
