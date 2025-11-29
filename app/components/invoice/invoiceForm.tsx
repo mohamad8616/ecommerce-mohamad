@@ -4,7 +4,6 @@ import { Input } from "@/app/components/ui/Input";
 import { Label } from "@/app/components/ui/Label";
 import { Separator } from "@/app/components/ui/Separator";
 import { Textarea } from "@/app/components/ui/textarea";
-import initiatePayment, { createInvoice, pay } from "@/lib/actions";
 import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
@@ -13,6 +12,7 @@ import z from "zod";
 import useCart from "../../stores/CartStore";
 import { Button } from "../ui/Button";
 import { redirect } from "next/navigation";
+import initiatePayment from "@/lib/actions";
 
 const formSchema = z.object({
   firstName: z.string().min(3, "نام باید حداقل 3 کاراکتر باشد"),
@@ -32,7 +32,11 @@ const ErrorText = ({ message, id }: { message?: string; id: string }) =>
   ) : null;
 
 const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
-  const { totalPrice, cartItems } = useCart();
+  // Get cart data from store
+  const { totalPrice, cartItems, setUserData, mobile, lastName, address } =
+    useCart();
+
+  //React hook form
   const {
     register,
     handleSubmit,
@@ -44,18 +48,22 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
   const formattedTotalPrice = useMemo(() => price(totalPrice), [totalPrice]);
 
   async function onSubmit(data: FormValues) {
+    //Create form data and fill
     const formData = new FormData();
-
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
     formData.append("items", JSON.stringify(cartItems));
     formData.append("totalPrice", totalPrice.toString());
+
+    // Save user data to store
+    setUserData(data.lastName, data.mobile, data.address);
+
+    // Initiate payment
     const response = await initiatePayment(formData);
     const authority = response.data.authority;
-    redirect(`https://sandbox.zarinpal.com/pg/StartPay/${authority}`);
-    // await createInvoice(formData);
-    // await pay();
+    if (authority)
+      redirect(`https://sandbox.zarinpal.com/pg/StartPay/${authority}`);
   }
 
   return (

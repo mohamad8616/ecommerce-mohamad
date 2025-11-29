@@ -7,14 +7,15 @@ import EditProfileSheet from "../components/profile/EditProfileSheet";
 
 //metadat
 export async function generateMetadata(): Promise<Metadata> {
+  //Authentication
   const session = await getSession();
-
   return {
     title: ` اطلاعات کاربری -${session?.user?.name}` || "پروفایل کاربری",
   };
 }
 
 const page = async () => {
+  //Authentication
   const session = await getSession();
   if (!session) {
     redirect("/login");

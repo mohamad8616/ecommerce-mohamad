@@ -5,9 +5,7 @@ import { HelpCircle, Home, HistoryIcon, User, X, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import { logout } from "@/lib/actions";
-import HamburgerMenu from "../ui/HamburgerMenu";
 
 const CustomSidebar = ({ classname }: { classname: string }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -35,9 +33,6 @@ const CustomSidebar = ({ classname }: { classname: string }) => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <HamburgerMenu onOpen={() => setIsMobileOpen(true)} />
-
       {/* Overlay */}
       {isMobileOpen && (
         <div

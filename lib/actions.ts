@@ -202,78 +202,9 @@ export const updatePassword = async (
   }
 };
 
-//create Invoice
-const InvoiceSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email"),
-  mobile: z.string().min(5, "Mobile number is required"),
-  address: z.string().min(1, "Address is required"),
-  totalPrice: z.string().min(1, "Total price is required"),
-
-  items: z.array(
-    z.object({
-      productId: z.number(),
-      quantity: z.number().min(1),
-      price: z.number().min(0),
-    }),
-  ),
-});
-
-export const createInvoice = async (formdata: FormData, authority: string) => {
-  //Authentication
-  const session = await getSession();
-  if (!session) {
-    throw new Error("User is not authenticated");
-  }
-
-  // Validation
-  const data = Object.fromEntries(formdata);
-  const cartItems = JSON.parse(formdata.get("items") as string);
-  const validatedData = InvoiceSchema.safeParse({
-    ...data,
-    items: cartItems,
-    totalPrice: data.totalPrice.toString(),
-  });
-
-  if (!validatedData.success) {
-    throw new Error(validatedData.error.message);
-  }
-
-  const { firstName, lastName, email, mobile, address, items, totalPrice } =
-    validatedData.data;
-
-  try {
-    await prisma.invoice.create({
-      data: {
-        invoiceNumber: Math.floor(
-          10000000 + Math.random() * 90000000,
-        ).toString(),
-        authority,
-        userId: session.user.id,
-        totalPrice: Number(totalPrice),
-        items: {
-          create: items,
-        },
-        firstname: firstName,
-        lastname: lastName,
-        email,
-        mobile,
-        address,
-      },
-    });
-  } catch (error) {
-    console.error("Create invoice failed:", error);
-  }
-  revalidatePath("/userInvoices");
-
-  redirect("/thanks");
-};
-
-//ZarinPal payment
-
+//Initiate payment
 const PaymentFormSchema = z.object({
-  amount: z.number().min(10000, "Amount must be at least 10000"),
+  totalPrice: z.string().min(5, "Amount must be at least 10000"),
   description: z.string().min(1, "Description is required").optional(),
   mobile: z.string().min(11, "Mobile number is required"),
   email: z.string().email("Invalid email"),
@@ -296,10 +227,10 @@ export default async function initiatePayment(formData: FormData) {
     throw new Error(validatedData.error.message);
   }
 
-  const { amount, description, mobile, email } = validatedData.data;
+  const { totalPrice, description, mobile, email } = validatedData.data;
   try {
     const response = await zarinpal.payments.create({
-      amount: 10000,
+      amount: Number(totalPrice),
       callback_url: `${process.env.APP_URL}/thanks`,
       description: description ?? `Payment for order ${email}`,
       mobile,
@@ -311,10 +242,86 @@ export default async function initiatePayment(formData: FormData) {
   }
 }
 
-export async function pay() {
-  const res = await fetch(`${process.env.APP_URL}/api/payment/request`, {
-    method: "POST",
-  });
-  const data = await res.json();
-  redirect(data.url);
+//verify payment for admin
+export async function verifyPayment(
+  authority: string,
+  status: string,
+  amount: number,
+) {
+  if (status === "OK") {
+    if (amount) {
+      try {
+        const response = await zarinpal.verifications.verify({
+          amount: amount,
+          authority: authority,
+        });
+
+        if (response.data.code === 100) {
+          console.log("Payment verified successfully.");
+          return response;
+        } else if (response.data.code === 101) {
+          console.log("Payment already verified.");
+          return response;
+        } else {
+          console.log("Transaction failed with code:", response.data.code);
+        }
+      } catch (error) {
+        console.error("Payment Verification Failed:", error);
+      }
+    } else {
+      console.log("No Matching Transaction Found For This Authority Code.");
+    }
+  } else {
+    console.log("Transaction was cancelled or failed.");
+  }
+}
+
+//create Invoice
+
+const InvoiceSchema = z.object({
+  lastName: z.string().min(1),
+  mobile: z.string().min(11),
+  address: z.string().min(1),
+  totalPrice: z.string().min(1),
+  items: z.array(
+    z.object({
+      productId: z.number(),
+      quantity: z.number().min(1),
+      price: z.number(),
+    }),
+  ),
+  authority: z.string(),
+});
+
+export async function createInvoiceAction(data: unknown) {
+  //Authentication
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return { success: false, error: "کاربر وارد نشده" };
+  }
+
+  try {
+    const parsed = InvoiceSchema.parse(data);
+
+    await prisma.invoice.create({
+      data: {
+        invoiceNumber: Math.floor(100000 + Math.random()).toString(),
+        authority: parsed.authority,
+        userId: session.user.id,
+        totalPrice: Number(parsed.totalPrice),
+        items: { create: parsed.items },
+        firstname: session.user.name ?? "",
+        lastname: parsed.lastName,
+        email: session.user.email ?? "",
+        mobile: parsed.mobile,
+        address: parsed.address,
+      },
+    });
+    console.log("invoice created");
+    revalidatePath("/userInvoices");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Invoice creation failed:", error);
+    return { success: false, error: "ثبت سفارش ناموفق بود" };
+  }
 }

@@ -31,5 +31,5 @@ export const formatToRial = (price: number) => {
 export const price = (price: number, discont?: boolean) => {
   return discont
     ? `${digitsEnToFa(Math.round(price))} %`
-    : `${digitsEnToFa(Math.round(price))} $`;
+    : ` ${digitsEnToFa(Math.round(price))} ریال`;
 };

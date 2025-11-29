@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const CartPage = async () => {
   return (
-    <main className="flex min-h-screen flex-col bg-background text-foreground">
+    <main className="mx-auto flex min-h-screen flex-col bg-background text-foreground lg:w-8/12">
       {/* Header */}
       <CartHeader />
       {/* Cart items */}

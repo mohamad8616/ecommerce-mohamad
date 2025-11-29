@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Invoice" ALTER COLUMN "totalPrice" SET DATA TYPE DECIMAL(12,2);
