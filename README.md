@@ -1,10 +1,11 @@
 # E‑Commerce App (Next.js)
 
-![Main page](public/readme/lightMode.png)
-![Main page](public/readme/darkmode.png)
+
+visit [live-demo]:(https://ecommerce-mohamad.vercel.app)
 
 Modern, production‑ready e‑commerce application built with Next.js App Router, Prisma, Tailwind CSS v4, Zod, React Hook Form, Zustand, and Better Auth. This project is designed as a portfolio/resume showcase focused on clean architecture, accessibility, and practical commerce features.
 
+![Main page](public/readme/lightMode.png)
 ## Highlights
 
 - Authentication‑guarded flows using Better Auth with Prisma adapter (`app/invoice/page.tsx:6–10`, `lib/auth.ts:9–31`)
@@ -26,6 +27,7 @@ Modern, production‑ready e‑commerce application built with Next.js App Route
 - Checkout and invoice flows, including invoice history (`app/checkout/page.tsx`, `app/invoice/page.tsx`, `app/invoices/page.tsx`, `app/invoices/[id]/page.tsx`)
 - Profile pages with editable forms and theming (`app/profile/page.tsx`, `app/components/profile/*`, `app/components/providers/Themeprovider.tsx`)
 - Dark mode and responsive navigation (`app/components/navbar/*`, `app/components/DarkmodeToggle.tsx`)
+- ![Main page](public/readme/darkmode.png)
 
 ## Tech Stack
 
