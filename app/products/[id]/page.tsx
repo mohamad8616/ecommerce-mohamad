@@ -82,9 +82,3 @@ export default async function ProductPage({ params }: ProductPageProps) {
   );
 }
 
-// export async function generateStaticParams({ params }: ProductPageProps) {
-//   const { id } = await params;
-//   const products = await getProductById(id.toString());
-
-//   return products?.title;
-// }

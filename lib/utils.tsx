@@ -28,8 +28,14 @@ export const formatToRial = (price: number) => {
   }).format(price);
 };
 
-export const price = (price: number, discont?: boolean) => {
-  return discont
-    ? `${digitsEnToFa(Math.round(price))} %`
-    : ` ${digitsEnToFa(Math.round(price))} ریال`;
+export const formatNumber = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const price = (price: number, discount?: boolean) => {
+  const rounded = Math.round(price);
+  const separated = formatNumber(rounded);
+  const localized = digitsEnToFa(separated);
+
+  return discount ? `${localized} %` : `${localized} ریال`;
 };

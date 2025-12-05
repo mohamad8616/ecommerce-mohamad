@@ -143,7 +143,7 @@ export default function ProductInfo({ product }: { product: Product }) {
             {/* Add to Cart Button */}
             <Button
               onClick={() => handleAddToCart(product.id, finalPrice, quantity)}
-              className=" bg-blue-600 py-3 text-sm text-stone-100 lg:text-lg"
+              className=" bg-blue-600 py-3 text-sm text-stone-100 hover:text-stone-700 lg:text-lg"
               disabled={isDummyProduct(product) && product.stock === 0}
             >
               {isDummyProduct(product) && product.stock === 0

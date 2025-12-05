@@ -9,7 +9,6 @@ import { price } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { CreditCard, Package } from "lucide-react";
-import { redirect } from "next/navigation";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -63,8 +62,9 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
     // Initiate payment
     const response = await initiatePayment(formData);
     const authority = response.data.authority;
-    if (authority)
-      redirect(`https://sandbox.zarinpal.com/pg/StartPay/${authority}`);
+    if (authority) {
+      window.location.href = `https://sandbox.zarinpal.com/pg/StartPay/${authority}`;
+    }
   }
 
   return (
@@ -333,7 +333,7 @@ const InvoiceForm = ({ email, name }: { email: string; name: string }) => {
             <div className="px-6 pt-6 pb-6 sm:px-8 sm:pb-8">
               <button
                 type="submit"
-                className="w-full transform rounded-xl bg-blue-700  px-6 py-4 text-base font-semibold text-blue-50 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:from-primary/90 hover:to-primary/80 hover:shadow-xl active:scale-95"
+                className="w-full transform cursor-pointer rounded-xl bg-blue-700  px-6 py-4 text-base font-semibold text-blue-50 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:from-primary/90 hover:to-primary/80 hover:shadow-xl active:scale-95"
               >
                 <span className="flex items-center justify-center gap-2">
                   پرداخت نهایی
